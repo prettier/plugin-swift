@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+"use strict";
+
+const fs = require("fs");
+const prettierSwift = require("../src");
+const dumper = require("./dumper");
+const comments = require("prettier/src/main/comments");
+const { printDocToString } = require("prettier").doc.printer;
+const printAstToDoc = require("prettier/src/main/ast-to-doc");
+
+const opts = {
+  printWidth: 80,
+  tabWidth: 2,
+  parser: prettierSwift.parsers.swift,
+  printer: prettierSwift.printers.swift
+};
+
+const text = fs.readFileSync(process.argv[2], "utf-8");
+const ast = opts.parser.parse(text);
+
+function attachComments(text, ast, opts) {
+  const astComments = ast.comments;
+  if (astComments) {
+    delete ast.comments;
+    comments.attach(astComments, ast, text, opts);
+  }
+  ast.tokens = [];
+  opts.originalText = text.trimRight();
+  return astComments;
+}
+
+console.dir(opts);
+
+attachComments(text, ast, opts);
+console.log(dumper(ast));
+
+printDocToString(printAstToDoc(ast, opts), opts).formatted;

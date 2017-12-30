@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`chain.swift 1`] = `
+chain // next to root
+    .map({ true /* inside */ }) // same line as map
+    .map { true }
+    // after
+    .map { true }
+// after all
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+chain // next to root
+    .map({ true /* inside */ }) // same line as map
+    .map { true }
+    // after
+    .map { true }
+// after all
+
+`;
+
+exports[`comments.swift 1`] = `
+// before print("1")
+print("1") // same line as print("1")
+// after print("1")
+
+print("2")
+
+// with empty line
+
+print("3")
+
+print/* inside */(/* inside */"4")
+
+print(
+    "5" // after argument
+)
+
+chain
+    // after root
+    .map { true }
+// after
+
+self.map { true }
+
+let answer = /* deep */ /* blue */ 42
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// before print("1")
+print("1") // same line as print("1")
+// after print("1")
+
+print("2")
+
+// with empty line
+
+print("3")
+
+print/* inside */ (/* inside */ "4")
+
+print(
+    "5" // after argument
+)
+
+chain
+// after root
+    .map { true }
+// after
+
+self.map { true }
+
+let answer = /* deep */ /* blue */ 42
+
+`;

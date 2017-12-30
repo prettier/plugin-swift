@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+"use strict";
+
+const fs = require("fs");
+const parse = require("prettier/src/language-js/parser-babylon");
+const dumper = require("./dumper");
+
+const text = fs.readFileSync(process.argv[2], "utf-8");
+const ast = parse(text);
+
+// eslint-disable-next-line no-console
+console.log(dumper(ast));

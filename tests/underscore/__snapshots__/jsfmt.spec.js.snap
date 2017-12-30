@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`underscore.swift 1`] = `
+func foo(_: String) { }
+func foo(_ string: String) { }
+_ = 32
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+func foo(_: String) {}
+func foo(_ string: String) {}
+_ = 32
+
+`;

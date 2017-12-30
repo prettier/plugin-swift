@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`arrays.swift 1`] = `
+let oneElement = [42]
+let twoElements = ["apple", "banana"]
+let someArrayExpressionThatShouldBreak = ["becauseItHasSoLongElementsInItThatItHasTo"]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let oneElement = [42]
+let twoElements = ["apple", "banana"]
+let someArrayExpressionThatShouldBreak = ["becauseItHasSoLongElementsInItThatItHasTo"]
+
+`;
+
+exports[`arrays.swift 2`] = `
+let oneElement = [42]
+let twoElements = ["apple", "banana"]
+let someArrayExpressionThatShouldBreak = ["becauseItHasSoLongElementsInItThatItHasTo"]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let oneElement = [42]
+let twoElements = ["apple", "banana"]
+let someArrayExpressionThatShouldBreak = ["becauseItHasSoLongElementsInItThatItHasTo",]
+
+`;

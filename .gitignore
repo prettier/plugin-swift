@@ -1,8 +1,4 @@
 node_modules
-*.log
-/test.*
 /.vscode
 .DS_Store
-coverage
 .idea
-*.swp

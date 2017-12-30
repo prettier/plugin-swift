@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`deinit.swift 1`] = `
+class Something {
+    deinit {}
+    deinit {
+        print("deinit")
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Something {
+    deinit {}
+    deinit {
+        print("deinit")
+    }
+}
+
+`;

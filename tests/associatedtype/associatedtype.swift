@@ -1,0 +1,3 @@
+protocol SomeType {
+    associatedtype Wrapped
+}

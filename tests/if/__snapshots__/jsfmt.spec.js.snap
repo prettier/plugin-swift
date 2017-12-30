@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`if.swift 1`] = `
+if let imageDicts = json["images"].object as? Array<Dictionary<String, AnyObject>> {
+    print("foo")
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if let imageDicts = json["images"].object
+        as? Array<Dictionary<String, AnyObject>> {
+    print("foo")
+}
+
+`;

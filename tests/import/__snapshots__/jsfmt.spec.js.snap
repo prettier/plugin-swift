@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`import.swift 1`] = `
+import Foundation
+
+import typealias SomeModule.Something
+import struct SomeModule.Something
+import class SomeModule.Something
+import enum SomeModule.Something
+import protocol SomeModule.Something
+import let SomeModule.something
+import var SomeModule.something
+import func SomeModule.something
+
+import typealias SomeModule.SomeNamespace.Something
+import struct SomeModule.SomeNamespace.Something
+import class SomeModule.SomeNamespace.Something
+import enum SomeModule.SomeNamespace.Something
+import protocol SomeModule.SomeNamespace.Something
+import let SomeModule.SomeNamespace.something
+import var SomeModule.SomeNamespace.something
+import func SomeModule.SomeNamespace.something
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import Foundation
+
+import typealias SomeModule.Something
+import struct SomeModule.Something
+import class SomeModule.Something
+import enum SomeModule.Something
+import protocol SomeModule.Something
+import let SomeModule.something
+import var SomeModule.something
+import func SomeModule.something
+
+import typealias SomeModule.SomeNamespace.Something
+import struct SomeModule.SomeNamespace.Something
+import class SomeModule.SomeNamespace.Something
+import enum SomeModule.SomeNamespace.Something
+import protocol SomeModule.SomeNamespace.Something
+import let SomeModule.SomeNamespace.something
+import var SomeModule.SomeNamespace.something
+import func SomeModule.SomeNamespace.something
+
+`;

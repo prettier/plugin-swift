@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generics.swift 1`] = `
+class Instance<Bar> {}
+class Instance<Bar, Baz> {}
+func foo<Bar>() {}
+func foo<Bar, Baz>() {}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Instance<Bar> {}
+class Instance<Bar, Baz> {}
+func foo<Bar>() {}
+func foo<Bar, Baz>() {}
+
+`;

@@ -10,7 +10,8 @@ const AST_COMPARE = process.env["AST_COMPARE"];
 function run_spec(dirname, parsers, options) {
   options = Object.assign(
     {
-      plugins: ["."]
+      plugins: ["."],
+      tabWidth: 4
     },
     options
   );
@@ -30,7 +31,7 @@ function run_spec(dirname, parsers, options) {
     ) {
       const source = read(path).replace(/\r\n/g, "\n");
 
-      const mergedOptions = Object.assign(mergeDefaultOptions(options || {}), {
+      const mergedOptions = Object.assign({}, options, {
         parser: parsers[0]
       });
       const output = prettyprint(source, path, mergedOptions);
@@ -132,13 +133,4 @@ function raw(string) {
     throw new Error("Raw snapshots have to be strings.");
   }
   return { [Symbol.for("raw")]: string };
-}
-
-function mergeDefaultOptions(parserConfig) {
-  return Object.assign(
-    {
-      printWidth: 80
-    },
-    parserConfig
-  );
 }

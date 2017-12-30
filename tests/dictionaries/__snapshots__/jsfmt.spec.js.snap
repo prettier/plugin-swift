@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dictionaries.swift 1`] = `
+let oneElement = ["answer": 42]
+let twoElements = ["apple": 1, "banana": 2]
+let someDictionaryExpressionThatShouldBreak = ["because": "itHas", "soLongElementsInIt": "thatItHasTo"]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let oneElement = ["answer": 42]
+let twoElements = ["apple": 1, "banana": 2]
+let someDictionaryExpressionThatShouldBreak = [
+    "because": "itHas",
+    "soLongElementsInIt": "thatItHasTo"
+]
+
+`;
+
+exports[`dictionaries.swift 2`] = `
+let oneElement = ["answer": 42]
+let twoElements = ["apple": 1, "banana": 2]
+let someDictionaryExpressionThatShouldBreak = ["because": "itHas", "soLongElementsInIt": "thatItHasTo"]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let oneElement = ["answer": 42]
+let twoElements = ["apple": 1, "banana": 2]
+let someDictionaryExpressionThatShouldBreak = [
+    "because": "itHas",
+    "soLongElementsInIt": "thatItHasTo",
+]
+
+`;

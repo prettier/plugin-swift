@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`associatedtype.swift 1`] = `
+protocol SomeType {
+    associatedtype Wrapped
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+protocol SomeType {
+    associatedtype Wrapped
+}
+
+`;

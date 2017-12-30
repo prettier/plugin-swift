@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`try_catch.swift 1`] = `
+do {
+    try foo()
+} catch {
+    print(error)
+}
+
+do {
+    try foo()
+} catch let someError as SomeError {
+    print(someError)
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+do {
+    try foo()
+} catch { print(error) }
+
+do {
+    try foo()
+} catch let someError as SomeError { print(someError) }
+
+`;
