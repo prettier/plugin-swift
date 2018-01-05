@@ -7,7 +7,9 @@ Check back soon :)
 Depends on [libSyntax](https://github.com/apple/swift/blob/master/lib/Syntax)
 which is [incomplete](https://github.com/apple/swift/blob/master/lib/Syntax/Status.md).
 
-# Prerequisites
+You can check out how it formatted [Artsy's Eidolon](https://github.com/sirlantis/eidolon/pull/1/files).
+
+## Prerequisites
 
 You need any of the following:
 
