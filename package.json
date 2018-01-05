@@ -1,0 +1,32 @@
+{
+  "name": "@prettier/plugin-swift",
+  "version": "0.0.0-development",
+  "description": "Prettier Swift Plugin",
+  "repository": "prettier/prettier-swift",
+  "author": "Lucas Azzola <@azz>",
+  "license": "MIT",
+  "main": "src",
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "prettier": "prettier/prettier#a4dd86436a0f52bcde6c6b20d89e9468d2ae733c"
+  },
+  "devDependencies": {
+    "eslint": "4.1.1",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-plugin-import": "2.6.1",
+    "eslint-plugin-jest": "21.5.0",
+    "eslint-plugin-prettier": "2.4.0",
+    "jest": "21.1.0",
+    "jest-runner-eslint": "0.3.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "projects": [
+      "<rootDir>/jest.*.config.js"
+    ]
+  }
+}
