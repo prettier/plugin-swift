@@ -3,21 +3,31 @@
 exports[`arrays.swift 1`] = `
 let oneElement = [42]
 let twoElements = ["apple", "banana"]
-let someArrayExpressionThatShouldBreak = ["becauseItHasSoLongElementsInItThatItHasTo"]
+let someArrayExpressionThatShouldNotBreak = ["becauseItHasSomeVeryLongElementButThatsTheOnlyOne"]
+let someArrayExpressionThatShouldBreak = ["becauseItHasSoLongElementsInItThatItHasTo", "andNotJustSingleOne"]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let oneElement = [42]
 let twoElements = ["apple", "banana"]
-let someArrayExpressionThatShouldBreak = ["becauseItHasSoLongElementsInItThatItHasTo"]
+let someArrayExpressionThatShouldNotBreak = ["becauseItHasSomeVeryLongElementButThatsTheOnlyOne"]
+let someArrayExpressionThatShouldBreak = [
+    "becauseItHasSoLongElementsInItThatItHasTo",
+    "andNotJustSingleOne"
+]
 
 `;
 
 exports[`arrays.swift 2`] = `
 let oneElement = [42]
 let twoElements = ["apple", "banana"]
-let someArrayExpressionThatShouldBreak = ["becauseItHasSoLongElementsInItThatItHasTo"]
+let someArrayExpressionThatShouldNotBreak = ["becauseItHasSomeVeryLongElementButThatsTheOnlyOne"]
+let someArrayExpressionThatShouldBreak = ["becauseItHasSoLongElementsInItThatItHasTo", "andNotJustSingleOne"]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 let oneElement = [42]
 let twoElements = ["apple", "banana"]
-let someArrayExpressionThatShouldBreak = ["becauseItHasSoLongElementsInItThatItHasTo",]
+let someArrayExpressionThatShouldNotBreak = ["becauseItHasSomeVeryLongElementButThatsTheOnlyOne"]
+let someArrayExpressionThatShouldBreak = [
+    "becauseItHasSoLongElementsInItThatItHasTo",
+    "andNotJustSingleOne",
+]
 
 `;

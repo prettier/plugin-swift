@@ -241,6 +241,8 @@ function genericPrint(path, options, print) {
     case "DictionaryElementList": {
       if (!n.layout.length) {
         return "";
+      } else if (n.type === "ArrayElementList" && n.layout.length === 1) {
+        return concat(path.map(print, "layout"));
       }
 
       return concat([
@@ -500,13 +502,10 @@ function genericPrint(path, options, print) {
     case "DictionaryExpr":
     case "FunctionType":
     case "ArrayExpr": {
-      const numberOfElements =
-        (n.layout[1].layout && n.layout[1].layout.length) || 999;
+      const numberOfElements = n.layout[1].layout && n.layout[1].layout.length;
 
-      if (
-        numberOfElements < 2 &&
-        !["ClosureCaptureSignature", "FunctionType"].includes(n.type)
-      ) {
+      // Never break single element tuples or arrays
+      if (numberOfElements < 2 && ["TupleExpr", "ArrayExpr"].includes(n.type)) {
         return group(concat(path.map(print, "layout")));
       }
 

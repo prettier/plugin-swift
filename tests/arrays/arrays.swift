@@ -1,3 +1,4 @@
 let oneElement = [42]
 let twoElements = ["apple", "banana"]
-let someArrayExpressionThatShouldBreak = ["becauseItHasSoLongElementsInItThatItHasTo"]
+let someArrayExpressionThatShouldNotBreak = ["becauseItHasSomeVeryLongElementButThatsTheOnlyOne"]
+let someArrayExpressionThatShouldBreak = ["becauseItHasSoLongElementsInItThatItHasTo", "andNotJustSingleOne"]
