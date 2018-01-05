@@ -1,4 +1,4 @@
-# Prettier Swift
+# Prettier Swift Plugin
 
 ![](https://i.giphy.com/media/GNvOUgBvLzVwA/giphy.webp)
 
@@ -23,7 +23,7 @@ Alternatively you can pass the path to `swiftc` via the `SWIFTC` environment var
 ## Install
 
 ```bash
-yarn add --dev --exact prettier prettier-swift
+yarn add --dev --exact prettier @prettier/plugin-swift
 ```
 
 ## Configure

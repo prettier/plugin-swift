@@ -1,9 +1,9 @@
 {
-    "name": "prettier-swift",
+    "name": "@prettier/plugin-swift",
     "version": "0.0.0-development",
     "description": "Prettier Swift Plugin",
     "main": "src",
-    "repository": "https://github.com/prettier/prettier-swift",
+    "repository": "prettier/prettier-swift",
     "author": "Marcel Jackwerth <@sirlantis>",
     "license": "MIT",
     "files": [
