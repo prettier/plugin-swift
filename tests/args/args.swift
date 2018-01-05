@@ -21,7 +21,7 @@ class Somewhere {
             1,2,3
         ]
         let dict = [:]()
-        _ = hello2(whoCreatesAFunction: "That is sooooooo fucking long that we need to", breakItToFitTheScreenComeOnNowBREAKBREAKBREAK: false)
+        _ = hello2(whoCreatesAFunction: "That is sooooooo veeeery long that we need to", breakItToFitTheScreenComeOnNowBREAKBREAKBREAK: false)
         return 42
     }
 
