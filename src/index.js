@@ -26,15 +26,8 @@ const parsers = {
 function canAttachComment(node) {
   if (!node.type) {
     return false;
-  } else if (node.type == "Newline") {
-    // return node.value >= 1;
-    return false;
   } else if (
     [
-      "Space",
-      "Newline",
-      "LineComment",
-      "BlockComment",
       "TopLevelCodeDecl",
       "StmtList",
       "DeclList",

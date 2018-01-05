@@ -590,12 +590,6 @@ function genericPrint(path, options, print) {
     case "UnknownExpr":
     case "UnknownDecl":
     case "UnknownStmt": {
-      // if (n.layout && n.layout.some(n => n.type === "pound_selector")) {
-      //   throw new Error(
-      //     "Can't format document: libSyntax loses information on `#selector`."
-      //   );
-      // }
-
       const fallback = verbatimPrint(n)
         .replace(/^[ \t]+/, "")
         .replace(/^[\n]+/, s => (s.split("\n").length >= 2 ? "\n" : ""))

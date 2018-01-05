@@ -322,8 +322,6 @@ function extractComments(node) {
             trivium.value--;
             trivium.__location.startOffset++;
 
-            // resultArray[resultArray.length - 1].__location.endOffset--;
-
             if (trivium.value <= 0) {
               trivia.splice(i--, 1);
             }
@@ -363,8 +361,6 @@ function extractComments(node) {
           };
 
           while (i > 0 && trivia[i - 1].type === "Space") {
-            // const space = trivia[i - 1];
-            // __location.startOffset = space.__location.startOffset;
             trivia.splice(--i, 1);
           }
 
@@ -413,9 +409,6 @@ function extractComments(node) {
     trivia = trivia.filter(t => t.type != "Space");
     return trivia.length > 0 ? trivia : undefined;
   };
-
-  // node.__leadingTrivia = node.leadingTrivia && node.leadingTrivia.slice();
-  // node.__trailingTrivia = node.trailingTrivia && node.trailingTrivia.slice();
 
   const leadingComments = [];
   node.leadingTrivia = processTrivia(node.leadingTrivia, leadingComments, true);
