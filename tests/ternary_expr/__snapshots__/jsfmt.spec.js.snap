@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ternary_expr.swift 1`] = `
+let variable = condition ? ifTrue : ifFalse
+
+loremIpsumDolorSitAmetConsecteturAdipiscingElitSedDoEiusmodTemporIncididuntUtLabore ? ifTrue : ifFalse
+
+loremIpsumDolorSitAmetConsecteturAdipiscingElitSedDoEiusmodTemporIncididuntUtLabore ?
+    ["loremIpsumDolorSitAmetConsectetur": "AdipiscingElitSedDoEiusmodTemporIncididuntUtLabore"] :
+    ["loremIpsumDolorSitAmetConsectetur": "AdipiscingElitSedDoEiusmodTemporIncididuntUtLabore"]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let variable = condition ? ifTrue : ifFalse
+
+loremIpsumDolorSitAmetConsecteturAdipiscingElitSedDoEiusmodTemporIncididuntUtLabore
+    ? ifTrue
+    : ifFalse
+
+loremIpsumDolorSitAmetConsecteturAdipiscingElitSedDoEiusmodTemporIncididuntUtLabore
+    ? [
+          "loremIpsumDolorSitAmetConsectetur": "AdipiscingElitSedDoEiusmodTemporIncididuntUtLabore"
+      ]
+    : [
+          "loremIpsumDolorSitAmetConsectetur": "AdipiscingElitSedDoEiusmodTemporIncididuntUtLabore"
+      ]
+
+`;

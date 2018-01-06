@@ -15,6 +15,7 @@ const isMemberish = chain.isMemberish;
 const printMemberChain = chain.printMemberChain;
 
 const {
+  align,
   indent,
   line,
   hardline,
@@ -712,20 +713,36 @@ function genericPrint(path, options, print) {
         print,
         "layout"
       );
+
+      const maybeIndent = doc =>
+        parentKind === "TernaryExpr" ? doc : indent(doc);
+
+      // Break the closing paren to keep the chain right after it:
+      // (a
+      //   ? b
+      //   : c
+      // ).call()
+      const breakClosingParen = parentKind == "MemberAccessExpr";
+
       return group(
-        indent(
-          concat([
-            condition,
-            line,
-            questionMark,
-            " ",
-            group(ifTrue),
-            line,
-            colon,
-            " ",
-            ifFalse
-          ])
-        )
+        concat([
+          condition,
+          maybeIndent(
+            concat([
+              line,
+              questionMark,
+              " ",
+              ifTrue.type === "TernaryExpr" ? ifBreak("", "(") : "",
+              align(2, group(ifTrue)),
+              ifTrue.type === "TernaryExpr" ? ifBreak("", "(") : "",
+              line,
+              colon,
+              " ",
+              align(2, ifFalse)
+            ])
+          ),
+          breakClosingParen ? softline : ""
+        ])
       );
     }
 
