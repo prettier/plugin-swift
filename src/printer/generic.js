@@ -393,6 +393,7 @@ function genericPrint(path, options, print) {
       const last = body.pop();
       return smartJoin(" ", [concat(body), last]);
     }
+    case "IsExpr":
     case "AsExpr": {
       const body = path.map(print, "layout");
       const last = body.pop();
