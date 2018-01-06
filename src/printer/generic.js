@@ -582,6 +582,9 @@ function genericPrint(path, options, print) {
         ])
       );
     }
+    case "Backtick": {
+      return "`";
+    }
     case "Space": {
       return ""; // ignore
     }

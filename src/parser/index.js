@@ -275,12 +275,26 @@ function preferTrailingOverLeadingTrivia(node, path) {
 
     const targetTrailingTrivia = target.trailingTrivia || [];
 
-    for (
+    loop: for (
       let triviumIndex = 0;
       triviumIndex < rightLeadingTrivia.length;
       triviumIndex++
     ) {
       const trivium = rightLeadingTrivia[triviumIndex];
+
+      switch (trivium.type) {
+        case "Newline":
+        case "Space":
+        case "DocLineComment":
+        case "LineComment":
+        case "BlockComment":
+          break;
+        case "Backtick":
+          break loop;
+        default:
+          throw new Error("Unexpected type: " + type);
+      }
+
       rightLeadingTrivia.splice(triviumIndex--, 1);
       targetTrailingTrivia.push(trivium);
     }
@@ -312,6 +326,7 @@ function extractComments(node) {
       const { type } = trivium;
 
       switch (type) {
+        case "Backtick":
         case "Space": {
           break;
         }

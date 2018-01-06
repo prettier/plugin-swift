@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`backtick.swift 1`] = `
+call { [weak self] in
+    let \`self\` = self
+    print(self)
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+call { [weak self] in
+    let \`self\` = self
+    print(self)
+}
+
+`;
