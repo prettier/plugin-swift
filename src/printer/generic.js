@@ -60,18 +60,18 @@ function genericPrint(path, options, print) {
     throw new Error(JSON.stringify(n, null, 2));
   }
 
-  const parentKind = path.getParentNode() ? path.getParentNode().type : "";
+  const parentType = path.getParentNode() ? path.getParentNode().type : "";
 
-  if (type === "colon" && parentKind === "DictionaryType") {
+  if (type === "colon" && parentType === "DictionaryType") {
     return ": ";
-  } else if (type === "comma" && parentKind === "_CaseDecl") {
+  } else if (type === "comma" && parentType === "_CaseDecl") {
     return ", ";
-  } else if (type === "equal" && parentKind === "_CaseDecl") {
+  } else if (type === "equal" && parentType === "_CaseDecl") {
     return " = ";
   } else if (
     type === "r_paren" &&
-    parentKind.startsWith("_") &&
-    parentKind.endsWith("Decl")
+    parentType.startsWith("_") &&
+    parentType.endsWith("Decl")
   ) {
     return ") ";
   } else if (tokens.hasOwnProperty(type)) {
@@ -87,10 +87,10 @@ function genericPrint(path, options, print) {
         return concat([keyword, " "]);
       }
       case "case": {
-        return concat([keyword, parentKind === "_CaseDecl" ? " " : ""]);
+        return concat([keyword, parentType === "_CaseDecl" ? " " : ""]);
       }
       case "in": {
-        return concat([keyword, parentKind === "ClosureSignature" ? " " : ""]);
+        return concat([keyword, parentType === "ClosureSignature" ? " " : ""]);
       }
       default: {
         return keyword;
@@ -123,7 +123,7 @@ function genericPrint(path, options, print) {
       const last = body.pop();
 
       return concat([
-        parentKind === "_SubscriptDecl" ? "" : " ",
+        parentType === "_SubscriptDecl" ? "" : " ",
         first,
         " ",
         concat(body),
@@ -180,15 +180,15 @@ function genericPrint(path, options, print) {
         return "";
       }
 
-      if (parentKind === "_CaseBlock") {
+      if (parentType === "_CaseBlock") {
         return indent(
           concat([breakParent, softline, join(hardline, children)])
         );
       } else if (
-        parentKind === "TopLevelCodeDecl" ||
-        parentKind === "SourceFile" ||
-        parentKind.match(/DirectiveClause/) ||
-        parentKind.match(/ConfigDecl/)
+        parentType === "TopLevelCodeDecl" ||
+        parentType === "SourceFile" ||
+        parentType.match(/DirectiveClause/) ||
+        parentType.match(/ConfigDecl/)
       ) {
         return join(hardline, children);
       }
@@ -223,7 +223,7 @@ function genericPrint(path, options, print) {
         return group(
           concat([
             maybeIndent(concat(path.map(print, "layout"))),
-            parentKind === "GuardStmt" ? " " : ""
+            parentType === "GuardStmt" ? " " : ""
           ])
         );
       }
@@ -231,7 +231,7 @@ function genericPrint(path, options, print) {
       return group(
         concat([
           indent(printList(path, print)),
-          parentKind === "GuardStmt" ? line : softline
+          parentType === "GuardStmt" ? line : softline
         ])
       );
     }
@@ -382,7 +382,7 @@ function genericPrint(path, options, print) {
       n.end = n.layout.slice(1);
 
       return concat([
-        parentKind == "PatternBinding" ? " " : "",
+        parentType == "PatternBinding" ? " " : "",
         path.call(print, "op"),
         " ",
         group(...path.map(print, "end"))
@@ -402,7 +402,7 @@ function genericPrint(path, options, print) {
     case "DeclModifier": {
       return concat([
         concat(path.map(print, "layout")),
-        parentKind == "_InitDecl" ? " " : ""
+        parentType == "_InitDecl" ? " " : ""
       ]);
     }
     case "DeclNameArgumentList":
@@ -481,7 +481,7 @@ function genericPrint(path, options, print) {
         concat([
           group(concat([indent(concat([first, softline, ...body])), softline])),
           last,
-          parentKind.startsWith("_") ? " " : ""
+          parentType.startsWith("_") ? " " : ""
         ])
       );
     }
@@ -736,14 +736,14 @@ function genericPrint(path, options, print) {
       );
 
       const maybeIndent = doc =>
-        parentKind === "TernaryExpr" ? doc : indent(doc);
+        parentType === "TernaryExpr" ? doc : indent(doc);
 
       // Break the closing paren to keep the chain right after it:
       // (a
       //   ? b
       //   : c
       // ).call()
-      const breakClosingParen = parentKind == "MemberAccessExpr";
+      const breakClosingParen = parentType == "MemberAccessExpr";
 
       return group(
         concat([
