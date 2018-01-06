@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`protocols.swift 1`] = `
+protocol SomeType {}
+public protocol SomeType {}
+
+protocol SomeType {
+    var property: String
+}
+
+protocol SomeType {
+    var property: String { get }
+}
+
+protocol SomeType {
+    var property: String { get set }
+}
+
+protocol SomeType {
+    func foo()
+}
+
+protocol SomeType {
+    associatedtype E
+}
+
+internal protocol SomeType {
+    associatedtype E
+    func foo()
+    func bar()
+    var property: String { get set }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+protocol SomeType {}
+public protocol SomeType {}
+
+protocol SomeType {
+    var property: String
+}
+
+protocol SomeType {
+    var property: String { get }
+}
+
+protocol SomeType {
+    var property: String { get set }
+}
+
+protocol SomeType {
+    func foo()
+}
+
+protocol SomeType {
+    associatedtype E
+}
+
+internal protocol SomeType {
+    associatedtype E
+    func foo()
+    func bar()
+    var property: String { get set }
+}
+
+`;

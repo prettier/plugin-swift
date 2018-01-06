@@ -153,6 +153,10 @@ function genericPrint(path, options, print) {
       return group(indent(printList(path, print)));
     }
     case "AccessorList": {
+      if (path.getParentNode(6).type === "ProtocolDecl") {
+        return concat([join(" ", path.map(print, "layout")), " "]);
+      }
+
       return concat([
         indent(
           concat([hardline, smartJoin(hardline, path.map(print, "layout"))])
