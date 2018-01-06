@@ -370,6 +370,7 @@ function genericPrint(path, options, print) {
     case "ThrowStmt": // statements
     case "ForInStmt":
     case "BreakStmt":
+    case "ContinueStmt":
     case "DeferStmt":
     case "DoStmt":
     case "DeclarationStmt":
