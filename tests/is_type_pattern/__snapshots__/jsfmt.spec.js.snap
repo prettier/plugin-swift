@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`is_type_pattern.swift 1`] = `
+for case is Apple in fruits {
+    print("Apple")
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+for case isApple in fruits {
+    print("Apple")
+}
+
+`;

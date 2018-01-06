@@ -451,6 +451,7 @@ function genericPrint(path, options, print) {
     case "ArrayType":
     case "AccessPath":
     case "AccessPathComponent":
+    case "IsTypePattern":
     case "WildcardPattern":
     case "TuplePattern":
     case "ExpressionPattern":
