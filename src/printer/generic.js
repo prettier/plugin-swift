@@ -392,9 +392,7 @@ function genericPrint(path, options, print) {
     case "AsExpr": {
       const body = path.map(print, "layout");
       const last = body.pop();
-      return group(
-        indent(concat([softline, smartJoin(" ", [concat(body), last])]))
-      );
+      return group(indent(concat([smartJoin(line, [concat(body), last])])));
     }
     case "DeclModifier": {
       return concat([
