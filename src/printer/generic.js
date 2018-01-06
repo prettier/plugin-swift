@@ -364,7 +364,6 @@ function genericPrint(path, options, print) {
     case "OptionalBindingCondition": // conditions
     case "MatchingPatternCondition":
     case "AttributeList": // lists
-    case "ExprList":
     case "ModifierList":
     case "CompositionTypeElementList":
     case "ThrowStmt": // statements
@@ -397,7 +396,7 @@ function genericPrint(path, options, print) {
     case "AsExpr": {
       const body = path.map(print, "layout");
       const last = body.pop();
-      return group(indent(concat([smartJoin(line, [concat(body), last])])));
+      return group(indent(concat([" ", ...body, line, last])));
     }
     case "DeclModifier": {
       return concat([
@@ -408,6 +407,7 @@ function genericPrint(path, options, print) {
     case "DeclNameArgumentList":
     case "DeclNameArguments":
     case "DeclNameArgument":
+    case "ExprList":
     case "StringInterpolationSegments":
     case "StringSegment":
     case "ExpressionSegment":
@@ -636,6 +636,16 @@ function genericPrint(path, options, print) {
       }
 
       return join(hardline, fallback.split("\n"));
+    }
+    case "AssignmentExpr":
+    case "BinaryOperatorExpr": {
+      const operator = n.layout[0];
+
+      if (operator.type.endsWith("_unspaced")) {
+        return concat(path.map(print, "layout"));
+      }
+
+      return concat([" ", ...path.map(print, "layout"), " "]);
     }
     case "MemberAccessExpr": {
       const parts = path.map(print, "layout");
