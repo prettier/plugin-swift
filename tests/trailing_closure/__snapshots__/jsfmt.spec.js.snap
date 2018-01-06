@@ -40,6 +40,9 @@ exports[`trailing_closure.swift 1`] = `
 
 // Can't be formatted since libSyntax reports it as UnknownExpr
 filter { (e) -> Bool in return value != e }
+
+loremIpsumDolorSitAmetConsecteturAdipiscingElitSedDoEiusmodTemporIncididuntUtLabore { _ in }
+loremIpsumDolorSitAmetConsecteturAdipiscingElitSedDoEiusmodTemporIncididuntUtLabore { [self] _ in self }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 [1, 2, 3].map { $0 + 1 }
 
@@ -75,6 +78,12 @@ filter { (e) -> Bool in return value != e }
 // Can't be formatted since libSyntax reports it as UnknownExpr
 filter { e -> Bool in
     return value != e
+}
+
+loremIpsumDolorSitAmetConsecteturAdipiscingElitSedDoEiusmodTemporIncididuntUtLabore { _ in }
+loremIpsumDolorSitAmetConsecteturAdipiscingElitSedDoEiusmodTemporIncididuntUtLabore {
+        [self] _ in
+    self
 }
 
 `;

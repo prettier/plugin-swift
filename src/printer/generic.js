@@ -199,7 +199,15 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "ClosureParamList": {
-      return group(concat([indent(printList(path, print))]));
+      // never break for single parameters or _, _, _,
+      if (
+        n.layout.length < 2 ||
+        n.layout.every(param => param.type === "kw__")
+      ) {
+        return concat(path.map(print, "layout"));
+      }
+
+      return group(indent(printList(path, print)));
     }
     case "ConditionElementList":
     case "CatchClauseList":
@@ -480,15 +488,17 @@ function genericPrint(path, options, print) {
       return smartJoin(" ", path.map(print, "layout"));
     }
     case "ClosureSignature": {
-      return concat([
-        group(
-          indent(
-            indent(
-              concat([softline, smartJoin(" ", path.map(print, "layout"))])
-            )
-          )
-        )
-      ]);
+      // Never break for an empty closure expr
+      if (
+        path.getParentNode().layout.find(n => n.type == "StmtList").layout
+          .length === 0
+      ) {
+        return group(join(" ", path.map(print, "layout")));
+      }
+
+      return group(
+        indent(indent(concat([softline, join(" ", path.map(print, "layout"))])))
+      );
     }
     case "WhereClause":
     case "GenericWhereClause": {

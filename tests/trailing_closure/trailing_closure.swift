@@ -37,3 +37,6 @@
 
 // Can't be formatted since libSyntax reports it as UnknownExpr
 filter { (e) -> Bool in return value != e }
+
+loremIpsumDolorSitAmetConsecteturAdipiscingElitSedDoEiusmodTemporIncididuntUtLabore { _ in }
+loremIpsumDolorSitAmetConsecteturAdipiscingElitSedDoEiusmodTemporIncididuntUtLabore { [self] _ in self }
