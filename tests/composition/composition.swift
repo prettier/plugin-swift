@@ -1,0 +1,1 @@
+typealias AB = A & B

@@ -355,6 +355,7 @@ function genericPrint(path, options, print) {
       const last = body.pop();
       return concat([first, " ", variable, " ", concat(body), last]);
     }
+    case "CompositionType":
     case "FallthroughStmt":
     case "IfStmt":
     case "VariableDecl": // decls
@@ -365,6 +366,7 @@ function genericPrint(path, options, print) {
     case "AttributeList": // lists
     case "ExprList":
     case "ModifierList":
+    case "CompositionTypeElementList":
     case "ThrowStmt": // statements
     case "ForInStmt":
     case "BreakStmt":
@@ -547,6 +549,7 @@ function genericPrint(path, options, print) {
     case "TupleType":
     case "ClosureCaptureItem":
     case "ClosureParam":
+    case "CompositionTypeElement":
     case "ConditionElement":
     case "TuplePatternElement":
     case "TupleTypeElement":
