@@ -342,7 +342,6 @@ function genericPrint(path, options, print) {
     case "RepeatWhileStmt":
     case "BreakStmt":
     case "ContinueStmt":
-    case "DeferStmt":
     case "DoStmt":
     case "DeclarationStmt":
     case "ExpressionStmt": {
@@ -545,6 +544,7 @@ function genericPrint(path, options, print) {
     case "GenericWhereClause": {
       return group(indent(join(" ", path.map(print, "layout"))));
     }
+    case "DeferStmt":
     case "ImportDecl":
     case "TypealiasDecl":
     case "ValueBindingPattern":
