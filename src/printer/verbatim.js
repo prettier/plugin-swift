@@ -7,6 +7,7 @@ const characters = {
   Newline: "\n",
   Tab: "\t",
   Space: " ",
+  Backtick: "`"
 };
 
 function triviaPrint(n) {
@@ -16,6 +17,7 @@ function triviaPrint(n) {
     case "Newline":
     case "Tab":
     case "Space":
+    case "Backtick":
       return Array(n.value)
         .fill(characters[type])
         .join("");
