@@ -124,6 +124,8 @@ function massage(node) {
       if (t.trailingTrivia) {
         trailingTrivia = (trailingTrivia || []).concat(t.trailingTrivia);
       }
+    } else if (layout.length === 2 && layout[0].type === "amp_prefix") {
+      type = "_RefExpr";
     } else if (
       layout.length === 2 &&
       layout[0].type == "l_square" &&

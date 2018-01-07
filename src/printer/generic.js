@@ -833,6 +833,7 @@ function genericPrint(path, options, print) {
     case "TypeExpr":
     case "UnresolvedMemberExpr":
     case "UnresolvedPatternExpr":
+    case "_RefExpr":
     case "_SelectorExpr":
     case "_GenericTypeExpr":
       return group(concat(path.map(print, "layout")));
