@@ -70,19 +70,7 @@ function genericPrint(path, options, print) {
     const keyword = type.slice("pound_".length);
     return "#" + keyword;
   } else if (type.startsWith("kw_")) {
-    const keyword = type.slice("kw_".length);
-
-    switch (keyword) {
-      case "case": {
-        return concat([keyword, parentType === "_CaseDecl" ? " " : ""]);
-      }
-      case "in": {
-        return concat([keyword, parentType === "ClosureSignature" ? " " : ""]);
-      }
-      default: {
-        return keyword;
-      }
-    }
+    return type.slice("kw_".length);
   }
 
   if (typeof n.text !== "undefined") {
@@ -464,9 +452,13 @@ function genericPrint(path, options, print) {
     case "TopLevelCodeDecl":
     case "SimpleTypeIdentifier":
     case "_InitDecl":
-    case "_CaseDecl":
     case "TokenList": {
       return concat(path.map(print, "layout"));
+    }
+    case "_CaseDecl": {
+      const body = path.map(print, "layout");
+      const keyword = body.shift();
+      return concat([keyword, " ", ...body]);
     }
     case "_DeinitDecl": {
       return smartJoin(" ", path.map(print, "layout"));
@@ -497,17 +489,21 @@ function genericPrint(path, options, print) {
       return smartJoin(" ", path.map(print, "layout"));
     }
     case "ClosureSignature": {
+      const body = path.map(print, "layout");
+      const inKeyword = body.pop();
+
+      const numberOfStatements = path
+        .getParentNode()
+        .layout.find(n => n.type == "StmtList").layout.length;
+
+      const printedBody = concat([join(" ", body), " ", inKeyword, " "]);
+
       // Never break for an empty closure expr
-      if (
-        path.getParentNode().layout.find(n => n.type == "StmtList").layout
-          .length === 0
-      ) {
-        return group(join(" ", path.map(print, "layout")));
+      if (numberOfStatements === 0) {
+        return group(printedBody);
       }
 
-      return group(
-        indent(indent(concat([softline, join(" ", path.map(print, "layout"))])))
-      );
+      return group(indent(indent(concat([softline, printedBody]))));
     }
     case "WhereClause":
     case "GenericWhereClause": {
