@@ -45,6 +45,7 @@ function massage(node) {
       const tokens = layout.splice(1);
       const elements = [];
       let currentElement = [];
+      let currentInitializerClause;
 
       tokens.forEach(n => {
         if (n.type === "comma") {
@@ -56,6 +57,14 @@ function massage(node) {
           });
 
           currentElement = [];
+        } else if (n.type == "equal") {
+          currentInitializerClause = {
+            type: "InitializerClause",
+            layout: [n]
+          };
+          currentElement.push(currentInitializerClause);
+        } else if (currentInitializerClause) {
+          currentInitializerClause.layout.push(n);
         } else {
           currentElement.push(n);
         }

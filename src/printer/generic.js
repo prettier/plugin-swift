@@ -54,11 +54,7 @@ function genericPrint(path, options, print) {
   const { type } = n;
   const parentType = path.getParentNode() ? path.getParentNode().type : "";
 
-  if (type === "comma" && parentType === "_CaseDecl") {
-    return ", ";
-  } else if (type === "equal" && parentType === "_CaseDecl") {
-    return " = ";
-  } else if (
+  if (
     type === "r_paren" &&
     parentType.startsWith("_") &&
     parentType.endsWith("Decl")
@@ -595,7 +591,6 @@ function genericPrint(path, options, print) {
     case "ClosureParam":
     case "CompositionTypeElement":
     case "ConditionElement":
-    case "_CaseDeclElement":
     case "TuplePatternElement":
     case "TupleTypeElement":
     case "ArrayElement":
@@ -612,6 +607,25 @@ function genericPrint(path, options, print) {
           }, "layout")
         )
       );
+    }
+    case "_CaseDeclElement": {
+      const hasComma = n.layout.some(n => n.type === "comma");
+      const hasInitializerClause = n.layout.some(
+        n => n.type === "InitializerClause"
+      );
+
+      const body = path.map(print, "layout");
+
+      if (hasComma) {
+        body.pop();
+      }
+
+      if (hasInitializerClause) {
+        const last = body.pop();
+        return group(concat([concat(body), " ", last]));
+      }
+
+      return group(concat(body));
     }
     case "ClosureExpr": {
       const body = path.map(print, "layout");
