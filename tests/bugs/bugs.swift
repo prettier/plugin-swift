@@ -25,3 +25,5 @@ let firstTupleElement = tuple.0
 let semicolons = foo();
 
 [1,2,3].map { $0 + 1 }
+
+let foo = { bar(); baz() }

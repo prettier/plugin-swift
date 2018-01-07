@@ -28,6 +28,8 @@ let firstTupleElement = tuple.0
 let semicolons = foo();
 
 [1,2,3].map { $0 + 1 }
+
+let foo = { bar(); baz() }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #!/usr/bin/swift
 button.addTarget(self, action: #selector(pressed(_:)), for: .touchUpInside)
@@ -54,5 +56,10 @@ let firstTupleElement = tuple.0
 let semicolons = foo()
 
 [1, 2, 3].map { $0 + 1 }
+
+let foo = {
+    bar()
+    baz()
+}
 
 `;

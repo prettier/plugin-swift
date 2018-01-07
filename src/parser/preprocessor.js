@@ -32,11 +32,11 @@ const transferTriviaFromLeftToRight = (left, right) => {
 function preprocess(ast) {
   let modified = false;
 
-  function visit(node) {
+  function visit(node, parent) {
     if (!node.layout) {
       return;
     } else if (!node.kind.startsWith("Unknown")) {
-      node.layout.forEach(visit);
+      node.layout.forEach(n => visit(n, node));
       return;
     }
 
@@ -47,7 +47,21 @@ function preprocess(ast) {
       layout[1].tokenKind &&
       layout[1].tokenKind.kind === "semi"
     ) {
-      logger.warn("Found semicolon that confused libSyntax. Stripping...");
+      const canStrip =
+        parent.layout.filter(n => n.presence === "Present").length === 1;
+
+      logger.warn(
+        "Found semicolon that confused libSyntax. " +
+          (canStrip ? "Stripping" : "Breaking") +
+          "..."
+      );
+
+      if (!canStrip) {
+        (layout[1].leadingTrivia || (layout[1].leadingTrivia = [])).push({
+          kind: "Newline",
+          value: 1
+        });
+      }
 
       transferTriviaFromRightToLeft(layout[0], layout[1]);
 
