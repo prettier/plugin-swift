@@ -397,7 +397,11 @@ function genericPrint(path, options, print) {
     case "AsExpr": {
       const body = path.map(print, "layout");
       const last = body.pop();
-      return group(indent(concat([" ", ...body, line, last])));
+
+      const maybeIndent = doc =>
+        parentType === "ExprList" ? doc : indent(doc);
+
+      return group(maybeIndent(concat([line, ...body, " ", last])));
     }
     case "DeclModifier": {
       return concat([
@@ -405,10 +409,26 @@ function genericPrint(path, options, print) {
         parentType == "_InitDecl" ? " " : ""
       ]);
     }
+    case "ExprList": {
+      if (
+        n.layout.length === 3 &&
+        n.layout[1].type === "AssignmentExpr" &&
+        ([
+          "ArrayExpr",
+          "DictionaryExpr",
+          "FunctionCallExpr",
+          "ClosureExpr"
+        ].includes(n.layout[2].type) ||
+          n.layout[2].type.endsWith("LiteralExpr"))
+      ) {
+        return group(concat(path.map(print, "layout")));
+      }
+
+      return group(indent(concat(path.map(print, "layout"))));
+    }
     case "DeclNameArgumentList":
     case "DeclNameArguments":
     case "DeclNameArgument":
-    case "ExprList":
     case "StringInterpolationSegments":
     case "StringSegment":
     case "ExpressionSegment":
@@ -640,7 +660,9 @@ function genericPrint(path, options, print) {
 
       return join(hardline, fallback.split("\n"));
     }
-    case "AssignmentExpr":
+    case "AssignmentExpr": {
+      return concat([" ", ...path.map(print, "layout"), " "]);
+    }
     case "BinaryOperatorExpr": {
       const operator = n.layout[0];
 
@@ -648,7 +670,7 @@ function genericPrint(path, options, print) {
         return concat(path.map(print, "layout"));
       }
 
-      return concat([" ", ...path.map(print, "layout"), " "]);
+      return concat([line, ...path.map(print, "layout"), " "]);
     }
     case "MemberAccessExpr": {
       const parts = path.map(print, "layout");
@@ -736,7 +758,7 @@ function genericPrint(path, options, print) {
       );
 
       const maybeIndent = doc =>
-        parentType === "TernaryExpr" ? doc : indent(doc);
+        ["ExprList", "TernaryType"].includes(parentType) ? doc : indent(doc);
 
       // Break the closing paren to keep the chain right after it:
       // (a
