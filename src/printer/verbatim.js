@@ -1,13 +1,20 @@
 "use strict";
 
-const { preCheck } = require("./common");
+const logger = require("prettier/src/cli/logger");
 const tokens = require("./tokens");
 
 function verbatimPrint(n) {
-  const preCheckResult = preCheck(n);
+  switch (n.presence) {
+    case "Missing":
+      return "";
+    case "Present":
+      break;
+    default:
+      if (n.presence) {
+        logger.warn("Unknown presence:", n.presence);
+      }
 
-  if (preCheckResult != null) {
-    return preCheckResult;
+      return null;
   }
 
   let inner;

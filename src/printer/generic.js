@@ -4,7 +4,6 @@ const logger = require("prettier/src/cli/logger");
 const comments = require("prettier/src/main/comments");
 const { mapDoc } = require("prettier/src/common/util");
 const tokens = require("./tokens");
-const { preCheck } = require("./common");
 const { verbatimPrint } = require("./verbatim");
 
 const doc = require("prettier").doc;
@@ -49,11 +48,6 @@ function printWithoutNewlines(doc) {
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
-  const preCheckResult = preCheck(n);
-
-  if (preCheckResult != null) {
-    return preCheckResult;
-  }
 
   const { type } = n;
   if (!type) {
