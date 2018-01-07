@@ -515,7 +515,7 @@ function preprocess(text, opts) {
 
   if (preprocessor.preprocess(ast)) {
     logger.warn(
-      "libSwift had issues parsing this file. Re-writing and parsing it again..."
+      "libSyntax had issues parsing this file. Re-writing and parsing it again..."
     );
     text = verbatimPrint(ast);
   } else {
