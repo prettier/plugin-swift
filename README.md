@@ -36,13 +36,15 @@ via the `PRETTIER_SWIFT_SWIFTC` or `SWIFTC` environment variables.
 yarn add --dev --exact prettier @prettier/plugin-swift
 ```
 
+-->
+
 ## Configure
 
 .prettierrc:
 
 ```json
 {
-  "plugins": ["prettier-swift"]
+    "plugins": ["prettier-swift"]
 }
 ```
 
@@ -51,4 +53,3 @@ yarn add --dev --exact prettier @prettier/plugin-swift
 ```bash
 prettier --write "**/*.swift"
 ```
--->
