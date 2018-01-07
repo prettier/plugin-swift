@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`repeat_while_stmt.swift 1`] = `
+repeat { print("ping") } while !pong
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+repeat {
+    print("ping")
+} while !pong
+
+`;
