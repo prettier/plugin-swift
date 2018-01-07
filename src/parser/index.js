@@ -288,6 +288,7 @@ function preferTrailingOverLeadingTrivia(node, path) {
         case "Newline":
         case "Tab":
         case "Space":
+        case "DocBlockComment":
         case "DocLineComment":
         case "LineComment":
         case "BlockComment":
@@ -369,11 +370,12 @@ function extractComments(node) {
           onNewLine = true;
           break;
         }
+        case "DocBlockComment":
         case "DocLineComment":
         case "BlockComment":
         case "LineComment": {
           const { value, __location } = trivium;
-          const isBlockComment = type === "BlockComment";
+          const isBlockComment = type.endsWith("BlockComment");
 
           const comment = {
             type: isBlockComment ? "CommentBlock" : "CommentLine",
