@@ -100,10 +100,6 @@ function genericPrint(path, options, print) {
     case "SourceFile": {
       const parts = path.map(print, "layout");
 
-      parts.push(
-        comments.printDanglingComments(path, options, /* sameIndent */ true)
-      );
-
       // Only force a trailing newline if there were any contents.
       if (n.layout.length || n.comments) {
         parts.push(hardline);
@@ -478,10 +474,7 @@ function genericPrint(path, options, print) {
     case "_DeinitDecl":
     case "_CaseDecl":
     case "TokenList": {
-      return concat([
-        ...path.map(print, "layout"),
-        comments.printDanglingComments(path, options, /* sameLine */ true)
-      ]);
+      return concat(path.map(print, "layout"));
     }
     case "GenericArgumentClause":
     case "GenericParameterClause": {
