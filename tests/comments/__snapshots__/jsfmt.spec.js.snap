@@ -74,6 +74,15 @@ class SomeClass {
         }
     }
 }
+
+let loremIpsumDolorSitAmetConsecteturAdipiscingElitSedDoEiusmodTemporIncididuntUtLabore = [
+    "loremIpsumDolorSitAmetConsecteturAdipiscing", // elitSedDoEiusmodTemporIncididuntUtLabore
+    "loremIpsumDolorSitAmetConsecteturAdipiscing" // elitSedDoEiusmodTemporIncididuntUtLabore
+]
+
+private enum EditEvent : CustomDebugStringConvertible {
+    case inserted // can't be found in old sections
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // before print("1")
 print("1") // same line as print("1")
@@ -110,8 +119,8 @@ let array = [
 
 if something {
     print("ifTrue")
-    // comment
-} else {
+} else // comment
+{
     print("ifFalse")
 }
 
@@ -129,6 +138,15 @@ class SomeClass {
             // comment
         }
     }
+}
+
+let loremIpsumDolorSitAmetConsecteturAdipiscingElitSedDoEiusmodTemporIncididuntUtLabore = [
+    "loremIpsumDolorSitAmetConsecteturAdipiscing", // elitSedDoEiusmodTemporIncididuntUtLabore
+    "loremIpsumDolorSitAmetConsecteturAdipiscing" // elitSedDoEiusmodTemporIncididuntUtLabore
+]
+
+private enum EditEvent: CustomDebugStringConvertible {
+    case inserted // can't be found in old sections
 }
 
 `;

@@ -552,8 +552,7 @@ function synthesizeLocation(node, start, text) {
 
   outerLocation.endOffset = end;
 
-  const location =
-    node.layout && !node.type.endsWith("Expr") ? outerLocation : innerLocation;
+  const location = node.type.endsWith("List") ? outerLocation : innerLocation;
 
   Object.defineProperty(node, "__location", {
     value: location,

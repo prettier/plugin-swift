@@ -54,3 +54,12 @@ class SomeClass {
         }
     }
 }
+
+let loremIpsumDolorSitAmetConsecteturAdipiscingElitSedDoEiusmodTemporIncididuntUtLabore = [
+    "loremIpsumDolorSitAmetConsecteturAdipiscing", // elitSedDoEiusmodTemporIncididuntUtLabore
+    "loremIpsumDolorSitAmetConsecteturAdipiscing" // elitSedDoEiusmodTemporIncididuntUtLabore
+]
+
+private enum EditEvent : CustomDebugStringConvertible {
+    case inserted // can't be found in old sections
+}
