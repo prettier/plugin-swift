@@ -726,7 +726,7 @@ function genericPrint(path, options, print) {
         //   ...
         // })
         (middle[0].layout[0].layout.some(n => n.type === "ClosureExpr") ||
-          // Optimize: Plain function invocation as argument
+          // Optimize: Plain function invocation as only argument
           //
           // array.add(User(
           //   name: "John Doe"
@@ -735,6 +735,16 @@ function genericPrint(path, options, print) {
             n =>
               n.type === "FunctionCallExpr" &&
               n.layout[0].type === "IdentifierExpr"
+          ) ||
+          // Optimize: Array or Dictionary expressions as only argument
+          //
+          // array.add([
+          //   1,
+          //   2,
+          //   3
+          // })
+          middle[0].layout[0].layout.some(n =>
+            ["ArrayExpr", "DictionaryExpr"].includes(n.type)
           ))
       ) {
         return concat([
