@@ -4,7 +4,7 @@ const spawnSync = require("child_process").spawnSync;
 
 function serializeRawTree(text) {
   const result = spawnSync(
-    process.env.SWIFTC || "swiftc",
+    process.env.PRETTIER_SWIFT_SWIFTC || process.env.SWIFTC || "swiftc",
     ["-frontend", "-emit-syntax", "-"],
     {
       input: text,

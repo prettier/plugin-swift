@@ -18,7 +18,8 @@ You need any of the following:
 3. A custom build of [Swift](https://github.com/apple/swift) after [7476677b](https://github.com/apple/swift/commit/7476677bb29619b2c0f1f9dcc1e67fa910240c9c)
 
 Ensure that `swiftc` points to the correct binary.
-Alternatively you can pass the path to `swiftc` via the `SWIFTC` environment variable.
+Alternatively you can pass the path to `swiftc`
+via the `PRETTIER_SWIFT_SWIFTC` or `SWIFTC` environment variables.
 
 <!--
 
