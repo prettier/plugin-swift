@@ -22,3 +22,11 @@ chain
 self.map { true }
 
 let answer = /* deep */ /* blue */ 42
+
+let array = [
+    0, // 0%
+    25,
+    50, // 50%,
+    75,
+    100 // 100%
+]

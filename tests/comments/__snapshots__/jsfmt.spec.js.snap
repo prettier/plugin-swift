@@ -42,6 +42,14 @@ chain
 self.map { true }
 
 let answer = /* deep */ /* blue */ 42
+
+let array = [
+    0, // 0%
+    25,
+    50, // 50%,
+    75,
+    100 // 100%
+]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // before print("1")
 print("1") // same line as print("1")
@@ -67,6 +75,14 @@ chain
 self.map { true }
 
 let answer = /* deep */ /* blue */ 42
+
+let array = [
+    0, // 0%
+    25,
+    50, // 50%,
+    75,
+    100 // 100%
+]
 
 `;
 

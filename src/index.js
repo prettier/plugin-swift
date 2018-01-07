@@ -33,6 +33,7 @@ function canAttachComment(node) {
       "StmtList",
       "DeclList",
       "period",
+      "comma",
       "identifier",
       "IfConfigDecl",
       "l_brace",
