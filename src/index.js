@@ -1,7 +1,7 @@
 "use strict";
 
 const util = require("prettier/src/common/util");
-const parse = require("./parser");
+const { parse, preprocess } = require("./parser");
 const print = require("./printer");
 
 const languages = [
@@ -19,6 +19,7 @@ const languages = [
 const parsers = {
   swift: {
     parse,
+    preprocess,
     astFormat: "swift"
   }
 };

@@ -5,7 +5,7 @@ const assert = require("assert");
 const logger = require("prettier/src/cli/logger");
 const { verbatimPrint } = require("../printer/verbatim");
 const { serializeRawTree } = require("./wrapper");
-const { preprocess } = require("./preprocessor");
+const preprocessor = require("./preprocessor");
 const tokens = require("../printer/tokens");
 
 function massage(node) {
@@ -506,14 +506,45 @@ function synthesizeLocation(node, start, text) {
   return end;
 }
 
-function parse(text) {
-  let ast = serializeRawTree(text);
+function preprocess(text, opts) {
+  opts.preprocessingCache = {};
 
-  if (preprocess(ast)) {
+  const ast = serializeRawTree(text);
+
+  if (preprocessor.preprocess(ast)) {
     logger.warn(
       "libSwift had issues parsing this file. Re-writing and parsing it again..."
     );
     text = verbatimPrint(ast);
+  } else {
+    opts.preprocessingCache = { ast };
+  }
+
+  return text;
+}
+
+function parse(text, opts) {
+  let ast;
+
+  if (opts.preprocessingCache) {
+    ast = opts.preprocessingCache.ast;
+  } else {
+    text = preprocess(text, opts);
+    ast = opts.preprocessingCache.ast;
+
+    if (!ast) {
+      logger.warn(
+        [
+          "This version of Prettier doesn't support preprocessing yet.",
+          "Comments might be printed in in wrong locations."
+        ].join(" ")
+      );
+    }
+  }
+
+  delete opts.preprocessingCache;
+
+  if (!ast) {
     ast = serializeRawTree(text);
   }
 
@@ -525,12 +556,7 @@ function parse(text) {
 
   ast.comments = extractComments(ast);
 
-  Object.defineProperty(ast, "__text", {
-    value: text,
-    enumerable: false
-  });
-
   return ast;
 }
 
-module.exports = parse;
+module.exports = { preprocess, parse };

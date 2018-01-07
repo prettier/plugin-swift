@@ -15,8 +15,9 @@ const opts = {
   printer: prettierSwift.printers.swift
 };
 
-const text = fs.readFileSync(process.argv[2], "utf-8");
-const ast = opts.parser.parse(text);
+let text = fs.readFileSync(process.argv[2], "utf-8");
+text = opts.parser.preprocess(text, opts);
+const ast = opts.parser.parse(text, opts);
 
 function attachComments(text, ast, opts) {
   const astComments = ast.comments;
@@ -28,8 +29,6 @@ function attachComments(text, ast, opts) {
   opts.originalText = text.trimRight();
   return astComments;
 }
-
-console.dir(opts);
 
 attachComments(text, ast, opts);
 console.log(dumper(ast));
