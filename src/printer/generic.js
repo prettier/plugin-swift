@@ -368,6 +368,7 @@ function genericPrint(path, options, print) {
     case "CompositionTypeElementList":
     case "ThrowStmt": // statements
     case "ForInStmt":
+    case "_WhileStmt":
     case "BreakStmt":
     case "ContinueStmt":
     case "DeferStmt":

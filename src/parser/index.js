@@ -82,7 +82,9 @@ function massage(node) {
       type = "_IfWithElseConfigDecl";
     }
   } else if (type === "UnknownStmt") {
-    if (layout[0].type === "kw_switch") {
+    if (layout[0].type === "kw_while") {
+      type = "_WhileStmt";
+    } else if (layout[0].type === "kw_switch") {
       type = "_SwitchStmt";
       const leftIndex = layout.findIndex(n => n.type == "l_brace");
       const rightIndex = layout.findIndex(n => n.type == "r_brace");
