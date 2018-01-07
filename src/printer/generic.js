@@ -4,6 +4,7 @@ const assert = require("assert");
 
 const logger = require("prettier/src/cli/logger");
 const { mapDoc } = require("prettier/src/common/util");
+const comments = require("prettier/src/main/comments");
 
 const doc = require("prettier").doc;
 const docBuilders = doc.builders;
@@ -138,6 +139,17 @@ function genericPrint(path, options, print) {
       const children = path.map(print, "layout");
 
       if (!children.length) {
+        if (n.comments) {
+          return concat([
+            comments.printDanglingComments(
+              path,
+              options,
+              /* sameIndent */ parentType === "TopLevelCodeDecl"
+            ),
+            hardline
+          ]);
+        }
+
         return "";
       }
 

@@ -3,6 +3,8 @@
 const doc = require("prettier").doc;
 const docBuilders = doc.builders;
 
+const { join, hardline, softline, line } = docBuilders;
+
 function smartJoin(separator, parts) {
   const result = [];
   let lastPart;
@@ -42,5 +44,9 @@ function concat(parts) {
 
 module.exports = {
   smartJoin,
-  concat
+  concat,
+  join,
+  hardline,
+  softline,
+  line
 };

@@ -439,7 +439,11 @@ function extractComments(node, path) {
           // ).type;
 
           const couldRemainTrivia =
-            onNewLine && !node.token && path[1].type != "IfStmt";
+            onNewLine &&
+            !node.token &&
+            path[1].type != "IfStmt" &&
+            (!["DeclList", "StmtList"].includes(path[0].type) ||
+              path[0].layout.length);
 
           if (isLeading) {
             if (couldRemainTrivia) {

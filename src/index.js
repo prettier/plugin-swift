@@ -27,17 +27,15 @@ const parsers = {
 function canAttachComment(node) {
   if (node.token) {
     return false;
+  } else if (["StmtList", "DeclList"].includes(node.type)) {
+    return !node.layout.length;
   } else if (node.type.endsWith("List")) {
     return false;
   }
 
-  return ![
-    "TopLevelCodeDecl",
-    "StmtList",
-    "DeclList",
-    "IfConfigDecl",
-    "FunctionCallArgument"
-  ].includes(node.type);
+  return !["TopLevelCodeDecl", "IfConfigDecl", "FunctionCallArgument"].includes(
+    node.type
+  );
 }
 
 function printComment(commentPath) {
