@@ -47,7 +47,7 @@ function verbatimPrint(n) {
   }
 
   if (n.token) {
-    result += printToken(n.token);
+    result += printToken(n);
   } else if (n.tokenKind) {
     result += printToken(
       Object.assign({}, n.tokenKind, { type: n.tokenKind.kind })

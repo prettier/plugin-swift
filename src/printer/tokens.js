@@ -35,18 +35,22 @@ const keywordPrefix = "kw_";
 function printToken(token) {
   if (typeof token.text !== "undefined") {
     return token.text;
-  } else if (tokens.hasOwnProperty(token.type)) {
-    return tokens[token.type];
-  } else if (token.type.startsWith(poundPrefix)) {
-    const keyword = token.type.slice(poundPrefix.length);
+  }
+
+  const type = token.type;
+
+  if (tokens.hasOwnProperty(type)) {
+    return tokens[type];
+  } else if (type.startsWith(poundPrefix)) {
+    const keyword = type.slice(poundPrefix.length);
     return "#" + keyword;
-  } else if (token.type.startsWith(keywordPrefix)) {
-    return token.type.slice(keywordPrefix.length);
+  } else if (type.startsWith(keywordPrefix)) {
+    return type.slice(keywordPrefix.length);
   }
 
   throw new Error(
     "Don't know how to express " +
-      JSON.stringify(token.type) +
+      JSON.stringify(type) +
       ":\n" +
       JSON.stringify(token, null, 2)
   );
