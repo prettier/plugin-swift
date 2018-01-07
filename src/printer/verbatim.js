@@ -1,6 +1,6 @@
 "use strict";
 
-const logger = require("prettier/src/cli/logger");
+const assert = require("assert");
 const { printToken } = require("./tokens");
 
 const characters = {
@@ -27,17 +27,10 @@ function triviaPrint(n) {
 }
 
 function verbatimPrint(n) {
-  switch (n.presence) {
-    case "Missing":
-      return "";
-    case "Present":
-      break;
-    default:
-      if (n.presence) {
-        logger.warn("Unknown presence:", n.presence);
-      }
-
-      return null;
+  if (n.presence === "Missing") {
+    return "";
+  } else if (n.presence) {
+    assert.equal(n.presence, "Present");
   }
 
   let result = "";
