@@ -3,6 +3,21 @@
 const logger = require("prettier/src/cli/logger");
 const { printToken } = require("./tokens");
 
+function triviaPrint(n) {
+  switch (n.type || n.kind) {
+    case "Newline":
+      return Array(n.value)
+        .fill("\n")
+        .join("");
+    case "Space":
+      return Array(n.value)
+        .fill(" ")
+        .join("");
+    default:
+      return n.value;
+  }
+}
+
 function verbatimPrint(n) {
   switch (n.presence) {
     case "Missing":
@@ -17,42 +32,27 @@ function verbatimPrint(n) {
       return null;
   }
 
-  let inner;
+  let result = "";
+
+  if (n.leadingTrivia) {
+    result += n.leadingTrivia.map(triviaPrint).join("");
+  }
 
   if (n.token) {
-    inner = printToken(n.token);
+    result += printToken(n.token);
   } else if (n.tokenKind) {
-    inner = printToken(
+    result += printToken(
       Object.assign({}, n.tokenKind, { type: n.tokenKind.kind })
     );
   } else {
-    inner = n.layout.map(verbatimPrint).join("");
+    result += n.layout.map(verbatimPrint).join("");
   }
 
-  if (!n.leadingTrivia && !n.trailingTrivia) {
-    return inner;
+  if (n.trailingTrivia) {
+    result += n.trailingTrivia.map(triviaPrint).join("");
   }
 
-  const printTrivia = n => {
-    switch (n.type || n.kind) {
-      case "Newline":
-        return Array(n.value)
-          .fill("\n")
-          .join("");
-      case "Space":
-        return Array(n.value)
-          .fill(" ")
-          .join("");
-      default:
-        return n.value;
-    }
-  };
-
-  return [
-    ...(n.leadingTrivia ? n.leadingTrivia.map(printTrivia) : []),
-    inner,
-    ...(n.trailingTrivia ? n.trailingTrivia.map(printTrivia) : [])
-  ].join("");
+  return result;
 }
 
 module.exports = {
