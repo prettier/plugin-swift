@@ -4,10 +4,17 @@
 
 Check back soon :)
 
-Depends on [libSyntax](https://github.com/apple/swift/blob/master/lib/Syntax)
+You can check out how it formatted [Artsy's Eidolon](https://github.com/sirlantis/eidolon/pull/1/files).
+
+## Warning
+
+**Prettier Swift might eat your homework.**
+
+This project depends on [libSyntax](https://github.com/apple/swift/blob/master/lib/Syntax)
 which is [incomplete](https://github.com/apple/swift/blob/master/lib/Syntax/Status.md).
 
-You can check out how it formatted [Artsy's Eidolon](https://github.com/sirlantis/eidolon/pull/1/files).
+Please ensure you have all your code committed or at least staged
+before you perform in-place formatting using the `--write` argument.
 
 ## Prerequisites
 
