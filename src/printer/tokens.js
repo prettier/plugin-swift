@@ -1,6 +1,7 @@
 "use strict";
 
 const tokens = {
+  amp_prefix: "&",
   l_paren: "(",
   r_paren: ")",
   l_brace: "{",
