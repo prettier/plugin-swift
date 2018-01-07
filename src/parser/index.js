@@ -41,6 +41,37 @@ function massage(node) {
       type = "_InitDecl";
     } else if (layout.some(n => n.type == "kw_case")) {
       type = "_CaseDecl";
+
+      const tokens = layout.splice(1);
+      const elements = [];
+      let currentElement = [];
+
+      tokens.forEach(n => {
+        if (n.type === "comma") {
+          currentElement.push(n);
+
+          elements.push({
+            type: "_CaseDeclElement",
+            layout: currentElement
+          });
+
+          currentElement = [];
+        } else {
+          currentElement.push(n);
+        }
+      });
+
+      if (currentElement.length > 0) {
+        elements.push({
+          type: "_CaseDeclElement",
+          layout: currentElement
+        });
+      }
+
+      layout.push({
+        type: "_CaseDeclElementList",
+        layout: elements
+      });
     } else if (layout.some(n => n.type == "kw_deinit")) {
       type = "_DeinitDecl";
     } else if (layout.some(n => n.type == "kw_class")) {

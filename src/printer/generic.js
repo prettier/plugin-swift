@@ -183,6 +183,7 @@ function genericPrint(path, options, print) {
 
       return group(indent(printList(path, print)));
     }
+    case "_CaseDeclElementList":
     case "ConditionElementList":
     case "CatchClauseList":
     case "InheritedTypeList":
@@ -593,6 +594,7 @@ function genericPrint(path, options, print) {
     case "ClosureParam":
     case "CompositionTypeElement":
     case "ConditionElement":
+    case "_CaseDeclElement":
     case "TuplePatternElement":
     case "TupleTypeElement":
     case "ArrayElement":
