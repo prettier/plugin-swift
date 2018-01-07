@@ -88,7 +88,9 @@ function preprocess(ast) {
       );
 
       logger.warn(
-        "Found closure with parentheses that confused libSyntax. " +
+        "Found closure with " +
+          (canStrip ? "optional" : "required") +
+          " parentheses that confused libSyntax. " +
           (canStrip ? "Stripping" : "Bailing") +
           "..."
       );
