@@ -447,9 +447,35 @@ function genericPrint(path, options, print) {
     case "IdentifierPattern":
     case "TopLevelCodeDecl":
     case "SimpleTypeIdentifier":
-    case "_InitDecl":
-    case "TokenList": {
+    case "_InitDecl": {
       return concat(path.map(print, "layout"));
+    }
+    case "TokenList": {
+      const printedTokens = path.map(print, "layout");
+      const elements = [];
+      let currentElement = [];
+
+      const leftParen = printedTokens.shift();
+      const rightParen = printedTokens.pop();
+
+      printedTokens.forEach(t => {
+        if (t === ",") {
+          elements.push(currentElement);
+          currentElement = [];
+        } else {
+          currentElement.push(t);
+        }
+      });
+
+      if (currentElement.length > 0) {
+        elements.push(currentElement);
+      }
+
+      return concat([
+        leftParen,
+        join(", ", elements.map(e => join(" ", e))),
+        rightParen
+      ]);
     }
     case "_CaseDecl": {
       const body = path.map(print, "layout");
