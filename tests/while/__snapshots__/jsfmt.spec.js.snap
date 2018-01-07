@@ -5,9 +5,8 @@ while true {
     print("always")
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-whiletrue{
-print("always")
+while true {
+    print("always")
 }
-
 
 `;
