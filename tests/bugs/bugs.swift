@@ -27,3 +27,5 @@ let semicolons = foo();
 [1,2,3].map { $0 + 1 }
 
 let foo = { bar(); baz() }
+
+let sub = { (`self`) -> Disposable in self.subscribe() }
