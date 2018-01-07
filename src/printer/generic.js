@@ -766,12 +766,43 @@ function genericPrint(path, options, print) {
         ])
       );
     }
+    case "BooleanLiteralExpr":
+    case "FloatLiteralExpr":
+    case "IntegerLiteralExpr":
+    case "InterpolatedStringLiteralExpr":
+    case "NilLiteralExpr":
+    case "StringLiteralExpr":
+      return concat(path.map(print, "layout"));
+    case "AssignExpr":
+    case "DeclRefExpr":
+    case "DiscardAssignmentExpr":
+    case "ForcedValueExpr":
+    case "ForceTryExpr":
+    case "IdentifierExpr":
+    case "IfExpr":
+    case "ImplicitMemberExpr":
+    case "OptionalChainingExpr":
+    case "OptionalTryExpr":
+    case "PostfixUnaryExpr":
+    case "PrefixOperatorExpr":
+    case "PrefixUnaryExpr":
+    case "SequenceExpr":
+    case "SubscriptExpr":
+    case "SuperRefExpr":
+    case "TupleElementExpr":
+    case "TypeExpr":
+    case "UnresolvedMemberExpr":
+    case "UnresolvedPatternExpr":
+    case "_SelectorExpr":
+    case "_GenericTypeExpr":
+      return group(concat(path.map(print, "layout")));
 
-    /* istanbul ignore next */
     default:
       if (type.endsWith("LiteralExpr")) {
+        logger.warn("Unknown literal expression: " + type);
         return concat(path.map(print, "layout"));
       } else if (type.endsWith("Expr")) {
+        logger.warn("Unknown expression: " + type);
         return group(concat(path.map(print, "layout")));
       }
 
