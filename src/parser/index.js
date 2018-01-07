@@ -207,6 +207,17 @@ function massage(node) {
       layout[2].type == "integer_literal"
     ) {
       type = "MemberAccessExpr";
+    } else if (
+      layout.length == 5 &&
+      layout[1].type == "period" &&
+      layout[2].type == "integer_literal" &&
+      layout[3].type == "period"
+    ) {
+      type = "MemberAccessExpr";
+      layout.unshift({
+        type: "MemberAccessExpr",
+        layout: layout.splice(0, 3)
+      });
     } else if (layout.length > 0 && layout[0].type == "pound_selector") {
       type = "_SelectorExpr";
     }

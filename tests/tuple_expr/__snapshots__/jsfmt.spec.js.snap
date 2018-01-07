@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tuple_expr.swift 1`] = `
+let x = tuple.0
+let x = tuple.0.prop
+let x = tuple.0.prop.a
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let x = tuple.0
+let x = tuple.0.prop
+let x = tuple.0.prop.a
+
+`;
