@@ -3,7 +3,6 @@
 const assert = require("assert");
 
 const logger = require("prettier/src/cli/logger");
-const comments = require("prettier/src/main/comments");
 const { mapDoc } = require("prettier/src/common/util");
 const tokens = require("./tokens");
 const { verbatimPrint } = require("./verbatim");
