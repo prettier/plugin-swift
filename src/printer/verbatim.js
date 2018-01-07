@@ -21,8 +21,16 @@ function triviaPrint(n) {
       return Array(n.value)
         .fill(characters[type])
         .join("");
-    default:
+    case "GarbageText":
+    case "DocBlockComment":
+    case "DocLineComment":
+    case "BlockComment":
+    case "LineComment":
       return n.value;
+    default:
+      throw new Error(
+        "Unexpected trivium: " + type + "\n" + JSON.stringify(n, null, 2)
+      );
   }
 }
 

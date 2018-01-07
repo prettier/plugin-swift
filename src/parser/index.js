@@ -291,13 +291,18 @@ function preferTrailingOverLeadingTrivia(node, path) {
         case "GarbageText":
         case "DocBlockComment":
         case "DocLineComment":
-        case "LineComment":
         case "BlockComment":
+        case "LineComment":
           break;
         case "Backtick":
           break loop;
         default:
-          throw new Error("Unexpected type: " + trivium.type);
+          throw new Error(
+            "Unexpected trivium: " +
+              trivium.type +
+              "\n" +
+              JSON.stringify(trivium, null, 2)
+          );
       }
 
       rightLeadingTrivia.splice(triviumIndex--, 1);
