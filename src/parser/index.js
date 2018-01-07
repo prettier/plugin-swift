@@ -179,6 +179,12 @@ function massage(node) {
     } else if (layout.length > 0 && layout[0].type == "pound_selector") {
       type = "_SelectorExpr";
     }
+  } else if (type === "Unknown") {
+    if (layout.some(n => n.type == "pound_elseif")) {
+      type = "ElseifDirectiveClause";
+    } else if (layout.some(n => n.type == "pound_else")) {
+      type = "ElseDirectiveClause";
+    }
   }
 
   const massageTrivia = trivia => {
