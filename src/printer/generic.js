@@ -77,9 +77,6 @@ function genericPrint(path, options, print) {
     const keyword = type.slice("kw_".length);
 
     switch (keyword) {
-      case "deinit": {
-        return concat([keyword, " "]);
-      }
       case "case": {
         return concat([keyword, parentType === "_CaseDecl" ? " " : ""]);
       }
@@ -471,10 +468,12 @@ function genericPrint(path, options, print) {
     case "TopLevelCodeDecl":
     case "SimpleTypeIdentifier":
     case "_InitDecl":
-    case "_DeinitDecl":
     case "_CaseDecl":
     case "TokenList": {
       return concat(path.map(print, "layout"));
+    }
+    case "_DeinitDecl": {
+      return smartJoin(" ", path.map(print, "layout"));
     }
     case "GenericArgumentClause":
     case "GenericParameterClause": {
