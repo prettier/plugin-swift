@@ -513,7 +513,18 @@ function preprocess(text, opts) {
 
   const ast = emitSyntax(text);
 
-  if (preprocessor.preprocess(ast)) {
+  const result = preprocessor.preprocess(ast);
+
+  if (result.bail) {
+    logger.warn("libSyntax had issues parsing this file. Skipping...");
+
+    opts.preprocessingCache = {
+      ast: {
+        kind: "GarbageText",
+        value: text
+      }
+    };
+  } else if (result.modified) {
     logger.warn(
       "libSyntax had issues parsing this file. Re-writing and parsing it again..."
     );

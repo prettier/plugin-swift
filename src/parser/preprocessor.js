@@ -30,7 +30,7 @@ const transferTriviaFromLeftToRight = (left, right) => {
  * @returns True, if modifications were necessary.
  */
 function preprocess(ast) {
-  let modified = false;
+  const result = { modified: false };
 
   function visit(node, parent) {
     if (!node.layout) {
@@ -73,27 +73,41 @@ function preprocess(ast) {
         });
 
       Object.assign(node, layout[0]);
-      modified = true;
+      result.modified = true;
     } else if (
       layout.length === 3 &&
       layout[0].tokenKind &&
       layout[0].tokenKind.kind === "l_paren"
     ) {
-      logger.warn(
-        "Found closure with parens that confused libSyntax. Stripping..."
+      const parameters = layout[1].layout;
+
+      const canStrip = parameters.every(
+        n =>
+          !n.layout ||
+          n.layout.every(n => !n.tokenKind || n.tokenKind.kind !== "colon")
       );
 
-      transferTriviaFromLeftToRight(layout[0], layout[1]);
-      transferTriviaFromRightToLeft(layout[1], layout[2]);
-      node.layout = [layout[1]];
-      modified = true;
+      logger.warn(
+        "Found closure with parentheses that confused libSyntax. " +
+          (canStrip ? "Stripping" : "Bailing") +
+          "..."
+      );
+
+      if (canStrip) {
+        transferTriviaFromLeftToRight(layout[0], layout[1]);
+        transferTriviaFromRightToLeft(layout[1], layout[2]);
+        node.layout = [layout[1]];
+        result.modified = true;
+      } else {
+        result.bail = true;
+      }
     }
 
     node.layout.forEach(visit);
   }
 
   visit(ast);
-  return modified;
+  return result;
 }
 
 module.exports = { preprocess };
