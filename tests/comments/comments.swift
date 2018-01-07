@@ -30,3 +30,14 @@ let array = [
     75,
     100 // 100%
 ]
+
+if something {
+    print("ifTrue")
+}
+// comment
+else {
+    print("ifFalse")
+}
+
+// asd
+a()

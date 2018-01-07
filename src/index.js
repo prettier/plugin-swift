@@ -25,25 +25,19 @@ const parsers = {
 };
 
 function canAttachComment(node) {
-  if (!node.type) {
+  if (node.token) {
     return false;
-  } else if (
-    [
-      "TopLevelCodeDecl",
-      "StmtList",
-      "DeclList",
-      "period",
-      "comma",
-      "identifier",
-      "IfConfigDecl",
-      "l_brace",
-      "r_brace"
-    ].includes(node.type)
-  ) {
+  } else if (node.type.endsWith("List")) {
     return false;
   }
 
-  return true;
+  return ![
+    "TopLevelCodeDecl",
+    "StmtList",
+    "DeclList",
+    "IfConfigDecl",
+    "FunctionCallArgument"
+  ].includes(node.type);
 }
 
 function printComment(commentPath) {

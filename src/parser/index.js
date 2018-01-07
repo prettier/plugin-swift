@@ -200,7 +200,12 @@ function massage(node) {
 }
 
 const findLastLeaf = curr => {
-  if (!curr || curr.type == "IdentifierExpr") {
+  if (
+    !curr ||
+    curr.token ||
+    curr.type == "IdentifierExpr" ||
+    curr.type.endsWith("LiteralExpr")
+  ) {
     return;
   }
 
@@ -330,7 +335,7 @@ function preferTrailingOverLeadingTrivia(node, path) {
   node.trailingTrivia = trailingTrivia.length > 0 ? trailingTrivia : undefined;
 }
 
-function extractComments(node) {
+function extractComments(node, path) {
   const processTrivia = (trivia, resultArray, isLeading) => {
     if (!trivia) {
       return;
@@ -407,8 +412,22 @@ function extractComments(node) {
               .enumerable
           });
 
+          // const scope = path.find(
+          //   n =>
+          //     !n.token &&
+          //     ![
+          //       "CodeBlock",
+          //       "ExpressionStmt",
+          //       "GuardStmt",
+          //       "DeclarationStmt"
+          //     ].includes(n.type)
+          // ).type;
+
+          const couldRemainTrivia =
+            onNewLine && !node.token && path[1].type != "IfStmt";
+
           if (isLeading) {
-            if (onNewLine && node.type !== "period") {
+            if (couldRemainTrivia) {
               onNewLine = false;
               consumeNewline = false;
               break;
@@ -423,7 +442,7 @@ function extractComments(node) {
                 newline.__location.endOffset--;
               }
             }
-          } else if (onNewLine && node.type !== "period") {
+          } else if (couldRemainTrivia) {
             onNewLine = false;
             consumeNewline = false;
             break;
@@ -452,7 +471,9 @@ function extractComments(node) {
 
   const innerComments = [];
   if (node.layout) {
-    node.layout.forEach(child => innerComments.push(...extractComments(child)));
+    node.layout.forEach(child =>
+      innerComments.push(...extractComments(child, [child].concat(path)))
+    );
   }
 
   const trailingComments = [];
@@ -506,7 +527,8 @@ function synthesizeLocation(node, start, text) {
 
   outerLocation.endOffset = end;
 
-  const location = node.layout ? outerLocation : innerLocation;
+  const location =
+    node.layout && !node.type.endsWith("Expr") ? outerLocation : innerLocation;
 
   Object.defineProperty(node, "__location", {
     value: location,
@@ -575,7 +597,7 @@ function parse(text, opts) {
 
   assert.strictEqual(end, text.length);
 
-  ast.comments = extractComments(ast);
+  ast.comments = extractComments(ast, [ast]);
 
   return ast;
 }
