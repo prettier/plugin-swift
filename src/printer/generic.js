@@ -409,10 +409,12 @@ function genericPrint(path, options, print) {
     case "_IfWithElseConfigDecl":
     case "IfConfigDecl": {
       const hasCondition = type != "ElseDirectiveClause";
-      n.keyword = n.layout[0];
-      n.condition = hasCondition && n.layout[1];
-      n.code = n.layout[1 + (hasCondition ? 1 : 0)];
-      n.tail = n.layout.slice(2 + (hasCondition ? 1 : 0));
+      const body = n.layout.slice();
+
+      n.keyword = body.shift();
+      n.condition = hasCondition ? body.shift() : undefined;
+      n.code = body.shift();
+      n.tail = body;
 
       const condition =
         hasCondition && printWithoutNewlines(path.call(print, "condition"));
@@ -420,9 +422,10 @@ function genericPrint(path, options, print) {
       return concat([
         path.call(print, "keyword"),
         hasCondition ? concat([" ", condition]) : "",
-        indent(concat([hardline, path.call(print, "code")])),
-        hardline,
-        ...path.map(print, "tail")
+        join(hardline, [
+          indent(concat([hardline, path.call(print, "code")])),
+          ...path.map(print, "tail")
+        ])
       ]);
     }
     case "DictionaryType": {
