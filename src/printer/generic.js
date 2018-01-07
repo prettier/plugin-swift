@@ -588,6 +588,7 @@ function genericPrint(path, options, print) {
     case "Backtick": {
       return "`";
     }
+    case "Tab":
     case "Space": {
       return ""; // ignore
     }

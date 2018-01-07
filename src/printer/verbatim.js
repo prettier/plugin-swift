@@ -3,15 +3,21 @@
 const logger = require("prettier/src/cli/logger");
 const { printToken } = require("./tokens");
 
+const characters = {
+  Newline: "\n",
+  Tab: "\t",
+  Space: " ",
+};
+
 function triviaPrint(n) {
-  switch (n.type || n.kind) {
+  const type = n.type || n.kind;
+
+  switch (type) {
     case "Newline":
-      return Array(n.value)
-        .fill("\n")
-        .join("");
+    case "Tab":
     case "Space":
       return Array(n.value)
-        .fill(" ")
+        .fill(characters[type])
         .join("");
     default:
       return n.value;

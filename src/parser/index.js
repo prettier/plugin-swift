@@ -286,6 +286,7 @@ function preferTrailingOverLeadingTrivia(node, path) {
 
       switch (trivium.type) {
         case "Newline":
+        case "Tab":
         case "Space":
         case "DocLineComment":
         case "LineComment":
@@ -329,6 +330,7 @@ function extractComments(node) {
 
       switch (type) {
         case "Backtick":
+        case "Tab":
         case "Space": {
           break;
         }
@@ -347,6 +349,7 @@ function extractComments(node) {
               const previous = trivia[i - 1];
 
               switch (previous.type) {
+                case "Tab":
                 case "Space": {
                   trivia.splice(--i, 1);
                   break;
@@ -377,7 +380,7 @@ function extractComments(node) {
             value: value
           };
 
-          while (i > 0 && trivia[i - 1].type === "Space") {
+          while (i > 0 && ["Space", "Tab"].includes(trivia[i - 1].type)) {
             trivia.splice(--i, 1);
           }
 
