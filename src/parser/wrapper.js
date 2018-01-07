@@ -2,7 +2,7 @@
 
 const spawnSync = require("child_process").spawnSync;
 
-function serializeRawTree(text) {
+function emitSyntax(text) {
   const result = spawnSync(
     process.env.PRETTIER_SWIFT_SWIFTC || process.env.SWIFTC || "swiftc",
     ["-frontend", "-emit-syntax", "-"],
@@ -20,5 +20,5 @@ function serializeRawTree(text) {
 }
 
 module.exports = {
-  serializeRawTree
+  emitSyntax
 };

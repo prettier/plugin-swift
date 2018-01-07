@@ -4,7 +4,7 @@ const assert = require("assert");
 
 const logger = require("prettier/src/cli/logger");
 const { verbatimPrint } = require("../printer/verbatim");
-const { serializeRawTree } = require("./wrapper");
+const { emitSyntax } = require("./wrapper");
 const preprocessor = require("./preprocessor");
 const tokens = require("../printer/tokens");
 
@@ -511,7 +511,7 @@ function synthesizeLocation(node, start, text) {
 function preprocess(text, opts) {
   opts.preprocessingCache = {};
 
-  const ast = serializeRawTree(text);
+  const ast = emitSyntax(text);
 
   if (preprocessor.preprocess(ast)) {
     logger.warn(
@@ -547,7 +547,7 @@ function parse(text, opts) {
   delete opts.preprocessingCache;
 
   if (!ast) {
-    ast = serializeRawTree(text);
+    ast = emitSyntax(text);
   }
 
   ast = massage(ast);

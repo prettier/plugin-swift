@@ -2,11 +2,11 @@
 "use strict";
 
 const fs = require("fs");
-const { serializeRawTree } = require("../src/parser/wrapper");
+const { emitSyntax } = require("../src/parser/wrapper");
 const dumper = require("./dumper");
 
 const text = fs.readFileSync(process.argv[2], "utf-8");
-const ast = serializeRawTree(text);
+const ast = emitSyntax(text);
 
 // eslint-disable-next-line no-console
 console.log(dumper(ast));
