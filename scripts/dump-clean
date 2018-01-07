@@ -9,7 +9,7 @@ const { printDocToString } = require("prettier").doc.printer;
 const printAstToDoc = require("prettier/src/main/ast-to-doc");
 
 const opts = {
-  printWidth: 80,
+  printWidth: 140,
   tabWidth: 2,
   parser: prettierSwift.parsers.swift,
   printer: prettierSwift.printers.swift

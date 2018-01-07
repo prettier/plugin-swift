@@ -62,7 +62,7 @@ function genericPrint(path, options, print) {
 }
 
 const opts = {
-  printWidth: 80,
+  printWidth: 140,
   tabWidth: 2,
   printer: {
     print: genericPrint,
