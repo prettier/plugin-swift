@@ -595,6 +595,7 @@ function genericPrint(path, options, print) {
     case "Newline": {
       return n.value >= 2 ? hardline : "";
     }
+    case "GarbageText":
     case "DocBlockComment":
     case "DocLineComment":
     case "BlockComment":

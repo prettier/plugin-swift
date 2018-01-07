@@ -1,3 +1,4 @@
+#!/usr/bin/swift
 button.addTarget(self, action: #selector(pressed(_:)), for: .touchUpInside)
 
 print(optional ?? [])

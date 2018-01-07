@@ -288,6 +288,7 @@ function preferTrailingOverLeadingTrivia(node, path) {
         case "Newline":
         case "Tab":
         case "Space":
+        case "GarbageText":
         case "DocBlockComment":
         case "DocLineComment":
         case "LineComment":
@@ -296,7 +297,7 @@ function preferTrailingOverLeadingTrivia(node, path) {
         case "Backtick":
           break loop;
         default:
-          throw new Error("Unexpected type: " + type);
+          throw new Error("Unexpected type: " + trivium.type);
       }
 
       rightLeadingTrivia.splice(triviumIndex--, 1);
@@ -370,6 +371,7 @@ function extractComments(node) {
           onNewLine = true;
           break;
         }
+        case "GarbageText":
         case "DocBlockComment":
         case "DocLineComment":
         case "BlockComment":

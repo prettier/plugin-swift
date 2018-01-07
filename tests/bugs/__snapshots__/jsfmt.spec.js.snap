@@ -1,6 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`bugs.swift 1`] = `
+#!/usr/bin/swift
 button.addTarget(self, action: #selector(pressed(_:)), for: .touchUpInside)
 
 print(optional ?? [])
@@ -28,6 +29,7 @@ let semicolons = foo();
 
 [1,2,3].map { $0 + 1 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#!/usr/bin/swift
 button.addTarget(self, action: #selector(pressed(_:)), for: .touchUpInside)
 
 print(optional ?? [])
