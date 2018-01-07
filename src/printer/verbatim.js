@@ -1,7 +1,7 @@
 "use strict";
 
 const logger = require("prettier/src/cli/logger");
-const tokens = require("./tokens");
+const { printToken } = require("./tokens");
 
 function verbatimPrint(n) {
   switch (n.presence) {
@@ -19,21 +19,12 @@ function verbatimPrint(n) {
 
   let inner;
 
-  if (n.token || n.tokenKind) {
-    const { text } = n.token ? n : n.tokenKind;
-    const type = n.token ? n.type : n.tokenKind.kind;
-
-    if (typeof text !== "undefined") {
-      inner = text;
-    } else if (type.startsWith("pound_")) {
-      inner = "#" + type.slice("pound_".length);
-    } else if (type.startsWith("kw_")) {
-      inner = type.slice("kw_".length);
-    } else if (tokens.hasOwnProperty(type)) {
-      inner = tokens[type];
-    } else {
-      throw new Error("No idea how to express '" + type + "'");
-    }
+  if (n.token) {
+    inner = printToken(n.token);
+  } else if (n.tokenKind) {
+    inner = printToken(
+      Object.assign({}, n.tokenKind, { type: n.tokenKind.kind })
+    );
   } else {
     inner = n.layout.map(verbatimPrint).join("");
   }

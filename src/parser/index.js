@@ -6,7 +6,7 @@ const logger = require("prettier/src/cli/logger");
 const { verbatimPrint } = require("../printer/verbatim");
 const { emitSyntax } = require("./wrapper");
 const preprocessor = require("./preprocessor");
-const tokens = require("../printer/tokens");
+const { printToken } = require("../printer/tokens");
 
 function massage(node) {
   if (node.presence === "Missing") {
@@ -459,37 +459,25 @@ function synthesizeLocation(node, start, text) {
 
   if (node.layout) {
     forEach(node.layout);
-  } else {
-    if (typeof node.text !== "undefined") {
-      const s = node.text;
-      assert.strictEqual(text.slice(end, end + s.length), s);
-      end += s.length;
-    } else if (typeof node.value !== "undefined") {
-      if (Number.isInteger(node.value)) {
-        end += node.value;
-      } else {
-        end += node.value.length;
-      }
-    } else if (node.type.startsWith("pound_")) {
-      const s = "#" + node.type.slice("pound_".length);
-      assert.strictEqual(text.slice(end, end + s.length), s);
-      end += s.length;
-    } else if (node.type.startsWith("kw_")) {
-      const s = node.type.slice("kw_".length);
-      assert.strictEqual(text.slice(end, end + s.length), s);
-      end += s.length;
-    } else if (tokens.hasOwnProperty(node.type)) {
-      const s = tokens[node.type];
-      assert.strictEqual(text.slice(end, end + s.length), s);
-      end += s.length;
+  } else if (typeof node.text !== "undefined") {
+    const s = node.text;
+    assert.strictEqual(text.slice(end, end + s.length), s);
+    end += s.length;
+  } else if (typeof node.value !== "undefined") {
+    if (Number.isInteger(node.value)) {
+      end += node.value;
     } else {
-      throw new Error(
-        "Don't know how to express " +
-          JSON.stringify(node.type) +
-          ":\n" +
-          JSON.stringify(node, null, 2)
-      );
+      end += node.value.length;
     }
+  } else if (node.token) {
+    end += printToken(node).length;
+  } else {
+    throw new Error(
+      "Don't know how to express " +
+        JSON.stringify(node.type) +
+        ":\n" +
+        JSON.stringify(node, null, 2)
+    );
   }
 
   innerLocation.endOffset = end;

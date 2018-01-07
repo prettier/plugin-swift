@@ -4,12 +4,12 @@ const assert = require("assert");
 
 const logger = require("prettier/src/cli/logger");
 const { mapDoc } = require("prettier/src/common/util");
-const tokens = require("./tokens");
-const { verbatimPrint } = require("./verbatim");
 
 const doc = require("prettier").doc;
 const docBuilders = doc.builders;
 
+const { printToken } = require("./tokens");
+const { verbatimPrint } = require("./verbatim");
 const chain = require("./chain");
 const isMemberish = chain.isMemberish;
 const printMemberChain = chain.printMemberChain;
@@ -63,17 +63,8 @@ function genericPrint(path, options, print) {
     parentType.endsWith("Decl")
   ) {
     return ") ";
-  } else if (tokens.hasOwnProperty(type)) {
-    return tokens[type];
-  } else if (type.startsWith("pound_")) {
-    const keyword = type.slice("pound_".length);
-    return "#" + keyword;
-  } else if (type.startsWith("kw_")) {
-    return type.slice("kw_".length);
-  }
-
-  if (typeof n.text !== "undefined") {
-    return n.text;
+  } else if (n.token) {
+    return printToken(n);
   }
 
   switch (type) {
