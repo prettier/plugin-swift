@@ -50,10 +50,6 @@ function genericPrint(path, options, print) {
   const n = path.getValue();
 
   const { type } = n;
-  if (!type) {
-    throw new Error(JSON.stringify(n, null, 2));
-  }
-
   const parentType = path.getParentNode() ? path.getParentNode().type : "";
 
   if (type === "colon" && parentType === "DictionaryType") {
