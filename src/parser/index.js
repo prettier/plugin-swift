@@ -144,7 +144,13 @@ function massage(node) {
       type = "_GenericTypeExpr";
     } else if (
       layout.length == 3 &&
-      layout[0].type == "IdentifierExpr" &&
+      (layout[0].type.endsWith("TypeExpr") ||
+        [
+          "IdentifierExpr",
+          "MemberAccessExpr",
+          "DictionaryExpr",
+          "ArrayExpr"
+        ].includes(layout[0].type)) &&
       layout[1].type == "period" &&
       layout[2].type == "kw_self"
     ) {
