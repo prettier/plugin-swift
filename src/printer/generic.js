@@ -1,5 +1,7 @@
 "use strict";
 
+const assert = require("assert");
+
 const logger = require("prettier/src/cli/logger");
 const comments = require("prettier/src/main/comments");
 const { mapDoc } = require("prettier/src/common/util");
@@ -52,9 +54,7 @@ function genericPrint(path, options, print) {
   const { type } = n;
   const parentType = path.getParentNode() ? path.getParentNode().type : "";
 
-  if (type === "colon" && parentType === "DictionaryType") {
-    return ": ";
-  } else if (type === "comma" && parentType === "_CaseDecl") {
+  if (type === "comma" && parentType === "_CaseDecl") {
     return ", ";
   } else if (type === "equal" && parentType === "_CaseDecl") {
     return " = ";
@@ -435,9 +435,15 @@ function genericPrint(path, options, print) {
         ...path.map(print, "tail")
       ]);
     }
+    case "DictionaryType": {
+      const body = path.map(print, "layout");
+      assert.strictEqual(body.length, 5);
+      const left = body.slice(0, 3);
+      const right = body.slice(3);
+      return join(" ", [concat(left), concat(right)]);
+    }
     case "PatternBinding":
     case "MemberTypeIdentifier":
-    case "DictionaryType":
     case "MetatypeType":
     case "OptionalType":
     case "ImplicitlyUnwrappedOptionalType":
