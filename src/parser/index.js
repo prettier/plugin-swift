@@ -111,6 +111,21 @@ function massage(node) {
         type: "_SwitchCaseList",
         layout: cases
       });
+    } else if (
+      (layout[0].type === "kw_if" &&
+        layout[1].layout[0].layout[0].layout[0].type) === "pound_available"
+    ) {
+      type = "IfStmt";
+
+      layout[1].type = "ConditionElementList";
+      layout[1].layout[0].type = "ConditionElement";
+      const expr = layout[1].layout[0].layout[0];
+
+      expr.type = "_AvailabilityExpr";
+      expr.layout.push({
+        type: "TokenList",
+        layout: expr.layout.splice(1)
+      });
     }
   } else if (type === "UnknownExpr") {
     if (layout.length === 1 && layout[0].token) {

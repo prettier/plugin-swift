@@ -41,3 +41,8 @@ else {
 
 // asd
 a()
+
+// available-check
+if #available(iOS 11.3, tvOS 11.3, *) {
+    print("available")
+}

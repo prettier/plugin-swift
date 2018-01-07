@@ -836,6 +836,7 @@ function genericPrint(path, options, print) {
     case "_RefExpr":
     case "_SelectorExpr":
     case "_GenericTypeExpr":
+    case "_AvailabilityExpr":
       return group(concat(path.map(print, "layout")));
 
     default:

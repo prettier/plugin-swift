@@ -61,6 +61,11 @@ else {
 
 // asd
 a()
+
+// available-check
+if #available(iOS 11.3, tvOS 11.3, *) {
+    print("available")
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // before print("1")
 print("1") // same line as print("1")
@@ -104,6 +109,11 @@ if something {
 
 // asd
 a()
+
+// available-check
+if #available(iOS 11.3, tvOS 11.3, *) {
+    print("available")
+}
 
 `;
 
