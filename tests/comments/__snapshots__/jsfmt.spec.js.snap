@@ -69,3 +69,11 @@ self.map { true }
 let answer = /* deep */ /* blue */ 42
 
 `;
+
+exports[`only.swift 1`] = `
+// Only comment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// Only comment
+
+`;
