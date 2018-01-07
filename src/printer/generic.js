@@ -464,6 +464,7 @@ function genericPrint(path, options, print) {
     case "IdentifierPattern":
     case "TopLevelCodeDecl":
     case "SimpleTypeIdentifier":
+    case "_ClassTypeIdentifier":
     case "_InitDecl": {
       return concat(path.map(print, "layout"));
     }

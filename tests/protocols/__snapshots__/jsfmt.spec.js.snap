@@ -30,6 +30,10 @@ internal protocol SomeType {
     func bar()
     var property: String { get set }
 }
+
+protocol ClassishType: class {
+
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 protocol SomeType {}
 public protocol SomeType {}
@@ -59,6 +63,9 @@ internal protocol SomeType {
     func foo()
     func bar()
     var property: String { get set }
+}
+
+protocol ClassishType: class {
 }
 
 `;

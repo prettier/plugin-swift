@@ -210,6 +210,10 @@ function massage(node) {
     } else if (layout.length > 0 && layout[0].type == "pound_selector") {
       type = "_SelectorExpr";
     }
+  } else if (type === "UnknownType") {
+    if (layout.length === 1 && layout[0].type === "kw_class") {
+      type = "_ClassTypeIdentifier";
+    }
   } else if (type === "Unknown") {
     if (layout.some(n => n.type == "pound_elseif")) {
       type = "ElseifDirectiveClause";

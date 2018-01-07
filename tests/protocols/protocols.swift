@@ -27,3 +27,7 @@ internal protocol SomeType {
     func bar()
     var property: String { get set }
 }
+
+protocol ClassishType: class {
+
+}
