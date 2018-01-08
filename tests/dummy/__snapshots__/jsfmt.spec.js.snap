@@ -382,8 +382,8 @@ var requestBidderDetailsCommand = {
 
 let rotationAnimation = CABasicAnimation(keyPath: "transform")
 
-extension Collection where
-        Iterator.Element: ObservableType, Iterator.Element.E: BooleanType {
+extension Collection
+    where Iterator.Element: ObservableType, Iterator.Element.E: BooleanType {
 }
 
 guard let dollars = formatter.string(from: NSDecimalNumber(
