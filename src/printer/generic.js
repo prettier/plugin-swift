@@ -568,18 +568,23 @@ function genericPrint(path, options, print) {
     }
     case "ClosureCaptureSignature":
     case "TupleExpr":
+    case "TupleType":
     case "DictionaryExpr":
     case "FunctionType":
     case "ArrayExpr": {
-      const numberOfElements = n.layout[1].layout && n.layout[1].layout.length;
+      const list = n.layout[1];
 
-      // Never break single element tuples or arrays
-      if (numberOfElements < 2 && ["TupleExpr", "ArrayExpr"].includes(n.type)) {
+      if (
+        // Never break single element tuples or arrays
+        list.layout &&
+        list.layout.length < 2 &&
+        ["TupleExpr", "TupleType", "ArrayExpr"].includes(n.type)
+      ) {
         return group(concat(path.map(print, "layout")));
       }
 
       n.left = n.layout[0];
-      n.list = n.layout[1];
+      n.list = list;
       n.right = n.layout[2];
       n.rest = n.layout.slice(3);
 
@@ -600,7 +605,6 @@ function genericPrint(path, options, print) {
     case "ConformanceRequirement":
     case "CatchClause":
     case "InheritedType":
-    case "TupleType":
     case "ClosureCaptureItem":
     case "ClosureParam":
     case "CompositionTypeElement":

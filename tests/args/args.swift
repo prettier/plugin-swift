@@ -38,4 +38,8 @@ class Somewhere {
 
         return 42
     }
+
+    func theQuickBrownFoxJumpsOverTheLazyDog(theQuickBrownFox: TheQuickBrownFox) -> JumpsOverTheLazyDog<(whetherTheDogIsLazyOrNot: Bool, theMaybeLazyDog: TheMaybeLazyDog)> {
+        print("jump")
+    }
 }
