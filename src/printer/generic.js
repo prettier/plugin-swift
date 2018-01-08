@@ -546,11 +546,25 @@ function genericPrint(path, options, print) {
     }
     case "DeferStmt":
     case "ImportDecl":
-    case "TypealiasDecl":
     case "ValueBindingPattern":
     case "AttributedType":
     case "ReturnClause": {
       return group(smartJoin(" ", path.map(print, "layout")));
+    }
+    case "TypealiasDecl": {
+      const body = n.layout.slice();
+
+      n.keyword = body.shift();
+      n.init = body.pop();
+      n.body = body;
+
+      return group(
+        smartJoin(" ", [
+          path.call(print, "keyword"),
+          concat(path.map(print, "body")),
+          path.call(print, "init")
+        ])
+      );
     }
     case "ClosureCaptureSignature":
     case "TupleExpr":

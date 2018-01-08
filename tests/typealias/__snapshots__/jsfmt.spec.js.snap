@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`typealias.swift 1`] = `
+typealias LetterList = String
+typealias StringKeyedDictionary<E> = Dictionary<String, E>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+typealias LetterList = String
+typealias StringKeyedDictionary<E> = Dictionary<String, E>
+
+`;
