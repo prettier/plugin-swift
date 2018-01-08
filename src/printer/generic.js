@@ -519,6 +519,10 @@ function genericPrint(path, options, print) {
       return group(concat(path.map(print, "layout")));
     }
     case "ParameterClause": {
+      if (n.layout[1].layout.length === 0) {
+        return concat(path.map(print, "layout"));
+      }
+
       const body = path.map(print, "layout");
       const first = body.shift();
       const last = body.pop();
@@ -587,8 +591,10 @@ function genericPrint(path, options, print) {
       const list = n.layout[1];
 
       if (
-        // Never break for [:]
+        // Never break inside [:]
         !list.layout ||
+        // Never break inside `[]` or `()`
+        list.layout.length === 0 ||
         // Never break single element tuples or arrays
         (list.layout.length < 2 &&
           ["TupleExpr", "TupleType", "ArrayExpr"].includes(n.type))
