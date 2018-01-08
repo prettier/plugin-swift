@@ -401,15 +401,20 @@ function genericPrint(path, options, print) {
     case "AttributeList": {
       if (n.layout.length === 0) {
         return "";
+      } else if (
+        !parentType.endsWith("Decl") &&
+        !path.getParentNode(1).type.endsWith("Decl")
+      ) {
+        return join(" ", path.map(print, "layout"));
       }
 
-      return concat([
-        join(hardline, path.map(print, "layout")),
-        parentType.endsWith("Decl") ||
-        path.getParentNode(1).type.endsWith("Decl")
-          ? hardline
-          : ""
-      ]);
+      const shouldBreak = n.layout.some(
+        c => !["IBOutlet", "IBAction", "objc"].includes(c.layout[1].text)
+      );
+
+      const breaker = shouldBreak ? hardline : line;
+
+      return group(concat([join(breaker, path.map(print, "layout")), breaker]));
     }
     case "TypeInitializerClause":
     case "InitializerClause": {

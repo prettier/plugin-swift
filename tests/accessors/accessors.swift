@@ -14,7 +14,7 @@ class Instance {
             print(v)
         }
     }
-    @objc public var foo: String {
+    @IBOutlet public var foo: String {
         didSet {
             print(oldValue, foo)
         }
