@@ -51,6 +51,10 @@ function printWithoutNewlines(doc) {
 function genericPrint(path, options, print) {
   const n = path.getValue();
 
+  if (typeof n === "string") {
+    return n;
+  }
+
   const { type } = n;
 
   if (!type) {
@@ -266,16 +270,27 @@ function genericPrint(path, options, print) {
             "kw_deinit",
             "kw_var",
             "kw_let"
-          ].includes(n.type) || n.type.endsWith("Identifier")
+          ].includes(n.type) ||
+          n.type.endsWith("Identifier") ||
+          n.type.startsWith("oper_")
         );
       });
 
-      const start = body.slice(0, index);
-      const middle = [body[index]];
-      const end = body.slice(index + 1);
+      if (index < 0) {
+        throw new Error(
+          "No identifier found: " + body.map(c => c.type).join(", ")
+        );
+      }
+
+      const start = body.splice(0, index);
+      const middle = [body.shift()];
+
+      if (middle[0].type.startsWith("oper_")) {
+        middle.push(" "); // add spacing after operators
+      }
 
       while (
-        end[0] &&
+        body[0] &&
         [
           "GenericParameterClause",
           "AccessorParameter",
@@ -284,18 +299,18 @@ function genericPrint(path, options, print) {
           "ParameterClause",
           "question_postfix",
           "question_infix" // if developer inserted an accidental space
-        ].includes(end[0].type)
+        ].includes(body[0].type)
       ) {
-        middle.push(end.shift());
+        middle.push(body.shift());
       }
 
-      const last = end.pop();
+      const last = body.pop();
 
       Object.assign(n, {
         prefix,
         start,
         middle,
-        end,
+        body,
         last
       });
 
@@ -305,7 +320,7 @@ function genericPrint(path, options, print) {
           smartJoin(" ", [
             ...path.map(print, "start"),
             concat(path.map(print, "middle")),
-            ...path.map(print, "end")
+            ...path.map(print, "body")
           ])
         ),
         last ? concat([" ", path.call(print, "last")]) : ""

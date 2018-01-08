@@ -18,6 +18,10 @@ func foo(_ f: @escaping (Int) -> Int) -> Void {}
 func foo(_ bar: Int, f: @escaping () -> ()) {}
 func foo(_ bar: Int, f: @escaping () -> ()) -> Void {}
 
+func == (lhs: Record, rhs: Record) -> Bool {
+    return lhs.id == rhs.id
+}
+
 func isZeroLength(string: String) -> Bool {
     return string.isEmpty
 }
