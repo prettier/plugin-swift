@@ -575,10 +575,11 @@ function genericPrint(path, options, print) {
       const list = n.layout[1];
 
       if (
+        // Never break for [:]
+        !list.layout ||
         // Never break single element tuples or arrays
-        list.layout &&
-        list.layout.length < 2 &&
-        ["TupleExpr", "TupleType", "ArrayExpr"].includes(n.type)
+        (list.layout.length < 2 &&
+          ["TupleExpr", "TupleType", "ArrayExpr"].includes(n.type))
       ) {
         return group(concat(path.map(print, "layout")));
       }
