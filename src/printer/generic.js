@@ -236,29 +236,37 @@ function genericPrint(path, options, print) {
     case "_InitDecl":
     case "_DeinitDecl":
     case "_SubscriptDecl":
+    case "VariableDecl":
     case "FunctionDecl":
     case "AccessorDecl":
     case "ProtocolDecl":
     case "StructDecl":
     case "ExtensionDecl":
     case "ClassDecl": {
-      const index = n.layout.findIndex(n => {
-        return [
-          "identifier",
-          "contextual_keyword",
-          "kw_subscript",
-          "kw_init",
-          "kw_deinit"
-        ].includes(n.type);
-      });
+      const body = n.layout.slice();
+      let prefix;
 
-      if (index < 0) {
-        return smartJoin(" ", path.map(print, "layout"));
+      if (body[0].type === "AttributeList" || body[0].type === "ModifierList") {
+        prefix = body.shift();
       }
 
-      const start = n.layout.slice(0, index);
-      const middle = [n.layout[index]];
-      const end = n.layout.slice(index + 1);
+      const index = body.findIndex(n => {
+        return (
+          [
+            "identifier",
+            "contextual_keyword",
+            "kw_subscript",
+            "kw_init",
+            "kw_deinit",
+            "kw_var",
+            "kw_let"
+          ].includes(n.type) || n.type.endsWith("Identifier")
+        );
+      });
+
+      const start = body.slice(0, index);
+      const middle = [body[index]];
+      const end = body.slice(index + 1);
 
       while (
         end[0] &&
@@ -268,7 +276,8 @@ function genericPrint(path, options, print) {
           "FunctionSignature",
           // For _InitDecl:
           "ParameterClause",
-          "question_postfix"
+          "question_postfix",
+          "question_infix" // if developer inserted an accidental space
         ].includes(end[0].type)
       ) {
         middle.push(end.shift());
@@ -277,6 +286,7 @@ function genericPrint(path, options, print) {
       const last = end.pop();
 
       Object.assign(n, {
+        prefix,
         start,
         middle,
         end,
@@ -284,6 +294,7 @@ function genericPrint(path, options, print) {
       });
 
       return concat([
+        prefix ? path.call(print, "prefix") : "",
         group(
           smartJoin(" ", [
             ...path.map(print, "start"),
@@ -337,14 +348,11 @@ function genericPrint(path, options, print) {
     case "CompositionType":
     case "FallthroughStmt":
     case "IfStmt":
-    case "VariableDecl": // decls
-    case "_AssociatedTypeDecl":
+    case "_AssociatedTypeDecl": // decls
     case "TypeAnnotation": // annotations
     case "OptionalBindingCondition": // conditions
     case "MatchingPatternCondition":
-    case "AttributeList": // lists
-    case "ModifierList":
-    case "CompositionTypeElementList":
+    case "CompositionTypeElementList": // lists
     case "ThrowStmt": // statements
     case "ForInStmt":
     case "_WhileStmt":
@@ -355,6 +363,32 @@ function genericPrint(path, options, print) {
     case "DeclarationStmt":
     case "ExpressionStmt": {
       return smartJoin(" ", path.map(print, "layout"));
+    }
+    case "ModifierList": {
+      n.body = n.layout.slice();
+
+      if (n.body[0].type === "AttributeList") {
+        n.attributes = n.body.shift();
+      }
+
+      return concat([
+        n.attributes ? path.call(print, "attributes") : "",
+        join(" ", path.map(print, "body")),
+        n.body.length ? " " : ""
+      ]);
+    }
+    case "AttributeList": {
+      if (n.layout.length === 0) {
+        return "";
+      }
+
+      return concat([
+        join(hardline, path.map(print, "layout")),
+        parentType.endsWith("Decl") ||
+        path.getParentNode(1).type.endsWith("Decl")
+          ? hardline
+          : ""
+      ]);
     }
     case "TypeInitializerClause":
     case "InitializerClause": {

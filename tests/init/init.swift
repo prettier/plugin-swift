@@ -2,6 +2,14 @@ class SomeClass {
     init() {
 
     }
+    
+    init?() {
+        super.init()
+    }
+
+    init() throws {
+
+    }
 
     public init() {
 
@@ -32,6 +40,6 @@ class SomeClass {
     }
 
     init(string: String) {
-        
+
     }
 }

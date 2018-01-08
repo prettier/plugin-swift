@@ -31,6 +31,6 @@ let foo = { bar(); baz() }
 let sub = { (`self`) -> Disposable in self.subscribe() }
 
 @available(iOS 8, OSX 10.10, *)
-func foo() {
+func foo(x: Int) -> String {
 
 }

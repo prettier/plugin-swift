@@ -45,10 +45,12 @@ class Instance {
     public private(set) var foo: String {
         return "123"
     }
-    @objc public var foo: String {
+    @objc
+    public var foo: String {
         return "123"
     }
-    @objc public var foo: String {
+    @objc
+    public var foo: String {
         get {
             return "123"
         }
@@ -56,7 +58,8 @@ class Instance {
             print(v)
         }
     }
-    @objc public var foo: String {
+    @objc
+    public var foo: String {
         didSet {
             print(oldValue, foo)
         }
