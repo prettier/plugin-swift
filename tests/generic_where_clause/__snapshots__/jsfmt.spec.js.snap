@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generic_where_clause.swift 1`] = `
+extension ShapedFruit where Shape: Pear {
+
+}
+
+extension TheQuickBrownFoxJumpsOverTheLazyDogTheQuickBrownFoxJumpsOverTheLazyDog where TheLazyDog: VeryLazyDog {
+
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+extension ShapedFruit where Shape: Pear {
+}
+
+extension TheQuickBrownFoxJumpsOverTheLazyDogTheQuickBrownFoxJumpsOverTheLazyDog
+    where TheLazyDog: VeryLazyDog {
+}
+
+`;

@@ -374,6 +374,22 @@ function genericPrint(path, options, print) {
 
       return group(maybeIndent(concat([line, ...body, " ", last])));
     }
+    case "WhereClause":
+    case "GenericWhereClause": {
+      const body = n.layout.slice();
+      n.keyword = body.shift();
+      n.body = body;
+      return group(
+        indent(
+          concat([
+            softline,
+            path.call(print, "keyword"),
+            " ",
+            join(" ", path.map(print, "body"))
+          ])
+        )
+      );
+    }
     case "DeclModifier": {
       return concat([
         concat(path.map(print, "layout")),
@@ -539,10 +555,6 @@ function genericPrint(path, options, print) {
       }
 
       return group(indent(indent(concat([softline, printedBody]))));
-    }
-    case "WhereClause":
-    case "GenericWhereClause": {
-      return group(indent(join(" ", path.map(print, "layout"))));
     }
     case "DeferStmt":
     case "ImportDecl":
