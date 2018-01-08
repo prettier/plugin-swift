@@ -10,7 +10,13 @@ func foo(_ bar: Int, baz: Int) {}
 func foo(_ bar: Int, baz: Int) -> Void {}
 func foo(_ bar: Int, _ baz: Int) {}
 func foo(_ bar: Int, _ baz: Int) -> Void {}
+
+func foo(f: @escaping (Int) -> Int) {}
 func foo(f: @escaping (Int) -> Int) -> Void {}
+func foo(_ f: @escaping (Int) -> Int) {}
+func foo(_ f: @escaping (Int) -> Int) -> Void {}
+func foo(_ bar: Int, f: @escaping () -> ()) {}
+func foo(_ bar: Int, f: @escaping () -> ()) -> Void {}
 
 func isZeroLength(string: String) -> Bool {
     return string.isEmpty

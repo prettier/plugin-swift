@@ -584,7 +584,6 @@ function genericPrint(path, options, print) {
     case "TupleExpr":
     case "TupleType":
     case "DictionaryExpr":
-    case "FunctionType":
     case "ArrayExpr": {
       const list = n.layout[1];
 
@@ -616,6 +615,27 @@ function genericPrint(path, options, print) {
           ...path.map(print, "rest")
         ])
       );
+    }
+    case "FunctionType": {
+      const parts = [];
+
+      for (let i = 0; i < n.layout.length; i++) {
+        const child = n.layout[i];
+
+        if (child.type === "l_paren") {
+          parts.push({
+            type: "TupleType",
+            layout: n.layout.slice(i, i + 3)
+          });
+
+          i += 2;
+        } else {
+          parts.push(child);
+        }
+      }
+
+      n.parts = parts;
+      return group(smartJoin(" ", path.map(print, "parts")));
     }
     case "GenericArgument":
     case "SameTypeRequirement":
