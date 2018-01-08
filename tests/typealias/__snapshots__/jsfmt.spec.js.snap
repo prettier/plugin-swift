@@ -3,8 +3,10 @@
 exports[`typealias.swift 1`] = `
 typealias LetterList = String
 typealias StringKeyedDictionary<E> = Dictionary<String, E>
+public typealias LetterList = String
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 typealias LetterList = String
 typealias StringKeyedDictionary<E> = Dictionary<String, E>
+public typealias LetterList = String
 
 `;

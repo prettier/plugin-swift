@@ -236,6 +236,7 @@ function genericPrint(path, options, print) {
     case "_InitDecl":
     case "_DeinitDecl":
     case "_SubscriptDecl":
+    case "TypealiasDecl":
     case "VariableDecl":
     case "FunctionDecl":
     case "AccessorDecl":
@@ -598,21 +599,6 @@ function genericPrint(path, options, print) {
     case "AttributedType":
     case "ReturnClause": {
       return group(smartJoin(" ", path.map(print, "layout")));
-    }
-    case "TypealiasDecl": {
-      const body = n.layout.slice();
-
-      n.keyword = body.shift();
-      n.init = body.pop();
-      n.body = body;
-
-      return group(
-        smartJoin(" ", [
-          path.call(print, "keyword"),
-          concat(path.map(print, "body")),
-          path.call(print, "init")
-        ])
-      );
     }
     case "ClosureCaptureSignature":
     case "TupleExpr":
