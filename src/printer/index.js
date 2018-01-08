@@ -7,6 +7,15 @@ const { genericPrint } = require("./generic");
 module.exports = function(path, options, print) {
   const n = path.getValue();
 
+  if (!n) {
+    throw new Error(
+      "Illegal navigation into " +
+        path.getName() +
+        " from " +
+        path.getParentNode().type
+    );
+  }
+
   return concat([
     ...(n.leadingTrivia
       ? path.map(
