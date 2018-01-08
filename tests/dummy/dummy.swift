@@ -67,7 +67,7 @@ class AppDel: NSObject, NSApplicationDelegate {
         return "foo"
     }
 
-    override init() {
+    public override init() {
         super.init()
     }
 

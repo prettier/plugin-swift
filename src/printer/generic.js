@@ -233,6 +233,8 @@ function genericPrint(path, options, print) {
         options.trailingComma === "all" ? ifBreak(",", "") : ""
       ]);
     }
+    case "_InitDecl":
+    case "_DeinitDecl":
     case "_SubscriptDecl":
     case "FunctionDecl":
     case "AccessorDecl":
@@ -241,9 +243,13 @@ function genericPrint(path, options, print) {
     case "ExtensionDecl":
     case "ClassDecl": {
       const index = n.layout.findIndex(n => {
-        return ["identifier", "contextual_keyword", "kw_subscript"].includes(
-          n.type
-        );
+        return [
+          "identifier",
+          "contextual_keyword",
+          "kw_subscript",
+          "kw_init",
+          "kw_deinit"
+        ].includes(n.type);
       });
 
       if (index < 0) {
@@ -259,7 +265,10 @@ function genericPrint(path, options, print) {
         [
           "GenericParameterClause",
           "AccessorParameter",
-          "FunctionSignature"
+          "FunctionSignature",
+          // For _InitDecl:
+          "ParameterClause",
+          "question_postfix"
         ].includes(end[0].type)
       ) {
         middle.push(end.shift());
@@ -390,12 +399,6 @@ function genericPrint(path, options, print) {
         )
       );
     }
-    case "DeclModifier": {
-      return concat([
-        concat(path.map(print, "layout")),
-        parentType == "_InitDecl" ? " " : ""
-      ]);
-    }
     case "ExprList": {
       if (
         n.layout.length === 3 &&
@@ -460,6 +463,7 @@ function genericPrint(path, options, print) {
       const right = body.slice(3);
       return join(" ", [concat(left), concat(right)]);
     }
+    case "DeclModifier":
     case "PatternBinding":
     case "MemberTypeIdentifier":
     case "MetatypeType":
@@ -476,9 +480,7 @@ function genericPrint(path, options, print) {
     case "TopLevelCodeDecl":
     case "SimpleTypeIdentifier":
     case "_ClassTypeIdentifier":
-    case "_InitDecl": {
       return concat(path.map(print, "layout"));
-    }
     case "TokenList": {
       const printedTokens = path.map(print, "layout");
       const elements = [];
@@ -511,9 +513,6 @@ function genericPrint(path, options, print) {
       const keyword = body.shift();
       return concat([keyword, " ", ...body]);
     }
-    case "_DeinitDecl": {
-      return smartJoin(" ", path.map(print, "layout"));
-    }
     case "GenericArgumentClause":
     case "GenericParameterClause": {
       return group(concat(path.map(print, "layout")));
@@ -530,8 +529,7 @@ function genericPrint(path, options, print) {
       return group(
         concat([
           group(concat([indent(concat([first, softline, ...body])), softline])),
-          last,
-          parentType.startsWith("_") ? " " : ""
+          last
         ])
       );
     }
