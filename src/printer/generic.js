@@ -410,14 +410,14 @@ function genericPrint(path, options, print) {
         return join(" ", path.map(print, "layout"));
       }
 
-      const shouldBreak = n.layout.some(
+      const inline = n.layout.every(
         c =>
-          !["IBOutlet", "IBAction", "objc", "testable"].includes(
+          ["IBOutlet", "IBAction", "objc", "testable"].includes(
             c.layout[1].text
-          )
+          ) && !(c.layout[2] && c.layout[2].layout.length)
       );
 
-      const breaker = shouldBreak ? hardline : line;
+      const breaker = inline ? line : hardline;
 
       return group(concat([join(breaker, path.map(print, "layout")), breaker]));
     }

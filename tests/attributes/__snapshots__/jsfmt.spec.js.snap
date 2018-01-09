@@ -37,7 +37,8 @@ public class MyApp {}
 @objc
 public class MyApp {}
 
-@objc(PSWMyApp) public class MyApp {}
+@objc(PSWMyApp)
+public class MyApp {}
 
 class SomeClass {
     @available(iOS 8, OSX 10.10, *)
@@ -48,10 +49,12 @@ class SomeClass {
 
     @objc public var property: String
 
-    @objc(psw_property) public let property: String
+    @objc(psw_property)
+    public let property: String
 
     internal var active: Bool {
-        @objc(isActive) get {}
+        @objc(isActive)
+        get {}
         set {}
     }
 }
