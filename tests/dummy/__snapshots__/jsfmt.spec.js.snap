@@ -365,8 +365,7 @@ func foo(completion: @escaping (String) -> Void) {}
 
 observer.onNext(
     (self.appViewController.presentedViewController
-            as? FulfillmentContainerViewController)
-        != nil
+            as? FulfillmentContainerViewController) != nil
 )
 
 if case .leaf(let value) = node {

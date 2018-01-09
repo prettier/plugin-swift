@@ -828,7 +828,13 @@ function genericPrint(path, options, print) {
         return concat(path.map(print, "layout"));
       }
 
-      return concat([line, ...path.map(print, "layout"), " "]);
+      const allowBreak = !operator.text.endsWith("=");
+
+      return concat([
+        allowBreak ? line : " ",
+        ...path.map(print, "layout"),
+        " "
+      ]);
     }
     case "MemberAccessExpr": {
       const parts = path.map(print, "layout");

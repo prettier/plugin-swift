@@ -5,3 +5,9 @@ let a = !b
 let ref = &a
 let ref = &_a
 let ref = &a[i]
+
+theQuickBrownFoxJumpsOverTheLazyDog = theQuickBrownFoxJumpsOverTheLazyDog + theQuickBrownFoxJumpsOverTheLazyDog - theQuickBrownFoxJumpsOverTheLazyDog
+theQuickBrownFoxJumpsOverTheLazyDog = theQuickBrownFoxJumpsOverTheLazyDog + theQuickBrownFoxJumpsOverTheLazyDog < theQuickBrownFoxJumpsOverTheLazyDog
+theQuickBrownFoxJumpsOverTheLazyDog = theQuickBrownFoxJumpsOverTheLazyDog + theQuickBrownFoxJumpsOverTheLazyDog <= theQuickBrownFoxJumpsOverTheLazyDog
+theQuickBrownFoxJumpsOverTheLazyDog = theQuickBrownFoxJumpsOverTheLazyDog + theQuickBrownFoxJumpsOverTheLazyDog != theQuickBrownFoxJumpsOverTheLazyDog
+theQuickBrownFoxJumpsOverTheLazyDog = theQuickBrownFoxJumpsOverTheLazyDog == theQuickBrownFoxJumpsOverTheLazyDog || theQuickBrownFoxJumpsOverTheLazyDog == theQuickBrownFoxJumpsOverTheLazyDog
