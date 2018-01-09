@@ -251,6 +251,7 @@ function genericPrint(path, options, print) {
     case "AccessorDecl":
     case "ProtocolDecl":
     case "StructDecl":
+    case "ImportDecl":
     case "ExtensionDecl":
     case "ClassDecl": {
       const body = n.layout.slice();
@@ -269,7 +270,8 @@ function genericPrint(path, options, print) {
             "kw_init",
             "kw_deinit",
             "kw_var",
-            "kw_let"
+            "kw_let",
+            "kw_import"
           ].includes(n.type) ||
           n.type.endsWith("Identifier") ||
           n.type.startsWith("oper_")
@@ -409,7 +411,10 @@ function genericPrint(path, options, print) {
       }
 
       const shouldBreak = n.layout.some(
-        c => !["IBOutlet", "IBAction", "objc"].includes(c.layout[1].text)
+        c =>
+          !["IBOutlet", "IBAction", "objc", "testable"].includes(
+            c.layout[1].text
+          )
       );
 
       const breaker = shouldBreak ? hardline : line;
@@ -619,7 +624,6 @@ function genericPrint(path, options, print) {
       return group(indent(indent(concat([softline, printedBody]))));
     }
     case "DeferStmt":
-    case "ImportDecl":
     case "ValueBindingPattern":
     case "AttributedType":
     case "ReturnClause": {

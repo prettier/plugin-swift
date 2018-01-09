@@ -1,4 +1,5 @@
 import Foundation
+@testable import SomeModule
 
 import typealias SomeModule.Something
 import struct SomeModule.Something

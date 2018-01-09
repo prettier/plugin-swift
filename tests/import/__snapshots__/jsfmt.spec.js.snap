@@ -2,6 +2,7 @@
 
 exports[`import.swift 1`] = `
 import Foundation
+@testable import SomeModule
 
 import typealias SomeModule.Something
 import struct SomeModule.Something
@@ -22,6 +23,7 @@ import var SomeModule.SomeNamespace.something
 import func SomeModule.SomeNamespace.something
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import Foundation
+@testable import SomeModule
 
 import typealias SomeModule.Something
 import struct SomeModule.Something
