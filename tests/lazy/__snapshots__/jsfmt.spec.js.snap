@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`lazy.swift 1`] = `
+class SomeClass {
+    public lazy var isActive = Something.isActive()
+    public private(set) lazy var isActive = { Something.isActive }()
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class SomeClass {
+    public lazy var isActive = Something.isActive()
+    public private(set) lazy var isActive = {
+        Something.isActive
+    }()
+}
+
+`;

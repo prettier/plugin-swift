@@ -171,9 +171,26 @@ function genericPrint(path, options, print) {
         return join(hardline, children);
       }
 
+      let forceBreak = children.length > 1;
+
+      if (
+        parentType === "ClosureExpr" &&
+        path.getParentNode(1).type === "FunctionCallExpr" &&
+        path.getParentNode(5).type === "VariableDecl" &&
+        path
+          .getParentNode(5)
+          .layout.some(
+            c =>
+              c.type === "ModifierList" &&
+              c.layout.some(c => c.layout.some(c => c.text === "lazy"))
+          )
+      ) {
+        forceBreak = true;
+      }
+
       return concat([
         indent(concat([softline, join(hardline, children)])),
-        children.length > 1 ? breakParent : "",
+        forceBreak ? breakParent : "",
         line
       ]);
     }
