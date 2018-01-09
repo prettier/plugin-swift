@@ -631,14 +631,14 @@ function genericPrint(path, options, print) {
         .getParentNode()
         .layout.find(n => n.type == "StmtList").layout.length;
 
-      const printedBody = concat([join(" ", body), " ", inKeyword, " "]);
+      const printedBody = concat([join(line, body), " ", inKeyword, " "]);
 
       // Never break for an empty closure expr
       if (numberOfStatements === 0) {
         return group(printedBody);
       }
 
-      return group(indent(indent(concat([softline, printedBody]))));
+      return group(indent(indent(concat([softline, group(printedBody)]))));
     }
     case "DeferStmt":
     case "ValueBindingPattern":
