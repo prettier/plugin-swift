@@ -57,25 +57,25 @@ class Somewhere {
     }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-func foo() {}
-func foo() -> Void {}
-func foo(bar: Int) {}
-func foo(bar: Int) -> Void {}
-func foo(_ bar: Int) {}
-func foo(_ bar: Int) -> Void {}
-func foo(_ bar: Int = 3) {}
-func foo(_ bar: Int = 3) -> Void {}
-func foo(_ bar: Int, baz: Int) {}
-func foo(_ bar: Int, baz: Int) -> Void {}
-func foo(_ bar: Int, _ baz: Int) {}
-func foo(_ bar: Int, _ baz: Int) -> Void {}
+func foo() { }
+func foo() -> Void { }
+func foo(bar: Int) { }
+func foo(bar: Int) -> Void { }
+func foo(_ bar: Int) { }
+func foo(_ bar: Int) -> Void { }
+func foo(_ bar: Int = 3) { }
+func foo(_ bar: Int = 3) -> Void { }
+func foo(_ bar: Int, baz: Int) { }
+func foo(_ bar: Int, baz: Int) -> Void { }
+func foo(_ bar: Int, _ baz: Int) { }
+func foo(_ bar: Int, _ baz: Int) -> Void { }
 
-func foo(f: @escaping (Int) -> Int) {}
-func foo(f: @escaping (Int) -> Int) -> Void {}
-func foo(_ f: @escaping (Int) -> Int) {}
-func foo(_ f: @escaping (Int) -> Int) -> Void {}
-func foo(_ bar: Int, f: @escaping () -> ()) {}
-func foo(_ bar: Int, f: @escaping () -> ()) -> Void {}
+func foo(f: @escaping (Int) -> Int) { }
+func foo(f: @escaping (Int) -> Int) -> Void { }
+func foo(_ f: @escaping (Int) -> Int) { }
+func foo(_ f: @escaping (Int) -> Int) -> Void { }
+func foo(_ bar: Int, f: @escaping () -> ()) { }
+func foo(_ bar: Int, f: @escaping () -> ()) -> Void { }
 
 func == (lhs: Record, rhs: Record) -> Bool {
     return lhs.id == rhs.id

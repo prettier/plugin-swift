@@ -106,10 +106,6 @@ function genericPrint(path, options, print) {
       const first = body.shift();
       const last = body.pop();
 
-      if (body.length === 1 && body[0] === "") {
-        return concat([first, last]);
-      }
-
       return concat([first, " ", concat(body), last]);
     }
     case "TuplePatternElementList":

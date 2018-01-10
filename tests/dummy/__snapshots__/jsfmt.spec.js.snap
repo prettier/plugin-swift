@@ -331,7 +331,7 @@ NSApp.run()
 
 typealias Foo = Int
 
-func foo123() -> (String) -> Void {}
+func foo123() -> (String) -> Void { }
 
 enum Foo {
     case bar
@@ -342,8 +342,8 @@ enum FooInt: Int {
     case baz, bat = 3
 }
 
-extension Foo: CustomStringConvertible {}
-extension Observable where Element: BooleanType {}
+extension Foo: CustomStringConvertible { }
+extension Observable where Element: BooleanType { }
 
 let bar1 = foo as? Int
 let bar2 = foo as! Int
@@ -361,7 +361,7 @@ let x = foo ? "YES" : "NO"
 
 present(vc) { }
 
-func foo(completion: @escaping (String) -> Void) {}
+func foo(completion: @escaping (String) -> Void) { }
 
 observer.onNext(
     (self.appViewController.presentedViewController

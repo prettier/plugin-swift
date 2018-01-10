@@ -35,8 +35,8 @@ protocol ClassishType: class {
 
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-protocol SomeType {}
-public protocol SomeType {}
+protocol SomeType { }
+public protocol SomeType { }
 
 protocol SomeType {
     var property: String

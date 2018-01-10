@@ -35,10 +35,10 @@ class Static {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Instance {
-    public func foo() {}
-    private func foo() {}
-    internal func foo() {}
-    public dynamic func foo() {}
+    public func foo() { }
+    private func foo() { }
+    internal func foo() { }
+    public dynamic func foo() { }
     public var foo: String {
         return "123"
     }
@@ -63,14 +63,14 @@ class Instance {
     }
 }
 class Class {
-    public class func foo() {}
-    private class func foo() {}
-    internal class func foo() {}
+    public class func foo() { }
+    private class func foo() { }
+    internal class func foo() { }
 }
 class Static {
-    public static func foo() {}
-    private static func foo() {}
-    internal static func foo() {}
+    public static func foo() { }
+    private static func foo() { }
+    internal static func foo() { }
 }
 
 `;
