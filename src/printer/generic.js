@@ -980,6 +980,10 @@ function genericPrint(path, options, print) {
         ])
       );
     }
+    case "ObjcName":
+    case "ObjcNamePiece":
+    case "ObjcKeyPathExpr":
+    case "KeyPathExpr":
     case "BooleanLiteralExpr":
     case "FloatLiteralExpr":
     case "IntegerLiteralExpr":

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`keypath.swift 1`] = `
+_ = \\a.b.c
+_ = \\a.b[1]
+_ = #keyPath(a.b.c)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+_ = \\a.b.c
+_ = \\a.b[1]
+_ = #keyPath(a.b.c)
+
+`;
