@@ -16,8 +16,12 @@ case "$OS" in
     ARCHIVE_EXT=.pkg
     ;;
   linux*)
-    SERVER_PATH_SUFFIX=ubuntu1610
-    ARCHIVE_SUFFIX=-ubuntu16.10
+    if [ -z "${LSB_RELEASE}" ]; then
+        LSB_RELEASE=$(lsb_release -r -s)
+    fi
+
+    SERVER_PATH_SUFFIX=ubuntu${LSB_RELEASE//./}
+    ARCHIVE_SUFFIX=-ubuntu${LSB_RELEASE}
     ARCHIVE_EXT=.tar.gz
     ;;
   *)
