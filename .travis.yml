@@ -13,7 +13,7 @@ cache:
 addons:
   apt:
     sources:
-      - sourceline: ubuntu-toolchain-r/test
+      - sourceline: 'ppa:ubuntu-toolchain-r/test'
     packages:
       - g++-6
       - clang
