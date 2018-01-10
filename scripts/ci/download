@@ -16,7 +16,7 @@ case "$OS" in
     ARCHIVE_EXT=.pkg
     ;;
   linux*)
-    if [ -z "${LSB_RELEASE}" ]; then
+    if [ -z "${LSB_RELEASE:-}" ]; then
         LSB_RELEASE=$(lsb_release -r -s)
     fi
 
