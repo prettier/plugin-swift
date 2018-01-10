@@ -30,7 +30,7 @@ Alternatively you can pass the path to `swiftc`
 via the `PRETTIER_SWIFT_SWIFTC` or `SWIFTC` environment variables:
 
 ```
-export PRETTIER_SWIFT_SWIFTC/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2018-01-09-a.xctoolchain/usr/bin/swiftc
+export PRETTIER_SWIFT_SWIFTC=/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2018-01-09-a.xctoolchain/usr/bin/swiftc
 ```
 
 <!--
