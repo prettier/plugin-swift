@@ -71,13 +71,8 @@ if [ -f "${SWIFTC}" ]; then
         metadata=$(<${SWIFTC_METADATA})
 
         if [ "${ARCHIVE_NAME}" == "${metadata}" ]; then
-            echo "Metadata matched ${ARCHIVE_NAME}"
-
-            if check; then
-                exit 0
-            else
-                echo "Invocation of ${SWIFTC} failed!"
-            fi
+            echo "Metadata matched expected ${ARCHIVE_NAME}"
+            exit 0
         else
             echo "Metadata was ${metadata} (expected: ${ARCHIVE_NAME})"
         fi
