@@ -1,9 +1,5 @@
 <p align="center">
-  <img src="https://i.giphy.com/media/GNvOUgBvLzVwA/giphy.webp" alt="Under Construction" /> 
-</p>
-
-<p align="center">
-    Check back soon :yum:
+    :construction: Work in Progress! :construction:
 </p>
 
 <h2 align="center">Swift Plugin for the Opinionated Code Formatter</h2>
@@ -29,35 +25,38 @@
   </a>
 </p>
 
----
-
-**Warning:** This plugin might eat your homework in its current shape.
-It depends on [Swift's lib/Syntax](https://github.com/apple/swift/blob/master/lib/Syntax) which is
-[under heavy development](https://github.com/apple/swift/blob/master/lib/Syntax/Status.md).
-Please ensure you have all your code committed or at least staged
-before you perform in-place formatting using the `--write` argument.
-
----
-
 ## What does it do?
+
+**:warning: Warning :warning:** This plugin might eat your homework in its early stage.
+It also depends on [Swift's lib/Syntax](https://github.com/apple/swift/blob/master/lib/Syntax) which is
+[in flux](https://github.com/apple/swift/blob/master/lib/Syntax/Status.md).
+Please stage or commit your code before performing any in-place formatting.
 
 You can check out [how it formatted Artsy's Eidolon](https://github.com/sirlantis/eidolon/pull/1/files).
 
 ## Prerequisites
 
-You need any of the following:
+You need one of the following:
 
-1. Swift 4.1 (in case you are from the future)
-2. A [snapshot from January 9, 2018 or later](https://swift.org/download/#snapshots)
-3. A `master` build of [Swift](https://github.com/apple/swift)
+1. A [snapshot from January 9, 2018 or later](https://swift.org/download/#snapshots),
+2. a recent manual build from Swift's [`master`](https://github.com/apple/swift), or
+3. Swift 4.1 (once it's available as a beta or released completely).
 
-Ensure that `swiftc` calls the correct binary.
-
-Alternatively you can pass the path to `swiftc`
-via the `PRETTIER_SWIFT_SWIFTC` or `SWIFTC` environment variables:
+Assuming you picked **(1)** please follow the
+[installation instructions](https://swift.org/download/#using-downloads),
+which recommend updating your `PATH` at the end:
 
 ```
-export PRETTIER_SWIFT_SWIFTC=/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2018-01-09-a.xctoolchain/usr/bin/swiftc
+TOOLCHAIN=swift-DEVELOPMENT-SNAPSHOT-2018-01-09-a.xctoolchain
+export PATH=/Library/Developer/Toolchains/${TOOLCHAIN}/usr/bin/:"${PATH}"
+```
+
+Alternatively you can pass the full path to the `swiftc` binary
+via the environment variable `PRETTIER_SWIFT_SWIFTC`:
+
+```
+TOOLCHAIN=swift-DEVELOPMENT-SNAPSHOT-2018-01-09-a.xctoolchain
+export PRETTIER_SWIFT_SWIFTC=/Library/Developer/Toolchains/${TOOLCHAIN}/usr/bin/swiftc
 ```
 
 <!--
