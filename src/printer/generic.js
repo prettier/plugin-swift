@@ -828,7 +828,13 @@ function genericPrint(path, options, print) {
         return s;
       };
 
-      logger.warn("libSyntax(" + type + "): " + shorten(fallback));
+      const message = "libSyntax(" + type + "): " + shorten(fallback);
+
+      if (!process.env.PRETTIER_SWIFT_RENDER_UNKNOWN) {
+        throw new Error(message);
+      }
+
+      logger.warn(message);
 
       if (type === "UnknownExpr") {
         return concat(path.map(print, "layout"));
