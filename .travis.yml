@@ -11,7 +11,7 @@ cache:
   - vendor
 install:
   - yarn install
+  - scripts/ci/download
 script:
   - yarn lint
-  - scripts/ci/download
   - SWIFTC=vendor/swiftc AST_COMPARE=1 yarn test -- --runInBand
