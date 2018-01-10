@@ -9,6 +9,9 @@ cache:
   directories:
   - node_modules
   - vendor
+env:
+  global:
+    - TMPDIR=/tmp
 install:
   - yarn install
   - scripts/ci/download
