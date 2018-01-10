@@ -36,8 +36,8 @@
     "@glimmer/util" "^0.30.3"
 
 "@types/node@*":
-  version "8.5.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.5.2.tgz#83b8103fa9a2c2e83d78f701a9aa7c9539739aa5"
+  version "9.3.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.3.0.tgz#3a129cda7c4e5df2409702626892cb4b96546dd5"
 
 abab@^1.0.3:
   version "1.0.4"
@@ -2616,12 +2616,12 @@ postcss@^5.2.16:
     supports-color "^3.2.3"
 
 postcss@^6.0.3:
-  version "6.0.14"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-6.0.14.tgz#5534c72114739e75d0afcf017db853099f562885"
+  version "6.0.16"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-6.0.16.tgz#112e2fe2a6d2109be0957687243170ea5589e146"
   dependencies:
     chalk "^2.3.0"
     source-map "^0.6.1"
-    supports-color "^4.4.0"
+    supports-color "^5.1.0"
 
 prelude-ls@~1.1.2:
   version "1.1.2"
@@ -2631,9 +2631,9 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier@sirlantis/prettier#f11f16d3633943784212c09d43db204c84aae951:
-  version "1.9.2"
-  resolved "https://codeload.github.com/sirlantis/prettier/tar.gz/f11f16d3633943784212c09d43db204c84aae951"
+prettier@prettier/prettier#a10418ee80d69060261090eb4f7ace9772d90761:
+  version "1.10.1"
+  resolved "https://codeload.github.com/prettier/prettier/tar.gz/a10418ee80d69060261090eb4f7ace9772d90761"
   dependencies:
     "@babel/code-frame" "7.0.0-beta.35"
     "@glimmer/syntax" "0.30.3"
@@ -3185,9 +3185,15 @@ supports-color@^3.1.2, supports-color@^3.2.3:
   dependencies:
     has-flag "^1.0.0"
 
-supports-color@^4.0.0, supports-color@^4.4.0:
+supports-color@^4.0.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-4.5.0.tgz#be7a0de484dec5c5cddf8b3d59125044912f635b"
+  dependencies:
+    has-flag "^2.0.0"
+
+supports-color@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-5.1.0.tgz#058a021d1b619f7ddf3980d712ea3590ce7de3d5"
   dependencies:
     has-flag "^2.0.0"
 
