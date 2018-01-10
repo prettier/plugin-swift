@@ -12,6 +12,8 @@ cache:
   - vendor
 addons:
   apt:
+    sources:
+      - sourceline: ubuntu-toolchain-r/test
     packages:
       - g++-6
       - clang
