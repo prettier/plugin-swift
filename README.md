@@ -20,13 +20,18 @@ before you perform in-place formatting using the `--write` argument.
 
 You need any of the following:
 
-1. Swift 4.2 (in case you are from the future)
-2. A [snapshot from 2018-01-05 or later](https://swift.org/download/#snapshots) (sadly CI has been broken since NYE)
-3. A custom build of [Swift](https://github.com/apple/swift) after [7476677b](https://github.com/apple/swift/commit/7476677bb29619b2c0f1f9dcc1e67fa910240c9c)
+1. Swift 4.1 (in case you are from the future)
+2. A [snapshot from January 9, 2018 or later](https://swift.org/download/#snapshots)
+3. A `master` build of [Swift](https://github.com/apple/swift)
 
-Ensure that `swiftc` points to the correct binary.
+Ensure that `swiftc` calls the correct binary.
+
 Alternatively you can pass the path to `swiftc`
-via the `PRETTIER_SWIFT_SWIFTC` or `SWIFTC` environment variables.
+via the `PRETTIER_SWIFT_SWIFTC` or `SWIFTC` environment variables:
+
+```
+export PRETTIER_SWIFT_SWIFTC/Library/Developer/Toolchains/swift-DEVELOPMENT-SNAPSHOT-2018-01-09-a.xctoolchain/usr/bin/swiftc
+```
 
 <!--
 
