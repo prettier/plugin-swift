@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+VERSION_PREFIX=${BRANCH:-swift}
+VERSION_PREFIX=${VERSION_PREFIX//-branch/}
+BRANCH=${BRANCH:-development}
+VERSION=${VERSION_PREFIX}-DEVELOPMENT-SNAPSHOT-2018-01-09-a
+SERVER_PATH=https://swift.org/builds/${BRANCH}
+
+OS=${OS:-${OSTYPE}}
+
+case "$OS" in
+  darwin*)
+    SERVER_PATH_SUFFIX=xcode
+    ARCHIVE_SUFFIX=-osx
+    ARCHIVE_EXT=.pkg
+    ;;
+  linux*)
+    SERVER_PATH_SUFFIX=ubuntu1610
+    ARCHIVE_SUFFIX=-ubuntu16.10
+    ARCHIVE_EXT=.tar.gz
+    ;;
+  *)
+    echo "Unsupported OS: $OS"
+    exit 1
+    ;;
+esac
+
+ARCHIVE_NAME=${VERSION}${ARCHIVE_SUFFIX}${ARCHIVE_EXT}
+
+CACHE_DIR=vendor
+SWIFTC=${CACHE_DIR}/swiftc
+SWIFTC_METADATA=${CACHE_DIR}/swiftc.metadata
+
+ARCHIVE_PATH=${TMPDIR}/${ARCHIVE_NAME}
+
+function download() {
+    if [ -f "${ARCHIVE_PATH}" ]; then
+        echo "Using existing archive at ${ARCHIVE_PATH}"
+        return
+    fi
+    
+    DOWNLOAD_URL=${SERVER_PATH}/${SERVER_PATH_SUFFIX}/${VERSION}/${ARCHIVE_NAME}
+
+    echo "Downloading ${ARCHIVE_PATH}"
+    echo "    from ${DOWNLOAD_URL}"
+
+    curl -o "${ARCHIVE_PATH}" "${DOWNLOAD_URL}"
+}
+
+function extract() {
+    ARCHIVE_ENTRY=${VERSION}${ARCHIVE_SUFFIX}/usr/bin/swift
+
+    pushd "${TMPDIR}"
+    tar -xzf "${ARCHIVE_NAME}" "${ARCHIVE_ENTRY}"
+    popd
+
+    mkdir -p "${CACHE_DIR}"
+    cp "${TMPDIR}/${ARCHIVE_ENTRY}" "${SWIFTC}"
+    echo "${ARCHIVE_NAME}" > "${SWIFTC_METADATA}"
+}
+
+if [ -f "${SWIFTC}" ]; then
+    echo "Found cached binary at ${SWIFTC}"
+
+    if [ -f "${SWIFTC_METADATA}" ]; then
+        metadata=$(<${SWIFTC_METADATA})
+
+        if [ "${ARCHIVE_NAME}" == "${metadata}" ]; then
+            echo "Metadata matched ${ARCHIVE_NAME}"
+
+            if "${SWIFTC}" --version; then
+                exit 0
+            else
+                echo "Invocation of ${SWIFTC} failed!"
+            fi
+        else
+            echo "Metadata was ${metadata} (expected: ${ARCHIVE_NAME})"
+        fi
+    else
+        echo "${SWIFTC_METADATA} did not exist."
+    fi
+fi
+
+download
+extract

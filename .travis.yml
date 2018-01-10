@@ -8,7 +8,10 @@ cache:
   yarn: true
   directories:
   - node_modules
+  - vendor
 install:
   - yarn install
 script:
-  - AST_COMPARE=1 yarn test -- --runInBand
+  - yarn lint
+  - scripts/ci/download
+  - SWIFTC=vendor/swiftc AST_COMPARE=1 yarn test -- --runInBand
