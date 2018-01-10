@@ -21,6 +21,18 @@ func foo(_ f: @escaping (Int) -> Int) -> Void {}
 func foo(_ bar: Int, f: @escaping () -> ()) {}
 func foo(_ bar: Int, f: @escaping () -> ()) -> Void {}
 
+func theQuickBrownFoxJumpsOverTheLazyDogTheQuickBrownFoxJumpsOverTheVeryLazyDog() {
+    print()
+}
+
+func theQuickBrownFoxJumpsOverTheLazyDog(theQuickBrownFoxJumpsOverTheLazyDog: TheQuickBrownFoxJumpsOverTheLazyDog) {
+    print()
+}
+
+func theQuickBrownFoxJumpsOverTheLazyDog(theQuickBrownFoxJumpsOverTheLazyDog: TheQuickBrownFoxJumpsOverTheLazyDog) -> Bool {
+    return true
+}
+
 func == (lhs: Record, rhs: Record) -> Bool {
     return lhs.id == rhs.id
 }
@@ -76,6 +88,22 @@ func foo(_ f: @escaping (Int) -> Int) { }
 func foo(_ f: @escaping (Int) -> Int) -> Void { }
 func foo(_ bar: Int, f: @escaping () -> ()) { }
 func foo(_ bar: Int, f: @escaping () -> ()) -> Void { }
+
+func theQuickBrownFoxJumpsOverTheLazyDogTheQuickBrownFoxJumpsOverTheVeryLazyDog() {
+    print()
+}
+
+func theQuickBrownFoxJumpsOverTheLazyDog(
+    theQuickBrownFoxJumpsOverTheLazyDog: TheQuickBrownFoxJumpsOverTheLazyDog
+) {
+    print()
+}
+
+func theQuickBrownFoxJumpsOverTheLazyDog(
+    theQuickBrownFoxJumpsOverTheLazyDog: TheQuickBrownFoxJumpsOverTheLazyDog
+) -> Bool {
+    return true
+}
 
 func == (lhs: Record, rhs: Record) -> Bool {
     return lhs.id == rhs.id
