@@ -207,7 +207,6 @@ function genericPrint(path, options, print) {
     }
     case "_CaseDeclElementList":
     case "ConditionElementList":
-    case "CatchClauseList":
     case "InheritedTypeList":
     case "PatternBindingList": {
       if (!n.layout.length) {
@@ -511,6 +510,9 @@ function genericPrint(path, options, print) {
     case "StringInterpolationExpr": {
       return printWithoutNewlines(concat(path.map(print, "layout")));
     }
+    case "CatchClauseList": {
+      return join(" ", path.map(print, "layout"));
+    }
     case "ElseifDirectiveClauseList": {
       return concat(path.map(print, "layout"));
     }
@@ -640,6 +642,9 @@ function genericPrint(path, options, print) {
 
       return group(indent(indent(concat([softline, group(printedBody)]))));
     }
+    case "CatchClause": {
+      return smartJoin(" ", path.map(print, "layout"));
+    }
     case "DeferStmt":
     case "ValueBindingPattern":
     case "AttributedType":
@@ -706,7 +711,6 @@ function genericPrint(path, options, print) {
     case "GenericArgument":
     case "SameTypeRequirement":
     case "ConformanceRequirement":
-    case "CatchClause":
     case "InheritedType":
     case "ClosureCaptureItem":
     case "ClosureParam":
