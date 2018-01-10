@@ -60,6 +60,10 @@ function extract() {
     echo "${ARCHIVE_NAME}" > "${SWIFTC_METADATA}"
 }
 
+function check() {
+    "${SWIFTC}" --version
+}
+
 if [ -f "${SWIFTC}" ]; then
     echo "Found cached binary at ${SWIFTC}"
 
@@ -69,7 +73,7 @@ if [ -f "${SWIFTC}" ]; then
         if [ "${ARCHIVE_NAME}" == "${metadata}" ]; then
             echo "Metadata matched ${ARCHIVE_NAME}"
 
-            if "${SWIFTC}" --version; then
+            if check; then
                 exit 0
             else
                 echo "Invocation of ${SWIFTC} failed!"
@@ -84,3 +88,4 @@ fi
 
 download
 extract
+check
