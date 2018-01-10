@@ -12,8 +12,9 @@ cache:
   - vendor
 addons:
   apt:
-    - libstdc++6
-    - libtinfo-dev
+    packages:
+      - libstdc++6
+      - libtinfo-dev
 env:
   global:
     - TMPDIR=/tmp
