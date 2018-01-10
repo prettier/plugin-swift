@@ -221,6 +221,10 @@ function genericPrint(path, options, print) {
             parentType === "GuardStmt" ? " " : ""
           ])
         );
+      } else if (parentType === "_SwitchCase") {
+        return group(
+          indent(join(concat([",", line]), path.map(print, "layout")))
+        );
       }
 
       return group(

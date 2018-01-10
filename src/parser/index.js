@@ -132,20 +132,46 @@ function massage(node) {
       const cases = [];
 
       for (let i = 0; i < body.length; i++) {
-        if (body[i].type === "kw_case" || body[i].type === "kw_default") {
+        const element = body[i];
+        if (element.type === "kw_case" || element.type === "kw_default") {
           cases.push({
             type: "_SwitchCase",
-            layout: [body[i]]
+            layout: [element]
           });
-        } else if (body[i].type === "StmtList") {
+        } else if (element.type === "StmtList") {
           cases[cases.length - 1].layout.push({
             type: "_CaseBlock",
-            layout: [body[i]]
+            layout: [element]
           });
+        } else if (element.type === "WhereClause") {
+          cases[cases.length - 1].layout.push(element);
+        } else if (element.type === "comma") {
+          const lastCase = cases[cases.length - 1];
+          lastCase.conditionElementList.layout[
+            lastCase.conditionElementList.layout.length - 1
+          ].layout.push(element);
+        } else if (element.type === "colon") {
+          cases[cases.length - 1].layout.push(element);
         } else {
-          cases[cases.length - 1].layout.push(body[i]);
+          const lastCase = cases[cases.length - 1];
+
+          if (!lastCase.conditionElementList) {
+            lastCase.conditionElementList = {
+              type: "ConditionElementList",
+              layout: []
+            };
+
+            lastCase.layout.push(lastCase.conditionElementList);
+          }
+
+          lastCase.conditionElementList.layout.push({
+            type: "ConditionElement",
+            layout: [element]
+          });
         }
       }
+
+      cases.forEach(c => delete c.conditionElementList);
 
       layout.splice(leftIndex + 1, 0, {
         type: "_SwitchCaseList",
