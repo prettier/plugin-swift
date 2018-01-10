@@ -21,9 +21,10 @@ addons:
 env:
   global:
     - TMPDIR=/tmp
+    - PRETTIER_SWIFT_SWIFTC=vendor/swiftc
 install:
   - yarn install
   - scripts/ci/download
 script:
   - yarn lint
-  - SWIFTC=vendor/swiftc AST_COMPARE=1 yarn test -- --runInBand
+  - AST_COMPARE=1 yarn test -- --runInBand
