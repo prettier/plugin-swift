@@ -15,7 +15,8 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - g++-6
+      - clang
+      - libicu-dev
 env:
   global:
     - TMPDIR=/tmp
