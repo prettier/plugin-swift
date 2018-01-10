@@ -1,5 +1,7 @@
 [1,2,3].map { $0 + 1 }
 
+[1,2,3].map { _ in 42 }
+
 [1,2,3].map { element in
     element + 2
 }
@@ -40,3 +42,7 @@ filter { (e) -> Bool in return value != e }
 
 loremIpsumDolorSitAmetConsecteturAdipiscingElitSedDoEiusmodTemporIncididuntUtLabore { _ in }
 loremIpsumDolorSitAmetConsecteturAdipiscingElitSedDoEiusmodTemporIncididuntUtLabore { [self] _ in self }
+
+Binder(self.base) { label, color in
+    label.textColor = color
+}

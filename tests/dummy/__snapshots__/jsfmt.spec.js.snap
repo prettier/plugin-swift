@@ -372,7 +372,9 @@ if case .leaf(let value) = node {
     print(value)
 }
 
-let o = AnyObserver { [weak self, foo] event in print(event, foo) }
+let o = AnyObserver { [weak self, foo] event in
+    print(event, foo)
+}
 
 var requestBidderDetailsCommand = {
         (enabled: Observable<Bool>) -> CocoaAction in
@@ -392,7 +394,9 @@ guard let dollars = formatter.string(from: NSDecimalNumber(
     )) else { return "" }
 
 cardHandler.cardStatus
-    .subscribe { event in print(event) }
+    .subscribe { event in
+        print(event)
+    }
     .addDisposableTo(rx_disposeBag)
 
 func detectDevelopmentEnvironment() -> Bool {

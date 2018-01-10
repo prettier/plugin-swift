@@ -755,12 +755,24 @@ function genericPrint(path, options, print) {
       const parent = path.getParentNode();
       const closureIsCallee = parent.layout[0] === n;
 
+      const shouldBreak = n.layout.some(
+        c =>
+          c.type === "ClosureSignature" &&
+          c.layout.some(
+            c =>
+              c.type === "ClosureParamList" &&
+              c.layout.some(c =>
+                c.layout.some(c => c.type === "identifier" && c.text)
+              )
+          )
+      );
+
       return group(
         concat([
           parent.type === "FunctionCallExpr" && !closureIsCallee ? " " : "",
           first,
           " ",
-          group(concat(body)),
+          group(concat([shouldBreak ? breakParent : "", ...body])),
           last
         ])
       );

@@ -56,7 +56,9 @@ protocol Something {
     associatedtype T2: Foo, Bar
 }
 
-[1, 2, 3].map { partial -> String in "\\(partial)" }
+[1, 2, 3].map { partial -> String in
+    "\\(partial)"
+}
 
 let firstTupleElement = tuple.0
 
@@ -69,7 +71,9 @@ let foo = {
     baz()
 }
 
-let sub = { \`self\` -> Disposable in self.subscribe() }
+let sub = { \`self\` -> Disposable in
+    self.subscribe()
+}
 
 @available(iOS 8, OSX 10.10, *)
 func foo(x: Int) -> String {
