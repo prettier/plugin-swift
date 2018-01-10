@@ -12,9 +12,10 @@ cache:
   - vendor
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
-      - libstdc++6
-      - libtinfo-dev
+      - g++-6
 env:
   global:
     - TMPDIR=/tmp
