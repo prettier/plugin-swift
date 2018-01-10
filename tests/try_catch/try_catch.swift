@@ -1,8 +1,6 @@
-do {
-    try foo()
-} catch {
-    print(error)
-}
+do { try foo() } catch {}
+
+do { try foo() } catch { print(error) }
 
 do {
     try foo()

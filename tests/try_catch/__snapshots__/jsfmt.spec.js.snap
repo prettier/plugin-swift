@@ -1,11 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`try_catch.swift 1`] = `
-do {
-    try foo()
-} catch {
-    print(error)
-}
+do { try foo() } catch {}
+
+do { try foo() } catch { print(error) }
 
 do {
     try foo()
@@ -21,6 +19,10 @@ do {
     print(someOtherError)
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+do {
+    try foo()
+} catch { }
+
 do {
     try foo()
 } catch {
