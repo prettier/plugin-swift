@@ -384,6 +384,9 @@ function genericPrint(path, options, print) {
       const last = body.pop();
       return concat([first, " ", variable, " ", concat(body), last]);
     }
+    case "ThrowStmt": {
+      return concat([breakParent, smartJoin(" ", path.map(print, "layout"))]);
+    }
     case "CompositionType":
     case "FallthroughStmt":
     case "IfStmt":
@@ -392,8 +395,7 @@ function genericPrint(path, options, print) {
     case "OptionalBindingCondition": // conditions
     case "MatchingPatternCondition":
     case "CompositionTypeElementList": // lists
-    case "ThrowStmt": // statements
-    case "ForInStmt":
+    case "ForInStmt": // statements
     case "_WhileStmt":
     case "RepeatWhileStmt":
     case "BreakStmt":

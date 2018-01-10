@@ -17,6 +17,8 @@ do {
 
     // Start with things not expected to ever change.
 }
+
+guard foo else { throw SomeError.error }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 guard let foo = bar else { return }
 
@@ -36,6 +38,10 @@ do {
     guard let reuseBag = reuseBag else { return }
 
     // Start with things not expected to ever change.
+}
+
+guard foo else {
+    throw SomeError.error
 }
 
 `;

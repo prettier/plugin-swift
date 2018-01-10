@@ -14,3 +14,5 @@ do {
 
     // Start with things not expected to ever change.
 }
+
+guard foo else { throw SomeError.error }
