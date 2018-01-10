@@ -25,4 +25,4 @@ install:
   - vendor/swiftc --version
 script:
   - yarn lint
-  - AST_COMPARE=1 yarn test -- --runInBand
+  - yarn test -- --runInBand
