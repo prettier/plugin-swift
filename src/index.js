@@ -43,10 +43,11 @@ function printComment(commentPath) {
 
   switch (comment.type) {
     case "CommentBlock":
+      return comment.originalValue;
     case "CommentLine":
-      return comment.value.trimRight();
+      return comment.originalValue.trimRight();
     default:
-      throw new Error("Not a comment: " + JSON.stringify(comment));
+      throw new Error("Not a valid comment: " + JSON.stringify(comment));
   }
 }
 

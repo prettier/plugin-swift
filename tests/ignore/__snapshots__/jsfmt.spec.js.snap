@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ignore.swift 1`] = `
+do {
+    let identity = Matrix.create(
+        1, 0, 0,
+        0, 1, 0,
+        0, 0, 0
+    ) // prettier-ignore
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+do {
+    let identity = Matrix.create(
+        1, 0, 0,
+        0, 1, 0,
+        0, 0, 0
+    )
+}
+
+`;

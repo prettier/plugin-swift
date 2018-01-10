@@ -496,34 +496,14 @@ function extractComments(node, path) {
         case "DocLineComment":
         case "BlockComment":
         case "LineComment": {
-          const { value, __location } = trivium;
-          const isBlockComment = type.endsWith("BlockComment");
+          const { __location } = trivium;
+          let { value } = trivium;
 
-          const comment = {
-            type: isBlockComment ? "CommentBlock" : "CommentLine",
-            value: value
-          };
+          const isBlockComment = type.endsWith("BlockComment");
 
           while (i > 0 && ["Space", "Tab"].includes(trivia[i - 1].type)) {
             trivia.splice(--i, 1);
           }
-
-          Object.defineProperty(comment, "__location", {
-            value: __location,
-            enumerable: Object.getOwnPropertyDescriptor(trivium, "__location")
-              .enumerable
-          });
-
-          // const scope = path.find(
-          //   n =>
-          //     !n.token &&
-          //     ![
-          //       "CodeBlock",
-          //       "ExpressionStmt",
-          //       "GuardStmt",
-          //       "DeclarationStmt"
-          //     ].includes(n.type)
-          // ).type;
 
           const couldRemainTrivia =
             onNewLine &&
@@ -555,6 +535,39 @@ function extractComments(node, path) {
           } else {
             consumeNewline = !isBlockComment;
           }
+
+          const originalValue = value;
+
+          switch (type) {
+            case "LineComment":
+              value = value.slice(2);
+              break;
+            case "BlockComment":
+              value = value.slice(2, value.length - 2);
+              break;
+            case "DocLineComment":
+              value = value.slice(3);
+              break;
+            case "DocBlockComment":
+              value = value.slice(3, value.length - 2);
+              break;
+            case "GarbageText":
+              break;
+            default:
+              throw new Error("Unexpected type: " + type);
+          }
+
+          const comment = {
+            type: isBlockComment ? "CommentBlock" : "CommentLine",
+            value,
+            originalValue
+          };
+
+          Object.defineProperty(comment, "__location", {
+            value: __location,
+            enumerable: Object.getOwnPropertyDescriptor(trivium, "__location")
+              .enumerable
+          });
 
           resultArray.push(comment);
           trivia.splice(i--, 1);
