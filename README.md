@@ -18,7 +18,7 @@
   <a href="https://travis-ci.org/prettier/prettier-swift">
     <img alt="Travis" src="https://img.shields.io/travis/prettier/prettier-swift/master.svg?style=flat-square">
   </a>
-  <a href="https://www.npmjs.com/package/prettier">
+  <a href="https://www.npmjs.com/package/@prettier/plugin-swift">
     <img alt="npm version" src="https://img.shields.io/npm/v/@prettier/plugin-swift.svg?style=flat-square">
   </a>
   <!-- <a href="https://www.npmjs.com/package/prettier">
