@@ -3,10 +3,10 @@
 </p>
 
 <div align="center">
-<img alt="Prettier"
-  src="https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-icon-light.png">
+<img alt="Prettier" height="210"
+  src="https://cdn.rawgit.com/prettier/prettier-logo/master/images/prettier-icon-light.svg">
 <img alt="Swift" height="210px" vspace="" hspace="25" 
-  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Swift_logo.svg/267px-Swift_logo.svg.png">
+  src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift_logo.svg">
 </div>
 
 <h2 align="center">Swift Plugin for the Opinionated Code Formatter</h2>
