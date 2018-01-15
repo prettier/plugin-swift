@@ -30,7 +30,7 @@
         "lint": "prettier src/**/*.js --list-different",
         "test": "jest",
         "prettier": "prettier --plugin=. --parser=swift"
-      },
+    },
     "jest": {
         "projects": [
             "<rootDir>/jest.*.config.js"

@@ -21,7 +21,7 @@
   <a href="https://www.npmjs.com/package/@prettier/plugin-swift">
     <img alt="npm version" src="https://img.shields.io/npm/v/@prettier/plugin-swift.svg?style=flat-square">
   </a>
-  <!-- <a href="https://www.npmjs.com/package/prettier">
+  <!-- <a href="https://www.npmjs.com/package/@prettier/plugin-swift">
     <img alt="monthly downloads" src="https://img.shields.io/npm/dm/@prettier/plugin-swift.svg?style=flat-square">
   </a> -->
   <a href="#badge">
