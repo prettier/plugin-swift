@@ -28,7 +28,8 @@
     },
     "scripts": {
         "lint": "prettier src/**/*.js --list-different",
-        "test": "jest"
+        "test": "jest",
+        "prettier": "prettier --plugin=. --parser=swift"
     },
     "jest": {
         "projects": [

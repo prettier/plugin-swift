@@ -2,6 +2,13 @@
     :construction: Work in Progress! :construction:
 </p>
 
+<div align="center">
+<img alt="Prettier" height="210"
+  src="https://cdn.rawgit.com/prettier/prettier-logo/master/images/prettier-icon-light.svg">
+<img alt="Swift" height="210px" vspace="" hspace="25" 
+  src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift_logo.svg">
+</div>
+
 <h2 align="center">Swift Plugin for the Opinionated Code Formatter</h2>
 
 <p align="center">
@@ -11,10 +18,10 @@
   <a href="https://travis-ci.org/prettier/prettier-swift">
     <img alt="Travis" src="https://img.shields.io/travis/prettier/prettier-swift/master.svg?style=flat-square">
   </a>
-  <a href="https://www.npmjs.com/package/prettier">
+  <a href="https://www.npmjs.com/package/@prettier/plugin-swift">
     <img alt="npm version" src="https://img.shields.io/npm/v/@prettier/plugin-swift.svg?style=flat-square">
   </a>
-  <!-- <a href="https://www.npmjs.com/package/prettier">
+  <!-- <a href="https://www.npmjs.com/package/@prettier/plugin-swift">
     <img alt="monthly downloads" src="https://img.shields.io/npm/dm/@prettier/plugin-swift.svg?style=flat-square">
   </a> -->
   <a href="#badge">
@@ -59,7 +66,16 @@ TOOLCHAIN=swift-DEVELOPMENT-SNAPSHOT-2018-01-09-a.xctoolchain
 export PRETTIER_SWIFT_SWIFTC=/Library/Developer/Toolchains/${TOOLCHAIN}/usr/bin/swiftc
 ```
 
-<!--
+## Contributing
+
+If you're interested in contributing to the development of Prettier for Swift, you can follow the [CONTRIBUTING guide from Prettier](https://github.com/prettier/prettier/blob/master/CONTRIBUTING.md), as it all applies to this repository too.
+
+To test it out on a Swift file:
+
+* Clone this repository.
+* Run `yarn`.
+* Create a file called `test.swift`.
+* Run `yarn prettier test.swift` to check the output.
 
 ## Install
 
@@ -67,20 +83,24 @@ export PRETTIER_SWIFT_SWIFTC=/Library/Developer/Toolchains/${TOOLCHAIN}/usr/bin/
 yarn add --dev --exact prettier @prettier/plugin-swift
 ```
 
--->
-
-## Configure
-
-.prettierrc:
-
-```json
-{
-    "plugins": ["prettier-swift"]
-}
-```
-
 ## Use
 
 ```bash
 prettier --write "**/*.swift"
 ```
+
+## Maintainers
+
+<table>
+  <tbody>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/sirlantis">
+          <img width="150" height="150" src="https://github.com/sirlantis.png?v=3&s=150">
+          </br>
+          Marcel Jackwerth
+        </a>
+      </td>
+    </tr>
+  <tbody>
+</table>
