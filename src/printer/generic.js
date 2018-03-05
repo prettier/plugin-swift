@@ -15,6 +15,8 @@ const chain = require("./chain");
 const isMemberish = chain.isMemberish;
 const printMemberChain = chain.printMemberChain;
 
+const identity = o => o;
+
 const {
   align,
   indent,
@@ -209,7 +211,7 @@ function genericPrint(path, options, print) {
         return "";
       } else if (n.layout.length === 1) {
         const maybeIndent =
-          n.type == "ConditionElementList" ? indent : id => id;
+          n.type == "ConditionElementList" ? indent : identity;
 
         return group(
           concat([
