@@ -29,7 +29,10 @@ function massage(node) {
   }
 
   if (layout) {
-    layout = layout.map(massage).filter(v => v);
+    layout = layout
+      .filter(v => v)
+      .map(massage)
+      .filter(v => v);
   }
 
   if (type === "UnknownDecl") {

@@ -36,7 +36,7 @@ function preprocess(ast) {
     if (!node.layout) {
       return;
     } else if (!node.kind.startsWith("Unknown")) {
-      node.layout.forEach(n => visit(n, node));
+      node.layout.filter(n => n).forEach(n => visit(n, node));
       return;
     }
 
