@@ -5,7 +5,7 @@
 <div align="center">
 <img alt="Prettier" height="210"
   src="https://cdn.rawgit.com/prettier/prettier-logo/master/images/prettier-icon-light.svg">
-<img alt="Swift" height="210px" vspace="" hspace="25" 
+<img alt="Swift" height="210px" vspace="" hspace="25"
   src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift_logo.svg">
 </div>
 
@@ -45,9 +45,9 @@ You can check out [how it formatted Artsy's Eidolon](https://github.com/sirlanti
 
 You need one of the following:
 
-1. A [snapshot from January 9, 2018 or later](https://swift.org/download/#snapshots),
+1. A [snapshot from March 30, 2018 or later](https://swift.org/download/#snapshots),
 2. a recent manual build from Swift's [`master`](https://github.com/apple/swift), or
-3. Swift 4.1 (once it's available as a beta or released completely).
+3. Swift 4.2 (once it's available as a beta or released completely).
 
 Assuming you picked **(1)** please follow the
 [installation instructions](https://swift.org/download/#using-downloads),
