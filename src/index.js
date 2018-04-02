@@ -35,7 +35,7 @@ function canAttachComment(node) {
     return false;
   }
 
-  return !["TopLevelCodeDecl", "IfConfigDecl", "FunctionCallArgument"].includes(
+  return !["SourceFile", "IfConfigDecl", "FunctionCallArgument"].includes(
     node.type
   );
 }

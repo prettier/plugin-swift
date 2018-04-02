@@ -151,7 +151,7 @@ function genericPrint(path, options, print) {
             comments.printDanglingComments(
               path,
               options,
-              /* sameIndent */ parentType === "TopLevelCodeDecl"
+              /* sameIndent */ parentType === "SourceFile"
             ),
             hardline
           ]);
@@ -165,7 +165,6 @@ function genericPrint(path, options, print) {
           concat([breakParent, softline, join(hardline, children)])
         );
       } else if (
-        parentType === "TopLevelCodeDecl" ||
         parentType === "SourceFile" ||
         parentType.match(/DirectiveClause/) ||
         parentType.match(/ConfigDecl/)
@@ -1066,7 +1065,6 @@ function genericPrint(path, options, print) {
     case "SimpleTypeIdentifier":
     case "StringLiteralExpr":
     case "SwitchDefaultLabel":
-    case "TopLevelCodeDecl":
     case "TuplePattern":
     case "WildcardPattern":
       return concat(path.map(print, "layout"));

@@ -276,7 +276,7 @@ function preferTrailingOverLeadingTrivia(node, path) {
       case "StmtList":
       case "CodeBlock":
       case "CodeBlockItemList":
-        return path[0].type == "TopLevelCodeDecl";
+        return path[0].type == "SourceFile";
       case "DeclList":
       case "SourceFile":
         return false;
