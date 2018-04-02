@@ -1,0 +1,1 @@
+var viewModel = PublishSubject<SaleArtworkViewModel>()

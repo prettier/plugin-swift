@@ -1023,6 +1023,7 @@ function genericPrint(path, options, print) {
     case "PrefixOperatorExpr":
     case "PrefixUnaryExpr":
     case "SequenceExpr":
+    case "SpecializeExpr":
     case "StringInterpolationSegments":
     case "StringSegment":
     case "SubscriptExpr":
