@@ -73,6 +73,7 @@ class SomeClass {
     var property: String {
         get {
             // comment
+            return "hello"
         }
     }
 }
@@ -135,7 +136,12 @@ if #available(iOS 11.3, tvOS 11.3, *) {
 }
 
 class SomeClass {
-    var property: String { get { } }
+    var property: String {
+        get {
+            // comment
+            return "hello"
+        }
+    }
 }
 
 let loremIpsumDolorSitAmetConsecteturAdipiscingElitSedDoEiusmodTemporIncididuntUtLabore = [
@@ -152,7 +158,6 @@ private enum EditEvent: CustomDebugStringConvertible {
 exports[`only.swift 1`] = `
 // Only comment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 // Only comment
 
 `;

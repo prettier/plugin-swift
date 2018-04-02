@@ -83,6 +83,10 @@ function genericPrint(path, options, print) {
         parts.push(hardline);
       }
 
+      parts.unshift(
+        concat([comments.printDanglingComments(path, options, true)])
+      );
+
       return concat(parts);
     }
     case "DeclList":

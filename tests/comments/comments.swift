@@ -51,6 +51,7 @@ class SomeClass {
     var property: String {
         get {
             // comment
+            return "hello"
         }
     }
 }
