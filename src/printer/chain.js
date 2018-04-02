@@ -42,7 +42,8 @@ function printMemberChain(path, options, print) {
     const originalText = options.originalText;
     const nextCharIndex = util.getNextNonSpaceNonCommentCharacterIndex(
       originalText,
-      node
+      node,
+      options.locEnd
     );
     const nextChar = originalText.charAt(nextCharIndex);
 
@@ -52,7 +53,7 @@ function printMemberChain(path, options, print) {
       return util.isNextLineEmptyAfterIndex(originalText, nextCharIndex + 1);
     }
 
-    return util.isNextLineEmpty(originalText, node);
+    return util.isNextLineEmpty(originalText, node, options.locEnd);
   }
 
   function rec(path) {

@@ -1,7 +1,5 @@
 "use strict";
 
-const logger = require("prettier/src/cli/logger");
-
 const transferTriviaFromRightToLeft = (left, right) => {
   const trailingTrivia = (left.trailingTrivia || []).concat(
     right.leadingTrivia || [],
@@ -50,7 +48,8 @@ function preprocess(ast) {
       const canStrip =
         parent.layout.filter(n => n.presence === "Present").length === 1;
 
-      logger.warn(
+      // eslint-disable-next-line no-console
+      console.warn(
         "Found semicolon that confused libSyntax. " +
           (canStrip ? "Stripping" : "Breaking") +
           "..."
@@ -90,7 +89,8 @@ function preprocess(ast) {
           )
       );
 
-      logger.warn(
+      // eslint-disable-next-line no-console
+      console.warn(
         "Found closure with " +
           (canStrip ? "optional" : "required") +
           " parentheses that confused libSyntax. " +

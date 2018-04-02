@@ -2,7 +2,6 @@
 
 const assert = require("assert");
 
-const logger = require("prettier/src/cli/logger");
 const { verbatimPrint } = require("../printer/verbatim");
 const { emitSyntax, checkVersion } = require("./wrapper");
 const preprocessor = require("./preprocessor");
@@ -602,7 +601,8 @@ function preprocess(text, opts) {
   const result = preprocessor.preprocess(ast);
 
   if (result.bail) {
-    logger.warn("libSyntax had issues parsing this file. Skipping...");
+    // eslint-disable-next-line no-console
+    console.warn("libSyntax had issues parsing this file. Skipping...");
 
     opts.preprocessingCache = {
       ast: {
@@ -611,7 +611,8 @@ function preprocess(text, opts) {
       }
     };
   } else if (result.modified) {
-    logger.warn(
+    // eslint-disable-next-line no-console
+    console.warn(
       "libSyntax had issues parsing this file. Re-writing and parsing it again..."
     );
     text = verbatimPrint(ast);

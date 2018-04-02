@@ -14,7 +14,7 @@
         "node": ">=6"
     },
     "dependencies": {
-        "prettier": "prettier/prettier#a10418ee80d69060261090eb4f7ace9772d90761"
+        "prettier": "prettier/prettier#1.11.1"
     },
     "devDependencies": {
         "eslint": "^4.14.0",

@@ -20,7 +20,9 @@ const parsers = {
   swift: {
     parse,
     preprocess,
-    astFormat: "swift"
+    astFormat: "swift",
+    locStart: n => n.__location.startOffset,
+    locEnd: n => n.__location.endOffset
   }
 };
 

@@ -2,7 +2,6 @@
 
 const assert = require("assert");
 
-const logger = require("prettier/src/cli/logger");
 const { mapDoc } = require("prettier/src/common/util");
 const comments = require("prettier/src/main/comments");
 
@@ -835,7 +834,8 @@ function genericPrint(path, options, print) {
         throw new Error(message);
       }
 
-      logger.warn(message);
+      // eslint-disable-next-line no-console
+      console.warn(message);
 
       if (type === "UnknownExpr") {
         return concat(path.map(print, "layout"));
@@ -1072,10 +1072,12 @@ function genericPrint(path, options, print) {
 
     default:
       if (type.endsWith("LiteralExpr")) {
-        logger.warn("Unknown literal expression: " + type);
+        // eslint-disable-next-line no-console
+        console.warn("Unknown literal expression: " + type);
         return concat(path.map(print, "layout"));
       } else if (type.endsWith("Expr")) {
-        logger.warn("Unknown expression: " + type);
+        // eslint-disable-next-line no-console
+        console.warn("Unknown expression: " + type);
         return group(concat(path.map(print, "layout")));
       }
 
@@ -1088,7 +1090,8 @@ function genericPrint(path, options, print) {
 }
 
 function error(message) {
-  logger.error(message);
+  // eslint-disable-next-line no-console
+  console.error(message);
 
   if (!process.env.IGNORE_ERRORS) {
     throw new Error(message);
