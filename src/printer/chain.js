@@ -231,8 +231,11 @@ function printMemberChain(path, options, print) {
   // node is just an identifier with the name starting with a capital
   // letter, just a sequence of _$ or this. The rationale is that they are
   // likely to be factories.
-  function isFactory(name) {
-    return name && name.match(/(^[A-Z])|^[_$]+$/);
+  function isFactory(node) {
+    return (
+      node.type === "kw_self" ||
+      (node.text && node.text.match(/(^[A-Z])|^[_$]+$/))
+    );
   }
 
   const shouldMerge =
@@ -241,13 +244,14 @@ function printMemberChain(path, options, print) {
     ((groups[0].length === 1 &&
       (groups[0][0].node.type === "kw_self" ||
         groups[0][0].node.type.endsWith("TypeExpr") ||
+        groups[0][0].node.type.endsWith("SpecializeExpr") ||
         (groups[0][0].node.type === "IdentifierExpr" &&
-          (isFactory(groups[0][0].node.layout[0].text) ||
+          (isFactory(groups[0][0].node.layout[0]) ||
             (groups[1].length && groups[1][0].node.computed))))) ||
       (groups[0].length > 1 &&
         groups[0][groups[0].length - 1].node.type === "MemberAccessExpr" &&
         groups[0][groups[0].length - 1].node.layout[2].type === "identifier" &&
-        (isFactory(groups[0][groups[0].length - 1].node.layout[2].text) ||
+        (isFactory(groups[0][groups[0].length - 1].node.layout[2]) ||
           (groups[1].length && groups[1][0].node.computed))));
 
   function printGroup(printedGroup) {
