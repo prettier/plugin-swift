@@ -12,7 +12,9 @@ const opts = {
   printWidth: 140,
   tabWidth: 2,
   parser: prettierSwift.parsers.swift,
-  printer: prettierSwift.printers.swift
+  printer: prettierSwift.printers.swift,
+  locStart: prettierSwift.parsers.swift.locStart,
+  locEnd: prettierSwift.parsers.swift.locEnd
 };
 
 let text = fs.readFileSync(process.argv[2], "utf-8");
@@ -31,6 +33,8 @@ function attachComments(text, ast, opts) {
 }
 
 attachComments(text, ast, opts);
+
+// eslint-disable-next-line no-console
 console.log(dumper(ast));
 
 printDocToString(printAstToDoc(ast, opts), opts).formatted;
