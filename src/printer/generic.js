@@ -1058,6 +1058,9 @@ function genericPrint(path, options, print) {
     case "ObjcName":
     case "ObjcNamePiece":
     case "OptionalType":
+    case "PoundFileExpr":
+    case "PoundFunctionExpr":
+    case "PoundLineExpr":
     case "SimpleTypeIdentifier":
     case "StringLiteralExpr":
     case "SwitchDefaultLabel":
