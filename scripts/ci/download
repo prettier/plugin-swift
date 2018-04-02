@@ -4,7 +4,7 @@ set -euo pipefail
 VERSION_PREFIX=${BRANCH:-swift}
 VERSION_PREFIX=${VERSION_PREFIX//-branch/}
 BRANCH=${BRANCH:-development}
-VERSION=${VERSION_PREFIX}-DEVELOPMENT-SNAPSHOT-2018-01-09-a
+VERSION=${VERSION_PREFIX}-DEVELOPMENT-SNAPSHOT-2018-03-30-a
 SERVER_PATH=https://swift.org/builds/${BRANCH}
 
 OS=${OS:-${OSTYPE}}
@@ -43,7 +43,7 @@ function download() {
         echo "Using existing archive at ${ARCHIVE_PATH}"
         return
     fi
-    
+
     DOWNLOAD_URL=${SERVER_PATH}/${SERVER_PATH_SUFFIX}/${VERSION}/${ARCHIVE_NAME}
 
     echo "Downloading ${ARCHIVE_PATH}"

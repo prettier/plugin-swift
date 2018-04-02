@@ -54,7 +54,7 @@ Assuming you picked **(1)** please follow the
 which recommend updating your `PATH` at the end:
 
 ```
-TOOLCHAIN=swift-DEVELOPMENT-SNAPSHOT-2018-01-09-a.xctoolchain
+TOOLCHAIN=swift-DEVELOPMENT-SNAPSHOT-2018-03-30-a.xctoolchain
 export PATH=/Library/Developer/Toolchains/${TOOLCHAIN}/usr/bin/:"${PATH}"
 ```
 
@@ -62,7 +62,7 @@ Alternatively you can pass the full path to the `swiftc` binary
 via the environment variable `PRETTIER_SWIFT_SWIFTC`:
 
 ```
-TOOLCHAIN=swift-DEVELOPMENT-SNAPSHOT-2018-01-09-a.xctoolchain
+TOOLCHAIN=swift-DEVELOPMENT-SNAPSHOT-2018-03-30-a.xctoolchain
 export PRETTIER_SWIFT_SWIFTC=/Library/Developer/Toolchains/${TOOLCHAIN}/usr/bin/swiftc
 ```
 
