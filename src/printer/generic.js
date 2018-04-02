@@ -1017,6 +1017,7 @@ function genericPrint(path, options, print) {
     case "IdentifierExpr":
     case "IfExpr":
     case "ImplicitMemberExpr":
+    case "InOutExpr":
     case "OptionalChainingExpr":
     case "OptionalTryExpr":
     case "PostfixUnaryExpr":
