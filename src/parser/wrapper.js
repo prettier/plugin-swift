@@ -14,7 +14,7 @@ function checkVersion() {
   }
 
   const stdout = result.stdout.toString();
-  const match = /Apple Swift version ([0-9]+\.[0-9]+(\.[0-9]+)?)/.exec(stdout);
+  const match = /Swift version ([0-9]+\.[0-9]+(\.[0-9]+)?)/.exec(stdout);
 
   if (!match) {
     // eslint-disable-next-line no-console
