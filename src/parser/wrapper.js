@@ -19,7 +19,7 @@ function checkVersion() {
   if (!match) {
     // eslint-disable-next-line no-console
     console.error("Could not detect Swift version:", stdout);
-    throw new Error("Unsupported Swift version.");
+    throw new Error("Unsupported Swift version (required: >4.1): " + stdout);
   }
 
   const components = match[1].split(".");
