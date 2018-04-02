@@ -275,6 +275,8 @@ function preferTrailingOverLeadingTrivia(node, path) {
   const canMoveUp = () => {
     switch (node.type) {
       case "StmtList":
+      case "CodeBlock":
+      case "CodeBlockItemList":
         return path[0].type == "TopLevelCodeDecl";
       case "DeclList":
       case "SourceFile":
@@ -437,7 +439,12 @@ function extractComments(node, path) {
             onNewLine &&
             !node.token &&
             path[1].type != "IfStmt" &&
-            (!["DeclList", "StmtList"].includes(path[0].type) ||
+            (![
+              "DeclList",
+              "StmtList",
+              "CodeBlock",
+              "CodeBlockItemList"
+            ].includes(path[0].type) ||
               path[0].layout.length);
 
           if (isLeading) {
