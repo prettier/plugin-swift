@@ -35,7 +35,9 @@ function triviaPrint(n) {
 }
 
 function verbatimPrint(n) {
-  if (n.presence === "Missing") {
+  if (!n) {
+    return "";
+  } else if (n.presence === "Missing") {
     return "";
   } else if (n.presence) {
     assert.equal(n.presence, "Present");

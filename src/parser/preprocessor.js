@@ -33,7 +33,7 @@ function preprocess(ast) {
   const result = { modified: false };
 
   function visit(node, parent) {
-    if (!node.layout) {
+    if (!node || !node.layout) {
       return;
     } else if (!node.kind.startsWith("Unknown")) {
       node.layout.filter(n => n).forEach(n => visit(n, node));
@@ -77,14 +77,17 @@ function preprocess(ast) {
     } else if (
       layout.length === 3 &&
       layout[0].tokenKind &&
-      layout[0].tokenKind.kind === "l_paren"
+      layout[0].tokenKind.kind === "l_paren" &&
+      parent.kind !== "UnknownDecl"
     ) {
       const parameters = layout[1].layout;
 
       const canStrip = parameters.every(
         n =>
           !n.layout ||
-          n.layout.every(n => !n.tokenKind || n.tokenKind.kind !== "colon")
+          n.layout.every(
+            n => !n || !n.tokenKind || n.tokenKind.kind !== "colon"
+          )
       );
 
       logger.warn(
@@ -105,7 +108,7 @@ function preprocess(ast) {
       }
     }
 
-    node.layout.forEach(visit);
+    node.layout.forEach(c => visit(c, node));
   }
 
   visit(ast);

@@ -65,7 +65,6 @@ internal protocol SomeType {
     var property: String { get set }
 }
 
-protocol ClassishType: class {
-}
+protocol ClassishType: class { }
 
 `;

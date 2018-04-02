@@ -62,12 +62,12 @@ protocol Something {
 
 let firstTupleElement = tuple.0
 
-let semicolons = foo()
+let semicolons = foo();
 
 [1, 2, 3].map { $0 + 1 }
 
 let foo = {
-    bar()
+    bar();
     baz()
 }
 
@@ -76,8 +76,7 @@ let sub = { \`self\` -> Disposable in
 }
 
 @available(iOS 8, OSX 10.10, *)
-func foo(x: Int) -> String {
-}
+func foo(x: Int) -> String { }
 
 `;
 

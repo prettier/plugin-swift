@@ -35,9 +35,8 @@ Observable.using(resource) {
 
 // The first line will be formatted weirdly,
 // but prettier JS exposes the same issue.
-TheQuickBrownFoxJumpsOverTheLazyDog<Foo>.map(
-    theQuickBrownFoxJumpsOverTheLazyDog
-)
+TheQuickBrownFoxJumpsOverTheLazyDog<Foo>
+    .map(theQuickBrownFoxJumpsOverTheLazyDog)
     .map(theQuickBrownFoxJumpsOverTheLazyDog)
     .map(theQuickBrownFoxJumpsOverTheLazyDog)
 

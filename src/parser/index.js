@@ -4,7 +4,7 @@ const assert = require("assert");
 
 const logger = require("prettier/src/cli/logger");
 const { verbatimPrint } = require("../printer/verbatim");
-const { emitSyntax } = require("./wrapper");
+const { emitSyntax, checkVersion } = require("./wrapper");
 const preprocessor = require("./preprocessor");
 const { printToken } = require("../printer/tokens");
 
@@ -40,8 +40,15 @@ function massage(node) {
       type = "_ExtensionDecl";
     } else if (layout.some(n => n.type == "kw_enum")) {
       type = "_EnumDecl";
-    } else if (layout.some(n => n.type == "kw_init")) {
-      type = "_InitDecl";
+
+      const rBrace = layout.pop();
+      const decl = layout.pop();
+      const lBrace = layout.pop();
+
+      layout.push({
+        type: "_EnumDeclBlock",
+        layout: [lBrace, decl, rBrace]
+      });
     } else if (layout.some(n => n.type == "kw_case")) {
       type = "_CaseDecl";
 
@@ -68,6 +75,12 @@ function massage(node) {
           currentElement.push(currentInitializerClause);
         } else if (currentInitializerClause) {
           currentInitializerClause.layout.push(n);
+        } else if (n.type === "Unknown") {
+          currentElement.push({
+            token: true,
+            type: "identifier",
+            text: verbatimPrint(n)
+          });
         } else {
           currentElement.push(n);
         }
@@ -84,103 +97,15 @@ function massage(node) {
         type: "_CaseDeclElementList",
         layout: elements
       });
-    } else if (layout.some(n => n.type == "kw_deinit")) {
-      type = "_DeinitDecl";
     } else if (layout.some(n => n.type == "kw_class")) {
       type = "ClassDecl";
     } else if (layout.some(n => n.type == "kw_associatedtype")) {
-      type = "_AssociatedTypeDecl";
-    } else if (layout.some(n => n.type == "kw_subscript")) {
-      type = "_SubscriptDecl";
-      const first = layout.shift();
-      const last = layout.pop();
-      const arrowIndex = layout.findIndex(n => n.type === "arrow");
-
-      if (arrowIndex >= 0) {
-        layout = [
-          first,
-          {
-            type: "FunctionSignature",
-            layout: [
-              ...layout.slice(0, arrowIndex),
-              {
-                type: "ReturnClause",
-                layout: layout.slice(arrowIndex)
-              }
-            ]
-          },
-          last
-        ];
-      } else {
-        layout = [
-          first,
-          {
-            type: "FunctionSignature",
-            layout: layout
-          },
-          last
-        ];
-      }
+      type = "AssociatedtypeDecl";
     } else if (layout.some(n => n.type == "pound_if")) {
       type = "_IfWithElseConfigDecl";
     }
   } else if (type === "UnknownStmt") {
-    if (layout[0].type === "kw_while") {
-      type = "_WhileStmt";
-    } else if (layout[0].type === "kw_switch") {
-      type = "_SwitchStmt";
-      const leftIndex = layout.findIndex(n => n.type == "l_brace");
-      const rightIndex = layout.findIndex(n => n.type == "r_brace");
-      const body = layout.splice(leftIndex + 1, rightIndex - leftIndex - 1);
-      const cases = [];
-
-      for (let i = 0; i < body.length; i++) {
-        const element = body[i];
-        if (element.type === "kw_case" || element.type === "kw_default") {
-          cases.push({
-            type: "_SwitchCase",
-            layout: [element]
-          });
-        } else if (element.type === "StmtList") {
-          cases[cases.length - 1].layout.push({
-            type: "_CaseBlock",
-            layout: [element]
-          });
-        } else if (element.type === "WhereClause") {
-          cases[cases.length - 1].layout.push(element);
-        } else if (element.type === "comma") {
-          const lastCase = cases[cases.length - 1];
-          lastCase.conditionElementList.layout[
-            lastCase.conditionElementList.layout.length - 1
-          ].layout.push(element);
-        } else if (element.type === "colon") {
-          cases[cases.length - 1].layout.push(element);
-        } else {
-          const lastCase = cases[cases.length - 1];
-
-          if (!lastCase.conditionElementList) {
-            lastCase.conditionElementList = {
-              type: "ConditionElementList",
-              layout: []
-            };
-
-            lastCase.layout.push(lastCase.conditionElementList);
-          }
-
-          lastCase.conditionElementList.layout.push({
-            type: "ConditionElement",
-            layout: [element]
-          });
-        }
-      }
-
-      cases.forEach(c => delete c.conditionElementList);
-
-      layout.splice(leftIndex + 1, 0, {
-        type: "_SwitchCaseList",
-        layout: cases
-      });
-    } else if (
+    if (
       (layout[0].type === "kw_if" &&
         layout[1].layout[0].layout[0].layout[0].type) === "pound_available"
     ) {
@@ -604,36 +529,39 @@ function extractComments(node, path) {
 }
 
 function synthesizeLocation(node, start, text) {
-  let end = start;
+  if (!node) {
+    return start;
+  } else if (Array.isArray(node)) {
+    return node.reduce(
+      (start, node) => synthesizeLocation(node, start, text),
+      start
+    );
+  }
 
-  const forEach = collection => {
-    if (collection) {
-      collection.forEach(n => {
-        end = synthesizeLocation(n, end, text);
-      });
-    }
-  };
+  const outerLocation = { startOffset: start };
 
-  const outerLocation = { startOffset: end };
+  let current = start;
 
-  forEach(node.leadingTrivia);
+  current = synthesizeLocation(node.leadingTrivia, current, text);
 
-  const innerLocation = { startOffset: end };
+  const innerLocation = { startOffset: current };
 
   if (node.layout) {
-    forEach(node.layout);
+    current = synthesizeLocation(node.layout, current, text);
   } else if (typeof node.text !== "undefined") {
     const s = node.text;
-    assert.strictEqual(text.slice(end, end + s.length), s);
-    end += s.length;
+    assert.strictEqual(text.slice(current, current + s.length), s);
+    current += s.length;
   } else if (typeof node.value !== "undefined") {
     if (Number.isInteger(node.value)) {
-      end += node.value;
+      current += node.value;
     } else {
-      end += node.value.length;
+      current += node.value.length;
     }
   } else if (node.token) {
-    end += printToken(node).length;
+    const s = printToken(node);
+    assert.strictEqual(text.slice(current, current + s.length), s);
+    current += s.length;
   } else {
     throw new Error(
       "Don't know how to express " +
@@ -643,11 +571,11 @@ function synthesizeLocation(node, start, text) {
     );
   }
 
-  innerLocation.endOffset = end;
+  innerLocation.endOffset = current;
 
-  forEach(node.trailingTrivia);
+  current = synthesizeLocation(node.trailingTrivia, current, text);
 
-  outerLocation.endOffset = end;
+  outerLocation.endOffset = current;
 
   const location = node.type.endsWith("List") ? outerLocation : innerLocation;
 
@@ -656,7 +584,7 @@ function synthesizeLocation(node, start, text) {
     enumerable: false
   });
 
-  return end;
+  return current;
 }
 
 function preprocess(text, opts) {
@@ -687,23 +615,19 @@ function preprocess(text, opts) {
   return text;
 }
 
+/** Parses the document */
 function parse(text, opts) {
+  checkVersion();
+
   let ast;
 
+  // If we are called a second time (i.e. preprocessingCache is already set)
+  // don't do preprocessing again.
   if (opts.preprocessingCache) {
     ast = opts.preprocessingCache.ast;
   } else {
     text = preprocess(text, opts);
     ast = opts.preprocessingCache.ast;
-
-    if (!ast) {
-      logger.warn(
-        [
-          "This version of Prettier doesn't support preprocessing yet.",
-          "Comments might be printed in in wrong locations."
-        ].join(" ")
-      );
-    }
   }
 
   delete opts.preprocessingCache;

@@ -9,11 +9,13 @@ chain // next to root
 // after all
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 chain // next to root
-    .map({ true /* inside */ }) // same line as map
+    .map({
+        true /* inside */
+    }) // same line as map
     .map { true }
     // after
     .map { true }
-// after all
+    // after all
 
 `;
 
@@ -103,7 +105,7 @@ print(
 chain
 // after root
     .map { true }
-// after
+    // after
 
 self.map { true }
 
@@ -133,11 +135,7 @@ if #available(iOS 11.3, tvOS 11.3, *) {
 }
 
 class SomeClass {
-    var property: String {
-        get {
-            // comment
-        }
-    }
+    var property: String { get { } }
 }
 
 let loremIpsumDolorSitAmetConsecteturAdipiscingElitSedDoEiusmodTemporIncididuntUtLabore = [
@@ -154,7 +152,7 @@ private enum EditEvent: CustomDebugStringConvertible {
 exports[`only.swift 1`] = `
 // Only comment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Only comment
 
+// Only comment
 
 `;

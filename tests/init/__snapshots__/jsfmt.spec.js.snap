@@ -48,40 +48,31 @@ class SomeClass {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class SomeClass {
-    init() {
-    }
+    init() { }
 
     init?() {
         super.init()
     }
 
-    init() throws {
-    }
+    init() throws { }
 
-    public init() {
-    }
+    public init() { }
 
-    private init?() {
-    }
+    private init?() { }
 
-    internal init() throws {
-    }
+    internal init() throws { }
 
-    override init() {
-    }
+    override init() { }
 
-    required init() {
-    }
+    required init() { }
 
-    convenience init() {
-    }
+    convenience init() { }
 
     public override init?() {
         super.init()
     }
 
-    init(string: String) {
-    }
+    init(string: String) { }
 }
 
 `;

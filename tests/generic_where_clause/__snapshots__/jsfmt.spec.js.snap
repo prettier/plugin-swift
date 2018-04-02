@@ -19,20 +19,16 @@ class Fox {
     }
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-extension ShapedFruit where Shape: Pear {
-}
+extension ShapedFruit where Shape: Pear { }
 
 extension TheQuickBrownFoxJumpsOverTheLazyDogTheQuickBrownFoxJumpsOverTheLazyDog
-    where TheLazyDog: VeryLazyDog {
-}
+    where TheLazyDog: VeryLazyDog { }
 
 class Fox {
-    func jump<Dog>(over: Dog) where Dog: LazyDog {
-    }
+    func jump<Dog>(over: Dog) where Dog: LazyDog { }
 
     func theQuickBrownFoxJumpsOverTheLazyDogTheQuickBrownFoxJumpsOver<TheLazyDog>()
-        where TheLazyDog: VeryLazyDog {
-    }
+        where TheLazyDog: VeryLazyDog { }
 }
 
 `;

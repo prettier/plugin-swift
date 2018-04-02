@@ -7,9 +7,11 @@ theQuickBrownFoxJumpsOverTheLazyDog as? TheQuickBrownFoxJumpsOverTheLazyDog
 
 let letTheQuickBrownFoxJumpsOverTheLazyDog = theQuickBrownFoxJumpsOverTheLazyDog.theQuickBrownFoxJumpsOverTheLazyDog() as? AppViewController
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-let a = b as? C
+let a = b
+    as? C
 
-theQuickBrownFoxJumpsOverTheLazyDog as? TheQuickBrownFoxJumpsOverTheLazyDog
+theQuickBrownFoxJumpsOverTheLazyDog
+    as? TheQuickBrownFoxJumpsOverTheLazyDog
 
 let letTheQuickBrownFoxJumpsOverTheLazyDog = theQuickBrownFoxJumpsOverTheLazyDog.theQuickBrownFoxJumpsOverTheLazyDog()
     as? AppViewController

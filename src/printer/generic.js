@@ -86,29 +86,44 @@ function genericPrint(path, options, print) {
 
       return concat(parts);
     }
-    case "AccessorBlock": {
-      const body = path.map(print, "layout");
-      const first = body.shift();
-      const last = body.pop();
+    case "DeclList":
+    case "CodeBlockItemList": {
+      if (n.layout.length === 0) {
+        return " ";
+      }
+
+      const isInsideClosureExpression = parentType === "ClosureExpr";
+      const isInsideGuardStatement =
+        (path.getParentNode(1) || {}).type === "GuardStmt";
+      const isInsideDeferStatement =
+        (path.getParentNode(1) || {}).type === "DeferStmt";
+
+      const shouldBreak =
+        !isInsideGuardStatement &&
+        !isInsideDeferStatement &&
+        !isInsideClosureExpression;
 
       return concat([
-        parentType === "_SubscriptDecl" ? "" : " ",
-        first,
-        " ",
-        concat(body),
-        last
+        shouldBreak ? breakParent : "",
+        join(hardline, path.map(print, "layout"))
       ]);
     }
-    case "_CaseBlock": {
-      return concat(path.map(print, "layout"));
-    }
+    case "_EnumDeclBlock":
+    case "AccessorBlock":
     case "MemberDeclBlock":
     case "CodeBlock": {
       const body = path.map(print, "layout");
       const first = body.shift();
       const last = body.pop();
 
-      return concat([first, " ", concat(body), last]);
+      // Special case: empty block
+      if (!n.layout[1].layout.length) {
+        return concat([first, " ", last]);
+      }
+
+      return group(
+        concat([indent(concat([first, line, ...body])), line, last])
+      );
     }
     case "TuplePatternElementList":
     case "GenericRequirementList": {
@@ -119,25 +134,15 @@ function genericPrint(path, options, print) {
       return group(indent(printList(path, print)));
     }
     case "AccessorList": {
-      if (path.getParentNode(6).type === "ProtocolDecl") {
-        return concat([join(" ", path.map(print, "layout")), " "]);
-      }
-
-      return concat([
-        indent(
-          concat([hardline, smartJoin(hardline, path.map(print, "layout"))])
-        ),
-        hardline
-      ]);
+      return join(line, path.map(print, "layout"));
     }
-    case "_SwitchCaseList": {
+    case "SwitchCaseList": {
       return concat([
         hardline,
         smartJoin(hardline, path.map(print, "layout")),
         hardline
       ]);
     }
-    case "DeclList":
     case "StmtList": {
       const children = path.map(print, "layout");
 
@@ -204,6 +209,7 @@ function genericPrint(path, options, print) {
       return group(indent(printList(path, print)));
     }
     case "_CaseDeclElementList":
+    case "CaseItemList":
     case "ConditionElementList":
     case "InheritedTypeList":
     case "PatternBindingList": {
@@ -219,7 +225,7 @@ function genericPrint(path, options, print) {
             parentType === "GuardStmt" ? " " : ""
           ])
         );
-      } else if (parentType === "_SwitchCase") {
+      } else if (path.getParentNode(1).type === "SwitchCase") {
         return group(
           indent(join(concat([",", line]), path.map(print, "layout")))
         );
@@ -260,9 +266,13 @@ function genericPrint(path, options, print) {
         options.trailingComma === "all" ? ifBreak(",", "") : ""
       ]);
     }
-    case "_InitDecl":
-    case "_DeinitDecl":
-    case "_SubscriptDecl":
+    case "SubscriptDecl": {
+      const body = path.map(print, "layout");
+      const first = body.shift();
+      return concat([first, join(" ", body)]);
+    }
+    case "InitializerDecl":
+    case "DeinitializerDecl":
     case "TypealiasDecl":
     case "VariableDecl":
     case "FunctionDecl":
@@ -315,7 +325,7 @@ function genericPrint(path, options, print) {
           "GenericParameterClause",
           "AccessorParameter",
           "FunctionSignature",
-          // For _InitDecl:
+          // For InitializerDecl:
           "ParameterClause",
           "question_postfix",
           "question_infix" // if developer inserted an accidental space
@@ -366,20 +376,16 @@ function genericPrint(path, options, print) {
 
       return concat([
         path.getParentNode().layout[0] === n &&
-        path.getParentNode(2).type === "GuardStmt"
+        path.getParentNode(3).type === "GuardStmt"
           ? ""
           : breakParent,
         result
       ]);
     }
-    case "_SwitchCase": {
-      const body = path.map(print, "layout");
-      const index = n.layout.findIndex(n => n.type === "colon");
-      const start = body.slice(0, index);
-      const end = body.slice(index);
-      return concat([join(" ", start), join(" ", end)]);
+    case "SwitchCase": {
+      return group(indent(join(line, path.map(print, "layout"))));
     }
-    case "_SwitchStmt": {
+    case "SwitchStmt": {
       const body = path.map(print, "layout");
       const first = body.shift();
       const variable = body.shift();
@@ -392,13 +398,13 @@ function genericPrint(path, options, print) {
     case "CompositionType":
     case "FallthroughStmt":
     case "IfStmt":
-    case "_AssociatedTypeDecl": // decls
+    case "AssociatedtypeDecl": // decls
     case "TypeAnnotation": // annotations
     case "OptionalBindingCondition": // conditions
     case "MatchingPatternCondition":
     case "CompositionTypeElementList": // lists
     case "ForInStmt": // statements
-    case "_WhileStmt":
+    case "WhileStmt":
     case "RepeatWhileStmt":
     case "BreakStmt":
     case "ContinueStmt":
@@ -501,24 +507,11 @@ function genericPrint(path, options, print) {
 
       return group(indent(concat(path.map(print, "layout"))));
     }
-    case "DeclNameArgumentList":
-    case "DeclNameArguments":
-    case "DeclNameArgument":
-    case "StringInterpolationSegments":
-    case "StringSegment":
-    case "ExpressionSegment":
-    case "AccessorParameter":
-    case "Attribute": {
-      return group(concat(path.map(print, "layout")));
-    }
     case "StringInterpolationExpr": {
       return printWithoutNewlines(concat(path.map(print, "layout")));
     }
     case "CatchClauseList": {
       return join(" ", path.map(print, "layout"));
-    }
-    case "ElseifDirectiveClauseList": {
-      return concat(path.map(print, "layout"));
     }
     case "ElseDirectiveClause":
     case "ElseifDirectiveClause":
@@ -551,24 +544,18 @@ function genericPrint(path, options, print) {
       const right = body.slice(3);
       return join(" ", [concat(left), concat(right)]);
     }
-    case "DeclModifier":
-    case "PatternBinding":
-    case "MemberTypeIdentifier":
-    case "MetatypeType":
-    case "OptionalType":
-    case "ImplicitlyUnwrappedOptionalType":
-    case "ArrayType":
-    case "AccessPath":
-    case "AccessPathComponent":
-    case "IsTypePattern":
-    case "WildcardPattern":
-    case "TuplePattern":
-    case "ExpressionPattern":
-    case "IdentifierPattern":
-    case "TopLevelCodeDecl":
-    case "SimpleTypeIdentifier":
-    case "_ClassTypeIdentifier":
+    case "PatternBinding": {
+      const body = path.map(print, "layout");
+
+      // Explicit insertion of space for accessor blocks:
+      // `var name: String_HERE_{ return "123" }`
+      if (n.layout[n.layout.length - 1].type === "AccessorBlock") {
+        const rest = body.pop();
+        return concat([...body, " ", rest]);
+      }
+
       return concat(path.map(print, "layout"));
+    }
     case "TokenList": {
       const printedTokens = path.map(print, "layout");
       const elements = [];
@@ -601,10 +588,6 @@ function genericPrint(path, options, print) {
       const keyword = body.shift();
       return concat([keyword, " ", ...body]);
     }
-    case "GenericArgumentClause":
-    case "GenericParameterClause": {
-      return group(concat(path.map(print, "layout")));
-    }
     case "ParameterClause": {
       if (n.layout[1].layout.length === 0) {
         return concat(path.map(print, "layout"));
@@ -635,9 +618,9 @@ function genericPrint(path, options, print) {
 
       const numberOfStatements = path
         .getParentNode()
-        .layout.find(n => n.type == "StmtList").layout.length;
+        .layout.find(n => n.type == "CodeBlockItemList").layout.length;
 
-      const printedBody = concat([join(line, body), " ", inKeyword, " "]);
+      const printedBody = concat([join(line, body), " ", inKeyword]);
 
       // Never break for an empty closure expr
       if (numberOfStatements === 0) {
@@ -716,6 +699,7 @@ function genericPrint(path, options, print) {
     case "SameTypeRequirement":
     case "ConformanceRequirement":
     case "InheritedType":
+    case "CaseItem":
     case "ClosureCaptureItem":
     case "ClosureParam":
     case "CompositionTypeElement":
@@ -760,10 +744,16 @@ function genericPrint(path, options, print) {
       const body = path.map(print, "layout");
       const first = body.shift();
       const last = body.pop();
+      const signature = body.length === 1 ? null : body.shift();
       const parent = path.getParentNode();
       const closureIsCallee = parent.layout[0] === n;
 
-      const shouldBreak = n.layout.some(
+      // Don't break when there's no statements, e.g. `{ _ in }`
+      const hasStatements = n.layout.some(
+        c => c.type === "CodeBlockItemList" && c.layout.length > 0
+      );
+
+      const hasNamedParameters = n.layout.some(
         c =>
           c.type === "ClosureSignature" &&
           c.layout.some(
@@ -775,12 +765,21 @@ function genericPrint(path, options, print) {
           )
       );
 
+      // Always break if parameters are named
+      const shouldBreak =
+        hasStatements && (closureIsCallee || hasNamedParameters);
+
+      // Ensure space when trailing closure `it { ... }`
+      const prefix =
+        parent.type === "FunctionCallExpr" && !closureIsCallee ? " " : "";
+
       return group(
         concat([
-          parent.type === "FunctionCallExpr" && !closureIsCallee ? " " : "",
+          prefix,
           first,
-          " ",
-          group(concat([shouldBreak ? breakParent : "", ...body])),
+          signature ? concat([" ", signature]) : "",
+          hasStatements ? indent(concat([line, ...body])) : "",
+          shouldBreak ? hardline : line,
           last
         ])
       );
@@ -988,22 +987,33 @@ function genericPrint(path, options, print) {
         ])
       );
     }
-    case "ObjcName":
-    case "ObjcNamePiece":
-    case "ObjcKeyPathExpr":
-    case "KeyPathExpr":
-    case "BooleanLiteralExpr":
-    case "FloatLiteralExpr":
-    case "IntegerLiteralExpr":
-    case "InterpolatedStringLiteralExpr":
-    case "NilLiteralExpr":
-    case "StringLiteralExpr":
-      return concat(path.map(print, "layout"));
+
+    case "SwitchCaseLabel": {
+      const body = path.map(print, "layout");
+      const first = body.shift();
+      const last = body.pop();
+      return concat([first, " ", ...body, last]);
+    }
+
+    // Types without special formatting but with grouping behavior
+    case "_AvailabilityExpr":
+    case "_GenericTypeExpr":
+    case "_RefExpr":
+    case "_SelectorExpr":
+    case "AccessorParameter":
     case "AssignExpr":
+    case "Attribute":
+    case "DeclNameArgument":
+    case "DeclNameArgumentList":
+    case "DeclNameArguments":
     case "DeclRefExpr":
     case "DiscardAssignmentExpr":
+    case "DotSelfExpr":
+    case "ExpressionSegment":
     case "ForcedValueExpr":
     case "ForceTryExpr":
+    case "GenericArgumentClause":
+    case "GenericParameterClause":
     case "IdentifierExpr":
     case "IfExpr":
     case "ImplicitMemberExpr":
@@ -1013,17 +1023,48 @@ function genericPrint(path, options, print) {
     case "PrefixOperatorExpr":
     case "PrefixUnaryExpr":
     case "SequenceExpr":
+    case "StringInterpolationSegments":
+    case "StringSegment":
     case "SubscriptExpr":
     case "SuperRefExpr":
     case "TupleElementExpr":
     case "TypeExpr":
     case "UnresolvedMemberExpr":
     case "UnresolvedPatternExpr":
-    case "_RefExpr":
-    case "_SelectorExpr":
-    case "_GenericTypeExpr":
-    case "_AvailabilityExpr":
       return group(concat(path.map(print, "layout")));
+
+    // Types without special formatting and no grouping behavior
+    case "_CaseBlock":
+    case "_ClassTypeIdentifier":
+    case "AccessPath":
+    case "AccessPathComponent":
+    case "ArrayType":
+    case "BooleanLiteralExpr":
+    case "CodeBlockItem":
+    case "DeclModifier":
+    case "ElseifDirectiveClauseList":
+    case "ExpressionPattern":
+    case "FloatLiteralExpr":
+    case "IdentifierPattern":
+    case "ImplicitlyUnwrappedOptionalType":
+    case "IntegerLiteralExpr":
+    case "InterpolatedStringLiteralExpr":
+    case "IsTypePattern":
+    case "KeyPathExpr":
+    case "MemberTypeIdentifier":
+    case "MetatypeType":
+    case "NilLiteralExpr":
+    case "ObjcKeyPathExpr":
+    case "ObjcName":
+    case "ObjcNamePiece":
+    case "OptionalType":
+    case "SimpleTypeIdentifier":
+    case "StringLiteralExpr":
+    case "SwitchDefaultLabel":
+    case "TopLevelCodeDecl":
+    case "TuplePattern":
+    case "WildcardPattern":
+      return concat(path.map(print, "layout"));
 
     default:
       if (type.endsWith("LiteralExpr")) {

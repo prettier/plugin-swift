@@ -347,7 +347,8 @@ extension Observable where Element: BooleanType { }
 
 let bar1 = foo as? Int
 let bar2 = foo as! Int
-let bar3 = foo as Int
+let bar3 = foo
+    as Int
 
 if foo {
     print("1")
@@ -384,8 +385,7 @@ var requestBidderDetailsCommand = {
 let rotationAnimation = CABasicAnimation(keyPath: "transform")
 
 extension Collection
-    where Iterator.Element: ObservableType, Iterator.Element.E: BooleanType {
-}
+    where Iterator.Element: ObservableType, Iterator.Element.E: BooleanType { }
 
 guard let dollars = formatter.string(from: NSDecimalNumber(
         mantissa: cents,

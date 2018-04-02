@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`func.swift 1`] = `
+func noItems() {}
+
+func singleItem() {
+    print("bar")
+}
+
+func multipleItems() {
+    print("bar")
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+func noItems() { }
+
+func singleItem() {
+    print("bar")
+}
+
+func multipleItems() {
+    print("bar")
+}
+
+`;
