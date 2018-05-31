@@ -80,7 +80,7 @@ To test it out on a Swift file:
 ## Install
 
 ```bash
-yarn add --dev --exact prettier @prettier/plugin-swift
+yarn add --dev --exact prettier prettier/plugin-swift
 ```
 
 ## Use
