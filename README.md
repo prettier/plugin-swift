@@ -1,6 +1,10 @@
-<p align="center">
-    :construction: Work in Progress! :construction:
-</p>
+# DEPRECATED
+
+`prettier/plugin-swift` is deprecated. It hasn’t been updated since early 2018, and the Swift community seems to have moved towards [Apple’s swift-format](https://github.com/apple/swift-format)  and [Nick Lockwood’s SwiftFormat](https://github.com/nicklockwood/SwiftFormat) instead.
+
+We hope to someday have plugins for one or both of these tools, but the Prettier team has no current plans to develop such an integration. If you do make something, let us know by opening an issue on [the main Prettier repository](https://github.com/prettier/prettier/issues/new), and we will consider adding a link to this README.
+
+- - -
 
 <div align="center">
 <img alt="Prettier" height="210"

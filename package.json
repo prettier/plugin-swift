@@ -5,6 +5,7 @@
     "main": "src",
     "repository": "prettier/prettier-swift",
     "author": "Marcel Jackwerth <@sirlantis>",
+    "deprecated": "Please consider using https://github.com/apple/swift-format or https://github.com/nicklockwood/SwiftFormat instead.",
     "license": "MIT",
     "files": [
         "src",
@@ -14,6 +15,7 @@
         "node": ">=6"
     },
     "dependencies": {
+        "chalk": "2",
         "prettier": "prettier/prettier#1.11.1"
     },
     "devDependencies": {
